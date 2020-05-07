@@ -561,7 +561,6 @@ def train_reranker_and_test(args):
     print(test_score_with_rerank, file=sys.stderr)
 
 
-
 if __name__ == '__main__':
     arg_parser = init_arg_parser()
     args = init_config()
