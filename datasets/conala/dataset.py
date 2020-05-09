@@ -6,6 +6,9 @@ import sys
 
 import numpy as np
 
+import sys
+sys.path.insert(0, "/home/jony/research/external-knowledge-codegen")
+
 from asdl.hypothesis import *
 from asdl.lang.py3.py3_transition_system import python_ast_to_asdl_ast, asdl_ast_to_python_ast, Python3TransitionSystem
 from asdl.transition_system import *
@@ -201,6 +204,7 @@ def preprocess_example(example_json):
             'intent_tokens': intent_tokens,
             'slot_map': slot_map,
             'canonical_snippet': canonical_snippet}
+
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()

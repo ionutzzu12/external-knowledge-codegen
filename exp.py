@@ -9,6 +9,9 @@ from six.moves import input
 from six.moves import xrange as range
 from torch.autograd import Variable
 
+import sys
+sys.path.insert(0, "/home/jony/research/external-knowledge-codegen")
+
 import evaluation
 from asdl.asdl import ASDLGrammar
 from asdl.transition_system import TransitionSystem
