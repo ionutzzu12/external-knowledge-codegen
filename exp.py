@@ -67,7 +67,8 @@ def train(args):
 
     model.train()
     evaluator = Registrable.by_name(args.evaluator)(transition_system, args=args)
-    if args.cuda: model.cuda()
+    if args.cuda:
+        model.cuda()
 
     optimizer_cls = eval('torch.optim.%s' % args.optimizer)  # FIXME: this is evil!
     optimizer = optimizer_cls(model.parameters(), lr=args.lr)
@@ -562,7 +563,6 @@ def train_reranker_and_test(args):
 
     print('Test Eval Results After Reranking', file=sys.stderr)
     print(test_score_with_rerank, file=sys.stderr)
-
 
 
 if __name__ == '__main__':

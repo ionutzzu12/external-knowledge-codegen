@@ -1,4 +1,6 @@
 import os
+import sys
+
 
 # pretrain script
 seed = 0
@@ -16,7 +18,7 @@ field_embed_size = 64
 type_embed_size = 64
 lr = 0.001
 lr_decay = 0.5
-batch_size = 16  # 64  # todo
+batch_size = 48  # 64  # todo
 max_epoch = 80
 beam_size = 15
 lstm = 'lstm'  # lstm
@@ -105,9 +107,6 @@ python -u exp.py \
     --save_to saved_models/conala/{model_2_name} 
 """
 
-print(command1)
-os.system(command1)
-
 # testing
 test_command = f"""
 python exp.py \
@@ -122,5 +121,16 @@ python exp.py \
 #     --load_model best_pretrained_models/reranker.conala.vocab.src_freq3.code_freq3.mined_100000.intent_count100k_topk1_temp5.bin \
 #     --load_model best_pretrained_models/finetune.mined.retapi.distsmpl.dr0.3.lr0.001.lr_de0.5.lr_da15.beam15.seed0.mined_100000.intent_count100k_topk1_temp5.bin \
 
-# print(test_command)
-# os.system(test_command)
+
+if __name__ == "__main__":
+    # sys.argv[1] = '1'
+
+    if sys.argv[1] == '1':
+        print(command1)
+        os.system(command1)
+    elif sys.argv[1] == '2':
+        print(command2)
+        os.system(command2)
+    else:
+        print(test_command)
+        os.system(test_command)
