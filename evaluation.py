@@ -45,7 +45,8 @@ def decode(examples, model, args, verbose=False, **kwargs):
 
         decode_results.append(decoded_hyps)
 
-    if was_training: model.train()
+    if was_training:
+        model.train()
 
     return decode_results
 

@@ -679,8 +679,11 @@ class Parser(nn.Module):
                 primitive_log_prob = torch.log(primitive_prob)
                 gen_token_new_hyp_scores = (hyp_scores[gentoken_prev_hyp_ids].unsqueeze(1) + primitive_log_prob[gentoken_prev_hyp_ids, :]).view(-1)
 
-                if new_hyp_scores is None: new_hyp_scores = gen_token_new_hyp_scores
-                else: new_hyp_scores = torch.cat([new_hyp_scores, gen_token_new_hyp_scores])
+                if new_hyp_scores is None:
+                    new_hyp_scores = gen_token_new_hyp_scores
+                else:
+                    new_hyp_scores = torch.cat([new_hyp_scores, gen_token_new_hyp_scores])
+
             top_new_hyp_scores, top_new_hyp_pos = torch.topk(new_hyp_scores,
                                                              k=min(new_hyp_scores.size(0), beam_size - len(completed_hypotheses)))
 

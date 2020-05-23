@@ -51,7 +51,8 @@ def train(args):
 
     if args.dev_file:
         dev_set = Dataset.from_bin_file(args.dev_file)
-    else: dev_set = Dataset(examples=[])
+    else:
+        dev_set = Dataset(examples=[])
 
     vocab = pickle.load(open(args.vocab, 'rb'))
 
@@ -459,7 +460,6 @@ def train_rerank_feature(args):
             patience = 0
 
 
-
 def test(args):
     test_set = Dataset.from_bin_file(args.test_file)
     assert args.load_model
@@ -563,6 +563,21 @@ def train_reranker_and_test(args):
 
     print('Test Eval Results After Reranking', file=sys.stderr)
     print(test_score_with_rerank, file=sys.stderr)
+
+
+def main(args_instance):
+    if args_instance.mode == 'train':
+        train(args_instance)
+    elif args_instance.mode in ('train_reconstructor', 'train_paraphrase_identifier'):
+        train_rerank_feature(args_instance)
+    elif args_instance.mode == 'rerank':
+        train_reranker_and_test(args_instance)
+    elif args_instance.mode == 'test':
+        test(args_instance)
+    elif args_instance.mode == 'interactive':
+        interactive_mode(args_instance)
+    else:
+        raise RuntimeError('unknown mode')
 
 
 if __name__ == '__main__':
