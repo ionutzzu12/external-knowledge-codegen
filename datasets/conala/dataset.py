@@ -162,17 +162,17 @@ def preprocess_dataset(file_path, transition_system, name='train', firstk=None):
 
         examples.append(example)
 
-        # log!
-        f.write(f'Example: {example.idx}\n')
-        if 'rewritten_intent' in example.meta['example_dict']:
-            f.write(f"Original Utterance: {example.meta['example_dict']['rewritten_intent']}\n")
-        else:
-            f.write(f"Original Utterance: {example.meta['example_dict']['intent']}\n")
-        f.write(f"Original Snippet: {example.meta['example_dict']['snippet']}\n")
-        f.write(f"\n")
-        f.write(f"Utterance: {' '.join(example.src_sent)}\n")
-        f.write(f"Snippet: {example.tgt_code}\n")
-        f.write(f"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+        # # log!
+        # f.write(f'Example: {example.idx}\n')
+        # if 'rewritten_intent' in example.meta['example_dict']:
+        #     f.write(f"Original Utterance: {example.meta['example_dict']['rewritten_intent']}\n")
+        # else:
+        #     f.write(f"Original Utterance: {example.meta['example_dict']['intent']}\n")
+        # f.write(f"Original Snippet: {example.meta['example_dict']['snippet']}\n")
+        # f.write(f"\n")
+        # f.write(f"Utterance: {' '.join(example.src_sent)}\n")
+        # f.write(f"Snippet: {example.tgt_code}\n")
+        # f.write(f"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
 
     f.close()
     print('Skipped due to exceptions: %d' % len(skipped_list), file=sys.stderr)
@@ -218,12 +218,24 @@ if __name__ == '__main__':
     args = arg_parser.parse_args()
 
     # the json files can be downloaded from http://conala-corpus.github.io
-    preprocess_conala_dataset(train_file='data/conala/conala-train.json',
-                              test_file='data/conala/conala-test.json',
-                              mined_data_file=args.pretrain,
-                              api_data_file=args.include_api,
-                              grammar_file='asdl/lang/py3/py3_asdl.simplified.txt',
-                              src_freq=args.freq, code_freq=args.freq,
-                              vocab_size=args.vocabsize,
-                              num_mined=args.topk,
-                              out_dir=args.out_dir)
+    # preprocess_conala_dataset(train_file='data/conala/conala-train.json',
+    #                           test_file='data/conala/conala-test.json',
+    #                           mined_data_file=args.pretrain,
+    #                           api_data_file=args.include_api,
+    #                           grammar_file='asdl/lang/py3/py3_asdl.simplified.txt',
+    #                           src_freq=args.freq, code_freq=args.freq,
+    #                           vocab_size=args.vocabsize,
+    #                           num_mined=args.topk,
+    #                           out_dir=args.out_dir)
+
+    mined_data_file = "../../data/conala/conala-mined.jsonl"
+    print("from file: ", mined_data_file)
+    grammar_file = "../../asdl/lang/py3/py3_asdl.simplified.txt"
+    # grammar_file = "../run.py"
+    asdl_text = open(grammar_file).read()
+    grammar = ASDLGrammar.from_text(asdl_text)
+    transition_system = Python3TransitionSystem(grammar)
+
+    mined_examples = preprocess_dataset(mined_data_file, name='mined', transition_system=transition_system,
+                                        firstk=None)
+    pickle.dump(mined_examples, open("mined-full.bin", 'wb'))

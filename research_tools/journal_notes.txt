@@ -1,0 +1,10 @@
+
+
+- total functions extracted: 3246
+- from total, not found in docs: 1560 (564 unique)
+
+GTX960m times:
+--cuda
+	92s  training epoch
+	4:44 decoding 100 examples
+	9:31 decoding 200 examples

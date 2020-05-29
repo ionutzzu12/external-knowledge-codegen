@@ -115,14 +115,8 @@ if __name__ == "__main__":
     assert MODE in [PRETRAIN, TRAIN, TEST]
 
     if sys.argv[1] == PRETRAIN:
-        # print(command1)
-        # os.system(command1)
         exp.main(PretrainArgs())
     elif sys.argv[1] == TRAIN:
-        # print(command2)
-        # os.system(command2)
         exp.main(FinetuneArgs())
     else:
-        # print(test_command)
-        # os.system(test_command)
         exp.main(TestArgs())

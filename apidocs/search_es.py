@@ -13,7 +13,8 @@ def get_top_k(query, k=5):
         print("URL: ", doc['_source']['doc']['url'])
         print("\n\n")
 
+
 if __name__ == '__main__':
     es = Elasticsearch()
-    query = sys.argv[1]
+    query = ""  # sys.argv[1]
     get_top_k(query)

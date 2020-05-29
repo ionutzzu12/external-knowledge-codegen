@@ -23,12 +23,14 @@ def get_func_signatures(nodes):
     sigs = []
     for node in nodes:
         text = ""
-        for n in node.children:
-            if isinstance(n, element.Tag):
-                if 'property' not in n['class'] and n.name != 'a':
-                    text += n.text
-            elif isinstance(n, element.NavigableString):
-                text += n
+        n = node.attrs
+
+        if 'id' not in n:
+            continue
+        if 'property' not in n['id']:
+            text += n['id']
+
+
         sigs.append(text.strip())
     return sigs
 
@@ -100,13 +102,18 @@ def make_doc(args, ks, sents):
         ret_sents.append("With arguments " + ', '.join(args_not_mentioned) + '.')
     return " ".join(ret_sents)
 
+
 if __name__ == '__main__':
-    fd = open('python-docs.jsonl', 'w', encoding='utf-8')
-    counter = 0
+    fd = open('python-docs-new3.jsonl', 'w', encoding='utf-8')
+    _counter = 0
     module_counter = {}
     for root, dirs, files in os.walk("Python-3.7.5/Doc/build/html/library"):
         for file in files:
             if file.endswith('.html'):
+                print(file)
+                if file == 'copy.html':
+                    noob = 1
+
                 input_filename = os.path.join(root, file)
                 module_count = 0
                 with open(input_filename, encoding='utf-8') as html_file:
@@ -118,8 +125,8 @@ if __name__ == '__main__':
                         if section_class_attrs is None:
                             continue
                         sig_type = section_class_attrs[0]
-                        if sig_type not in ('function', 'class', 'method', 'attribute', 'describe', 'data', 'exception'):
-                            continue
+                        # if sig_type not in ('py', 'function', 'class', 'method', 'attribute', 'describe', 'data', 'exception'):
+                        #     continue
                         doc_paragraphs = section.find('dd').find_all('p', recursive=False)
                         doc_sents = []
                         for para in doc_paragraphs:
@@ -131,6 +138,8 @@ if __name__ == '__main__':
                             current_class_name = get_class_name(func_sigs[0])
                             current_class_prefix = inflection.underscore(current_class_name)
 
+                        # print(doc_sents)
+
                         for func_sig in func_sigs:
                             module_count += 1
                             if sig_type in ('method', 'attribute') and '.' not in func_sig.split('(')[0]:
@@ -140,25 +149,29 @@ if __name__ == '__main__':
                                 else:
                                     func_sig = current_class_prefix + '.' + func_sig
                             func_head, combinations, keywords = parse_optional_args(func_sig)
-                            if combinations is not None:
-                                arg_sent_id, quoted_doc_sents = match_doc_sents(keywords, doc_sents)
-                                for combination in combinations:
-                                    doc = make_doc(combination, arg_sent_id, quoted_doc_sents)
-                                    example = {
-                                        'snippet': func_head + '(' + ", ".join(combination) + ')',
-                                        'intent': doc,
-                                        'question_id': counter
-                                    }
-                                    counter += 1
-                                    fd.write(json.dumps(example) + '\n')
-                            else:
-                                example = {
-                                    'snippet': func_sig,
-                                    'intent': doc_sents[0],
-                                    'question_id': counter
-                                }
-                                counter += 1
-                                fd.write(json.dumps(example) + '\n')
+
+                            # print(func_head, func_sig)
+
+                            # if combinations is not None:
+                            #     arg_sent_id, quoted_doc_sents = match_doc_sents(keywords, doc_sents)
+                            #     for combination in combinations:
+                            #         doc = make_doc(combination, arg_sent_id, quoted_doc_sents)
+                            #         example = {
+                            #             'snippet': func_head + '(' + ", ".join(combination) + ')',
+                            #             'intent': doc,
+                            #             'question_id': counter
+                            #         }
+                            #         counter += 1
+                            #         fd.write(json.dumps(example) + '\n')
+                            # else:
+                            example = {
+                                'index': _counter,
+                                'name': func_sig,
+                                'module': func_sig.split('.')[0] if '.' in func_sig else file.split('.')[0],
+                                'doc': doc_sents,
+                            }
+                            _counter += 1
+                            fd.write(json.dumps(example) + '\n')
                 module_counter[input_filename] = module_count
     sorted_counter = sorted(module_counter.items(), key=lambda kv: kv[1])
     for item in sorted_counter:
