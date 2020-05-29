@@ -1,7 +1,18 @@
 
-
+- total "Call" rule nodes: 4581
 - total functions extracted: 3246
 - from total, not found in docs: 1560 (564 unique)
+
+- most popular rule sequences succeeding "Call":
+      46 ['Attribute', 'Subscript', 'Name']
+      52 ['Attribute', 'Call', 'Attribute', 'Attribute', 'Name']
+      65 ['Attribute', 'Call', 'Name']
+     163 ['Attribute', 'Call', 'Attribute', 'Name']
+     246 ['Attribute', 'Str']
+     274 ['Attribute', 'Attribute', 'Name']
+    1730 ['Name']
+    1874 ['Attribute', 'Name']
+
 
 GTX960m times:
 --cuda

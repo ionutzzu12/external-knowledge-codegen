@@ -4,7 +4,9 @@ from asdl.transition_system import ApplyRuleAction, GenTokenAction
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import json
+import os
 
+os.chdir("..")
 
 aliases = [('wxPython', 'wx'),
                ('PyGObject', 'gi'),
@@ -117,16 +119,8 @@ def compute_categ_dict(data):
             # print(seq)
             # print(code)
             continue
-        # if 3 in results:  # or 6 in results or 5 in results:
-        #     # print(results)
-        #     # print(code)
-        #     code = code
 
         gold_tokens.append(results)
-
-    # _3s = [g for g in gold_tokens if 7 in g]
-    # print(_3s)
-    # print(gold_tokens)
 
     per_module_dict = defaultdict(list)
 
@@ -261,15 +255,15 @@ def not_found_funcs():
 
 
 if __name__ == "__main__":
-    not_found_funcs()
+    # not_found_funcs()
 
-    train_data = pickle.load(open("data/conala/train.gold.full.bin", 'rb'))
-    dev_data = pickle.load(open("data/conala/dev.bin", 'rb'))
-    test_data = pickle.load(open("data/conala/test.bin", 'rb'))
+    # train_data = pickle.load(open("data/conala/train.gold.full.bin", 'rb'))
+    # dev_data = pickle.load(open("data/conala/dev.bin", 'rb'))
+    # test_data = pickle.load(open("data/conala/test.bin", 'rb'))
     mined_data = pickle.load(open("data/conala/mined_100000.bin", 'rb'))
-    a, a_data = compute_categ_dict(train_data)
-    b, b_data = compute_categ_dict(dev_data)
-    c, c_data = compute_categ_dict(test_data)
+    # a, a_data = compute_categ_dict(train_data)
+    # b, b_data = compute_categ_dict(dev_data)
+    # c, c_data = compute_categ_dict(test_data)
     d, d_data = compute_categ_dict(mined_data)
 
     functions_file = "data/conala/python-docs-new3.jsonl"
@@ -279,22 +273,23 @@ if __name__ == "__main__":
     except:
         func_set = [json.loads(jline) for jline in open(functions_file).readlines()]
 
-    # print(func_set)
-    # functions_by_name = {}
-    # for f in func_set:
-    #     functions_by_name[f['name']] = f['index']
+    print(func_set)
+    functions_by_name = {}
+    for f in func_set:
+        functions_by_name[f['name']] = f['index']
 
-    # fids = 'functions_ids'
-    # for id, ex in enumerate(b_data):
-    #     ex[fids] = []
-    #     for func_name in ex['functions']:
-    #         ex[fids].append(find_function_by_name(func_name, functions_by_name))
+    fids = 'functions_ids'
+    for id, ex in enumerate(d_data):
+        ex[fids] = []
+        for func_name in ex['functions']:
+            ex[fids].append(find_function_by_name(func_name, functions_by_name))
     #
     # print(c_data)
 
-    # json.dump(b_data, open("data/annotated_dev_set.json", "w"), indent=4)
+    json.dump(d_data, open("data/annotated_mined_set.json", "w"), indent=4)
     # json.dump(func_set, open("data/functions_details.json", "w"), indent=4)
 
+    ### plots ###
     # final_dicts = [a, b, c]
     # lengths = [len(train_data), len(dev_data), len(test_data)]
 
