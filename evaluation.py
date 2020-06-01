@@ -18,7 +18,7 @@ def decode(examples, model, args, verbose=False, **kwargs):
     decode_results = []
     count = 0
     for example in tqdm(examples, desc='Decoding', file=sys.stdout, total=len(examples)):
-        hyps = model.parse(example.src_sent, context=None, beam_size=args.beam_size)
+        hyps = model.parse(example.src_sent, context=None, beam_size=args.beam_size, functions=example.functions)
         decoded_hyps = []
         for hyp_id, hyp in enumerate(hyps):
             got_code = False

@@ -63,6 +63,8 @@ class Example(object):
         self.idx = idx
         self.meta = meta
 
+        self.functions = None
+
 
 class Batch(object):
     def __init__(self, examples, grammar, vocab, copy=True, cuda=False):
@@ -71,6 +73,9 @@ class Batch(object):
 
         self.src_sents = [e.src_sent for e in self.examples]
         self.src_sents_len = [len(e.src_sent) for e in self.examples]
+
+        self.src_funcs = [e.functions for e in self.examples]
+        self.src_funcs_len = [len(e.functions) for e in self.examples]
 
         self.grammar = grammar
         self.vocab = vocab
@@ -123,15 +128,19 @@ class Batch(object):
         self.primitive_copy_mask = []
         self.primitive_copy_token_idx_mask = np.zeros((self.max_action_num, len(self), max(self.src_sents_len)), dtype='float32')
 
+        self.primitive_copy_mask_f = []
+        self.primitive_copy_token_idx_mask_f = np.zeros((self.max_action_num, len(self), max(self.src_funcs_len)), dtype='float32')
+
         for t in range(self.max_action_num):
             app_rule_idx_row = []
             app_rule_mask_row = []
             token_row = []
             gen_token_mask_row = []
             copy_mask_row = []
+            copy_mask_row_f = []
 
             for e_id, e in enumerate(self.examples):
-                app_rule_idx = app_rule_mask = token_idx = gen_token_mask = copy_mask = 0
+                app_rule_idx = app_rule_mask = token_idx = gen_token_mask = copy_mask = copy_mask_f = 0
                 if t < len(e.tgt_actions):
                     action = e.tgt_actions[t].action
                     action_info = e.tgt_actions[t]
@@ -145,10 +154,13 @@ class Batch(object):
                         app_rule_mask = 1
                     else:
                         src_sent = self.src_sents[e_id]
+                        src_func_names = [f['fname'] for f in self.src_funcs[e_id]]
+
                         token = str(action.token)
                         token_idx = self.vocab.primitive[action.token]
 
                         token_can_copy = False
+                        token_can_copy_f = False
 
                         if self.copy and token in src_sent:
                             token_pos_list = [idx for idx, _token in enumerate(src_sent) if _token == token]
@@ -156,10 +168,20 @@ class Batch(object):
                             copy_mask = 1
                             token_can_copy = True
 
+                        # functions
+                        if self.copy and token in src_func_names:
+                            token_pos_list_f = [idx for idx, _token in enumerate(src_func_names) if _token == token]
+                            self.primitive_copy_token_idx_mask_f[t, e_id, token_pos_list_f] = 1.
+                            copy_mask_f = 1
+                            token_can_copy_f = True
+
                         if token_can_copy is False or token_idx != self.vocab.primitive.unk_id:
                             # if the token is not copied, we can only generate this token from the vocabulary,
                             # even if it is a <unk>.
                             # otherwise, we can still generate it from the vocabulary
+                            gen_token_mask = 1
+
+                        if token_can_copy_f is False or token_idx != self.vocab.primitive.unk_id:
                             gen_token_mask = 1
 
                         if token_can_copy:
@@ -182,7 +204,9 @@ class Batch(object):
 
                 token_row.append(token_idx)
                 gen_token_mask_row.append(gen_token_mask)
+
                 copy_mask_row.append(copy_mask)
+                copy_mask_row_f.append(copy_mask_f)
 
             self.apply_rule_idx_matrix.append(app_rule_idx_row)
             self.apply_rule_mask.append(app_rule_mask_row)
@@ -191,15 +215,21 @@ class Batch(object):
             self.gen_token_mask.append(gen_token_mask_row)
 
             self.primitive_copy_mask.append(copy_mask_row)
+            self.primitive_copy_mask_f.append(copy_mask_row_f)
 
         T = torch.cuda if self.cuda else torch
         self.apply_rule_idx_matrix = Variable(T.LongTensor(self.apply_rule_idx_matrix))
         self.apply_rule_mask = Variable(T.FloatTensor(self.apply_rule_mask))
         self.primitive_idx_matrix = Variable(T.LongTensor(self.primitive_idx_matrix))
         self.gen_token_mask = Variable(T.FloatTensor(self.gen_token_mask))
+
         self.primitive_copy_mask = Variable(T.FloatTensor(self.primitive_copy_mask))
         self.primitive_copy_token_idx_mask = Variable(torch.from_numpy(self.primitive_copy_token_idx_mask))
         if self.cuda: self.primitive_copy_token_idx_mask = self.primitive_copy_token_idx_mask.cuda()
+
+        self.primitive_copy_mask_f = Variable(T.FloatTensor(self.primitive_copy_mask_f))
+        self.primitive_copy_token_idx_mask_f = Variable(torch.from_numpy(self.primitive_copy_token_idx_mask_f))
+        if self.cuda: self.primitive_copy_token_idx_mask_f = self.primitive_copy_token_idx_mask_f.cuda()
 
     @property
     def primitive_mask(self):
@@ -211,8 +241,19 @@ class Batch(object):
                                           cuda=self.cuda)
 
     @cached_property
+    def src_func_docs_2lvl(self):
+        func_docs = [[f['doc'] for f in fs] for fs in self.src_funcs]
+        return func_docs
+        # return [nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.cuda) for func_docs in func_docs_all]
+
+    @cached_property
     def src_token_mask(self):
         return nn_utils.length_array_to_mask_tensor(self.src_sents_len,
+                                                    cuda=self.cuda)
+
+    @cached_property
+    def src_token_mask_f(self):
+        return nn_utils.length_array_to_mask_tensor(self.src_funcs_len,
                                                     cuda=self.cuda)
 
     @cached_property

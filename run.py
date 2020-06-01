@@ -8,7 +8,7 @@ model_2_name = "model_2_t1"
 
 PRETRAIN, TRAIN, TEST = '1', '2', 't'
 
-MODE = PRETRAIN
+MODE = TRAIN
 
 
 class BaseArgs:
@@ -18,7 +18,8 @@ class BaseArgs:
     ret_method = "snippet_count100k_topk1_temp2"
     freq = 3
     vocab = f"data/conala/vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.bin"
-    dev_file = "data/conala/dev.bin"
+    dev_file = "data/conala/dev.bin"  # TODO
+
     dropout = 0.3
     hidden_size = 256
     embed_size = 128
@@ -92,9 +93,12 @@ class FinetuneArgs(BaseArgs):
         BaseArgs.__init__(self)
 
         self.mode = 'train'
-        self.train_file = "data/conala/train.gold.full.bin"
+        # self.train_file = "data/conala/train.gold.full.bin"  # TODO for finetuning
+        self.train_file = "data/conala/added_funcs_train.bin"
+        self.dev_file = "data/conala/added_funcs_dev.bin"  # TODO
+
         self.batch_size = 10
-        self.pretrain = f"saved_models/conala/{model_1_name}.bin"
+        self.pretrain = None  # f"saved_models/conala/{model_1_name}.bin"  # TODO for finetuning
         self.save_to = f'saved_models/conala/{model_2_name}'
 
 
@@ -105,7 +109,8 @@ class TestArgs(BaseArgs):
         self.mode = 'test'
         self.load_model = f'saved_models/conala/{model_2_name}.bin'
         self.save_decode_to = f'decodes/conala/{model_2_name}.test.decode'
-        self.test_file = "data/conala/test.bin"
+        # self.test_file = "data/conala/test.bin"  # TODO
+        self.test_file = "data/conala/added_funcs_test.bin"
         self.cuda = False
 
 
