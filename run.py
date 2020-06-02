@@ -4,7 +4,7 @@ import exp
 
 
 model_1_name = "model_1_t1"  # f"retdistsmpl.dr{dropout}.lr{lr}.lr_de{lr_decay}.lr_da{lr_decay_after_epoch}.beam{beam_size}.vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.pre_{mined_num}_goldmine_{ret_method}.seed{seed}"
-model_2_name = "model_2_t1"
+model_2_name = "model_2_t1_orig_no_pretrain"
 
 PRETRAIN, TRAIN, TEST = '1', '2', 't'
 
@@ -75,6 +75,7 @@ class BaseArgs:
     decode_max_time_step = 100
     save_decode_to = None
     att_vec_size = 256
+    no_func_copy = True
 
 
 class PretrainArgs(BaseArgs):
@@ -92,6 +93,19 @@ class FinetuneArgs(BaseArgs):
     def __init__(self):
         BaseArgs.__init__(self)
 
+        self.mode = 'train'
+        self.train_file = "data/conala/train.gold.full.bin"
+
+        self.batch_size = 10
+        self.pretrain = None  # f"saved_models/conala/{model_1_name}.bin"  # TODO for finetuning
+        self.save_to = f'saved_models/conala/{model_2_name}'
+
+
+class TrainWithFuncs(BaseArgs):
+    def __init__(self):
+        BaseArgs.__init__(self)
+
+        self.no_func_copy = False
         self.mode = 'train'
         # self.train_file = "data/conala/train.gold.full.bin"  # TODO for finetuning
         self.train_file = "data/conala/added_funcs_train.bin"

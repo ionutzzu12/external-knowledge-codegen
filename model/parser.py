@@ -100,13 +100,16 @@ class Parser(nn.Module):
             # pointer net for copying tokens from source side
             self.src_pointer_net = PointerNet(query_vec_size=args.att_vec_size, src_encoding_size=args.hidden_size)
 
-            # pointer net for copying tokens of FUNCTIONS
-            self.src_pointer_net2 = PointerNet(query_vec_size=args.att_vec_size, src_encoding_size=args.hidden_size)
+            if args.no_func_copy is False:
+                # pointer net for copying tokens of FUNCTIONS
+                self.src_pointer_net2 = PointerNet(query_vec_size=args.att_vec_size, src_encoding_size=args.hidden_size)
 
-            # given the decoder's hidden state, predict whether to copy or generate a target primitive token
-            # output: [p(gen(token)) | s_t, p(copy(token)) | s_t]
+                self.primitive_predictor = nn.Linear(args.att_vec_size, 3)  # last for function token copy
+            else:
+                # given the decoder's hidden state, predict whether to copy or generate a target primitive token
+                # output: [p(gen(token)) | s_t, p(copy(token)) | s_t]
 
-            self.primitive_predictor = nn.Linear(args.att_vec_size, 3)  # last for function token copy
+                self.primitive_predictor = nn.Linear(args.att_vec_size, 2)  # last for token copy
 
         if args.primitive_token_label_smoothing:
             self.label_smoothing = LabelSmoothing(args.primitive_token_label_smoothing, len(self.vocab.primitive), ignore_indices=[0, 1, 2])
