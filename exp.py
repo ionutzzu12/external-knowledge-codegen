@@ -153,16 +153,16 @@ def train(args):
                 print('[Epoch %d] begin validation' % epoch, file=sys.stderr)
                 eval_start = time.time()
 
-                was_cuda = args.cuda
-                args.cuda = False
-                model.cpu()
+                # was_cuda = args.cuda
+                # args.cuda = False
+                # model.cpu()
 
                 eval_results = evaluation.evaluate(dev_set.examples, model, evaluator, args,
                                                    verbose=False, eval_top_pred_only=args.eval_top_pred_only)
                 dev_score = eval_results[evaluator.default_metric]
 
-                args.cuda = was_cuda
-                model.cuda()
+                # args.cuda = was_cuda
+                # model.cuda()
 
                 print('[Epoch %d] evaluate details: %s, dev %s: %.5f (took %ds)' % (
                                     epoch, eval_results,

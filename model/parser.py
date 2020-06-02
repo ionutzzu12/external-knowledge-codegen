@@ -26,6 +26,8 @@ from model.attention_util import AttentionUtil
 from model.nn_utils import LabelSmoothing
 from model.pointer_net import PointerNet
 
+from components.dataset import sample
+
 
 @Registrable.register('default_parser')
 class Parser(nn.Module):
@@ -529,7 +531,8 @@ class Parser(nn.Module):
         src_encodings_att_linear = self.att_src_linear(src_encodings)
 
         # docs encodings
-        func_docs = [f['doc'] for f in functions]
+        functions_sample = sample(functions)
+        func_docs = [f['doc'] for f in functions_sample]
         # docs_encodings = []
         #
         # for doc in func_docs:
@@ -561,7 +564,7 @@ class Parser(nn.Module):
         for token_pos, token in enumerate(src_sent):
             aggregated_primitive_tokens.setdefault(token, []).append(token_pos)
 
-        aggregated_function_tokens = {f['fname']: [idx] for idx, f in enumerate(functions)}
+        aggregated_function_tokens = {f['fname']: [idx] for idx, f in enumerate(functions_sample)}
 
         t = 0
         hypotheses = [DecodeHypothesis()]

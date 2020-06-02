@@ -67,6 +67,19 @@ class Example(object):
         self.functions = None
 
 
+# filter and keep first 2 + 1 random
+def sample(functions):
+    ret = []
+    for f in functions:
+        fname = f['fname']
+        if fname != '' and '.' not in fname:
+            ret.append(f)
+    ch = choice(ret[2:])
+    ret = ret[:2] + [ch]
+    shuffle(ret)
+    return ret
+
+
 class Batch(object):
     def __init__(self, examples, grammar, vocab, copy=True, cuda=False):
         self.examples = examples
@@ -74,19 +87,6 @@ class Batch(object):
 
         self.src_sents = [e.src_sent for e in self.examples]
         self.src_sents_len = [len(e.src_sent) for e in self.examples]
-
-        # filter and keep first 2 + 1 random
-        def sample(functions):
-
-            ret = []
-            for f in functions:
-                fname = f['fname']
-                if fname != '' and '.' not in fname:
-                    ret.append(f)
-            ch = choice(ret[2:])
-            ret = ret[:2] + [ch]
-            shuffle(ret)
-            return ret
 
         src_funcs = []
         for e in examples:
