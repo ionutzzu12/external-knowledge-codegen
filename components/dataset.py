@@ -1,5 +1,6 @@
 # coding=utf-8
 from collections import OrderedDict
+from random import choice, shuffle
 
 import torch
 import numpy as np
@@ -74,8 +75,25 @@ class Batch(object):
         self.src_sents = [e.src_sent for e in self.examples]
         self.src_sents_len = [len(e.src_sent) for e in self.examples]
 
-        self.src_funcs = [e.functions for e in self.examples]
-        self.src_funcs_len = [len(e.functions) for e in self.examples]
+        # filter and keep first 2 + 1 random
+        def sample(functions):
+
+            ret = []
+            for f in functions:
+                fname = f['fname']
+                if fname != '' and '.' not in fname:
+                    ret.append(f)
+            ch = choice(ret[2:])
+            ret = ret[:2] + [ch]
+            shuffle(ret)
+            return ret
+
+        src_funcs = []
+        for e in examples:
+            src_funcs.append(sample(e.functions))
+
+        self.src_funcs = src_funcs
+        self.src_funcs_len = [len(fs) for fs in self.src_funcs]
 
         self.grammar = grammar
         self.vocab = vocab
@@ -175,13 +193,14 @@ class Batch(object):
                             copy_mask_f = 1
                             token_can_copy_f = True
 
-                        if token_can_copy is False or token_idx != self.vocab.primitive.unk_id:
-                            # if the token is not copied, we can only generate this token from the vocabulary,
-                            # even if it is a <unk>.
-                            # otherwise, we can still generate it from the vocabulary
-                            gen_token_mask = 1
+                        # if token_can_copy is False or token_idx != self.vocab.primitive.unk_id:
+                        #     # if the token is not copied, we can only generate this token from the vocabulary,
+                        #     # even if it is a <unk>.
+                        #     # otherwise, we can still generate it from the vocabulary
+                        #     gen_token_mask = 1
 
-                        if token_can_copy_f is False or token_idx != self.vocab.primitive.unk_id:
+                        if token_can_copy is False or token_can_copy_f is False or \
+                                token_idx != self.vocab.primitive.unk_id:
                             gen_token_mask = 1
 
                         if token_can_copy:

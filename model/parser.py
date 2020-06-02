@@ -165,6 +165,16 @@ class Parser(nn.Module):
             self.new_long_tensor = torch.LongTensor
             self.new_tensor = torch.FloatTensor
 
+    def cuda(self, device=None):
+        self.new_long_tensor = torch.cuda.LongTensor
+        self.new_tensor = torch.cuda.FloatTensor
+        return self._apply(lambda t: t.cuda(device))
+
+    def cpu(self):
+        self.new_long_tensor = torch.LongTensor
+        self.new_tensor = torch.FloatTensor
+        return self._apply(lambda t: t.cpu())
+
     def encode(self, src_sents_var, src_sents_len):
         """Encode the input natural language utterance
 
