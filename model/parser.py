@@ -292,11 +292,11 @@ class Parser(nn.Module):
 
             for docs in batch_docs:
                 docs_var = nn_utils.to_input_variable(docs, self.vocab.source, cuda=self.args.cuda)
-                encoded_docs, (last_state, last_cell) = self.encode(docs_var, [len(doc) for doc in docs])
+                encoded_docs, (last_state2, last_cell2) = self.encode(docs_var, [len(doc) for doc in docs])
                 # docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t
-                docs_encodings = [last_cell for i in range(len(docs))]   # last h_t
+                # docs_encodings = [last_cell for i in range(len(docs))]   # last h_t
 
-                batch_docs_encodings.append(torch.stack(docs_encodings))
+                batch_docs_encodings.append(last_cell2)
             batch_docs_encodings = torch.stack(batch_docs_encodings)
 
             # pointer network copying scores over source tokens
@@ -533,13 +533,18 @@ class Parser(nn.Module):
         # docs encodings
         functions_sample = sample(functions)
         func_docs = [f['doc'] for f in functions_sample]
-
+        # docs_encodings = []
+        #
+        # for doc in func_docs:
+        #     doc_var = nn_utils.to_input_variable([doc], self.vocab.source, cuda=args.cuda)
+        #     encoded_doc, _ = self.encode(doc_var, [len(doc)])
+        #     docs_encodings.append(encoded_doc[0][-1])  # last h_t
         docs_var = nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.args.cuda)
-        encoded_docs, (last_state, last_cell) = self.encode(docs_var, [len(doc) for doc in func_docs])
+        encoded_docs, (last_state2, last_cell2) = self.encode(docs_var, [len(doc) for doc in func_docs])
         # docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t
-        docs_encodings = [last_cell for i in range(len(func_docs))]  # last h_t
+        # docs_encodings = [last_cell2[i] for i in range(len(func_docs))]  # last h_t
 
-        stacked_docs_encodings = torch.stack([torch.stack(docs_encodings)])
+        stacked_docs_encodings = torch.stack([last_cell2])
 
         dec_init_vec = self.init_decoder_state(last_state, last_cell)
         if args.lstm == 'parent_feed':
