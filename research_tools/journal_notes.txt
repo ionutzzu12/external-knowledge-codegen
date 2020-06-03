@@ -8,7 +8,8 @@ augment_bin_examples -> adds functions member (index in func_details.json, func 
 
 ? add doc words in vocab
 ? how to encode docs (encoding dimensions)
-
+?!? try without encoding doc
+!! test pe docs examples
 
 Results (apply train aka finetuning step, then test):
 {'corpus_bleu': 0.2651451515021723, 'oracle_corpus_bleu': 0.3696938598275679, 'avg_sent_bleu': 0.21372752274218482, 'oracle_avg_sent_bleu': 0.33316551591050664, 'exact_match': 0.02, 'oracle_exact_match': 0.044}

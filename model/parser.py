@@ -291,13 +291,10 @@ class Parser(nn.Module):
             batch_docs_encodings = []
 
             for docs in batch_docs:
-                # docs_encodings = []
-                # for doc in docs:
-                #     doc_var = nn_utils.to_input_variable([doc], self.vocab.source, cuda=self.args.cuda)
-                #     encoded_doc, _ = self.encode(doc_var, [len(doc)])
                 docs_var = nn_utils.to_input_variable(docs, self.vocab.source, cuda=self.args.cuda)
-                encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in docs])
-                docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t
+                encoded_docs, (last_state, last_cell) = self.encode(docs_var, [len(doc) for doc in docs])
+                # docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t
+                docs_encodings = [last_cell for i in range(len(docs))]   # last h_t
 
                 batch_docs_encodings.append(torch.stack(docs_encodings))
             batch_docs_encodings = torch.stack(batch_docs_encodings)
@@ -307,6 +304,9 @@ class Parser(nn.Module):
             primitive_copy_prob = self.src_pointer_net(src_encodings, batch.src_token_mask, query_vectors)
 
             primitive_copy_prob_f = self.src_pointer_net2(batch_docs_encodings, batch.src_token_mask_f, query_vectors)
+
+            # TODO
+            # primitive_copy_module_name_f = self.src_pointer_net3(batch_modules_doc, ...)
 
             # marginalize over the copy probabilities of tokens that are same
             # (tgt_action_len, batch_size)
@@ -533,15 +533,11 @@ class Parser(nn.Module):
         # docs encodings
         functions_sample = sample(functions)
         func_docs = [f['doc'] for f in functions_sample]
-        # docs_encodings = []
-        #
-        # for doc in func_docs:
-        #     doc_var = nn_utils.to_input_variable([doc], self.vocab.source, cuda=args.cuda)
-        #     encoded_doc, _ = self.encode(doc_var, [len(doc)])
-        #     docs_encodings.append(encoded_doc[0][-1])  # last h_t
+
         docs_var = nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.args.cuda)
-        encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in func_docs])
-        docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t
+        encoded_docs, (last_state, last_cell) = self.encode(docs_var, [len(doc) for doc in func_docs])
+        # docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t
+        docs_encodings = [last_cell for i in range(len(func_docs))]  # last h_t
 
         stacked_docs_encodings = torch.stack([torch.stack(docs_encodings)])
 

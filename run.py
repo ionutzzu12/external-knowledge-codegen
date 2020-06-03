@@ -8,7 +8,7 @@ model_2_name = "model_2_t1_3funcs"
 
 PRETRAIN, TRAIN, TEST = '1', '2', 't'
 
-MODE = TRAIN
+MODE = TEST
 
 
 class BaseArgs:

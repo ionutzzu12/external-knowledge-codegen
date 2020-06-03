@@ -3,13 +3,13 @@ import re
 import matplotlib.pyplot as plt
 from scipy.interpolate import make_interp_spline
 import numpy as np
-import pandas as pd
+# import pandas as pd
 
 file1 = "orig-train"
 file2 = "10func-train"
 
 file3 = "10func-train2"
-# file4 = "03func-train-wrong_eval"
+file4 = "03func-train-wrong_eval"
 # file5 = "03func-train-unfinished"
 file7 = "03func-train"
 
@@ -39,13 +39,13 @@ def draw(fname, dowhat):
 
     print(ys)
     x_new = range(len(ys))
-    y_new = pd.Series(ys).rolling(10, min_periods=10).mean()
+    y_new = ys  # pd.Series(ys).rolling(10, min_periods=10).mean()
 
     plt.plot(x_new, y_new, label=fname)
 
 
 if __name__ == "__main__":
-    files = [file1, file2, file3, file7]
+    files = [file1, file2, file3, file4, file7]
     do_what = PLOT_SCORE
 
     for f in files:
