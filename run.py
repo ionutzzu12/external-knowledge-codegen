@@ -4,7 +4,7 @@ import exp
 
 
 model_1_name = "model_1_t1"  # f"retdistsmpl.dr{dropout}.lr{lr}.lr_de{lr_decay}.lr_da{lr_decay_after_epoch}.beam{beam_size}.vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.pre_{mined_num}_goldmine_{ret_method}.seed{seed}"
-model_2_name = "model_2_t1_orig_no_pretrain"
+model_2_name = "model_2_testing_funcs"
 
 PRETRAIN, TRAIN, TEST = '1', '2', 't'
 

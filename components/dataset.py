@@ -67,15 +67,19 @@ class Example(object):
 
 
 class Batch(object):
-    def __init__(self, examples, grammar, vocab, copy=True, cuda=False):
+    def __init__(self, examples, grammar, vocab, copy=True, cuda=False, funcs=False):
         self.examples = examples
         self.max_action_num = max(len(e.tgt_actions) for e in self.examples)
 
         self.src_sents = [e.src_sent for e in self.examples]
         self.src_sents_len = [len(e.src_sent) for e in self.examples]
 
-        self.src_funcs = [e.functions for e in self.examples]
-        self.src_funcs_len = [len(e.functions) for e in self.examples]
+        if funcs:
+            self.src_funcs = [e.functions for e in self.examples]
+            self.src_funcs_len = [len(e.functions) for e in self.examples]
+        else:
+            self.src_funcs = [[] for _ in self.examples]
+            self.src_funcs_len = [0 for _ in self.examples]
 
         self.grammar = grammar
         self.vocab = vocab
