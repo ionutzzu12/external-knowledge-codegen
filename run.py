@@ -4,9 +4,10 @@ import exp
 
 
 model_1_name = "model_1_t1"  # f"retdistsmpl.dr{dropout}.lr{lr}.lr_de{lr_decay}.lr_da{lr_decay_after_epoch}.beam{beam_size}.vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.pre_{mined_num}_goldmine_{ret_method}.seed{seed}"
-model_2_name = "model_2_testing_funcs"
+# model_2_name = "model_2-testing_func_docs-last_neneg_encoding"
+model_2_name = ""
 
-PRETRAIN, TRAIN, TEST = '1', '2', 't'
+PRETRAIN, TRAIN, TEST, TRAIN_FUNCS = '1', '2', 't', '7'
 
 MODE = TRAIN
 
@@ -75,7 +76,7 @@ class BaseArgs:
     decode_max_time_step = 100
     save_decode_to = None
     att_vec_size = 256
-    no_func_copy = True
+    no_func_copy = True  #consistency
 
 
 class PretrainArgs(BaseArgs):
@@ -93,49 +94,61 @@ class FinetuneArgs(BaseArgs):
     def __init__(self):
         BaseArgs.__init__(self)
 
+        self.model_name = 'classic_train_dev100'
         self.mode = 'train'
-        self.train_file = "data/conala/train.gold.full.bin"
-
+        self.train_file = "data/conala-renamed_funcs&docs/train.all_100000.bin"
+        self.dev_file = "data/conala-renamed_funcs&docs/dev.bin"
         self.batch_size = 10
         self.pretrain = None  # f"saved_models/conala/{model_1_name}.bin"  # TODO for finetuning
-        self.save_to = f'saved_models/conala/{model_2_name}'
+        self.save_to = f'saved_models/conala/{self.model_name}'
 
 
 class TrainWithFuncs(BaseArgs):
     def __init__(self):
         BaseArgs.__init__(self)
 
+        self.model_name = 'funcs_train_last_neneg'
         self.no_func_copy = False
         self.mode = 'train'
-        # self.train_file = "data/conala/train.gold.full.bin"  # TODO for finetuning
-        self.train_file = "data/conala/added_funcs_train.bin"
-        self.dev_file = "data/conala/added_funcs_dev.bin"  # TODO
+        self.train_file = "data/conala-renamed_funcs&docs/train.all_100000.bin"
+        self.dev_file = "data/conala-renamed_funcs&docs/dev.bin"
 
         self.batch_size = 10
         self.pretrain = None  # f"saved_models/conala/{model_1_name}.bin"  # TODO for finetuning
-        self.save_to = f'saved_models/conala/{model_2_name}'
+        self.save_to = f'saved_models/conala/{self.model_name}'
 
 
 class TestArgs(BaseArgs):
-    def __init__(self):
+    def __init__(self, model_test_name):
         BaseArgs.__init__(self)
 
         self.mode = 'test'
-        self.load_model = f'saved_models/conala/{model_2_name}.bin'
-        self.save_decode_to = f'decodes/conala/{model_2_name}.test.decode'
+        self.load_model = f'saved_models/conala/{model_test_name}.bin'
+        self.save_decode_to = f'decodes/conala/{model_test_name}.test.decode'
         # self.test_file = "data/conala/test.bin"  # TODO
-        self.test_file = "data/conala/added_funcs_test.bin"
+        # self.test_file = "data/conala/added_funcs_test.bin"
+        self.test_file = "data/conala-renamed_funcs&docs/test.bin"
         self.cuda = False
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         sys.argv += [MODE]
-    assert MODE in [PRETRAIN, TRAIN, TEST]
+    assert MODE in [PRETRAIN, TRAIN, TEST, TRAIN_FUNCS]
+
+    train_args = None
 
     if sys.argv[1] == PRETRAIN:
-        exp.main(PretrainArgs())
+        train_args = PretrainArgs()
     elif sys.argv[1] == TRAIN:
-        exp.main(FinetuneArgs())
+        train_args = FinetuneArgs()
+    # elif sys.argv[1] == TEST:
+    #     exp.main(TestArgs(model_2_name))
+    elif sys.argv[1] == TRAIN_FUNCS:
+        train_args = TrainWithFuncs()
     else:
-        exp.main(TestArgs())
+        print("Unknown argument")
+
+    exp.main(train_args)
+    test_args = TestArgs(train_args.model_name)
+    exp.main(test_args)

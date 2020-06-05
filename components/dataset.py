@@ -14,6 +14,35 @@ from asdl.transition_system import ApplyRuleAction, ReduceAction
 from common.utils import cached_property
 
 from model import nn_utils
+from datasets.conala.util import tokenize_intent
+from random import choice
+from copy import copy
+
+
+def load_docs():
+    import json
+    docs_raw_dict = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_docs.json'))
+    # docs_index_dict = {}
+    # for key, value in docs_raw_dict.items():
+    #     docs_index_dict[value['index']] = tokenize_intent(' '.join(value['doc'][:2]))docs_index_dict = {}
+    docs_dict = {}
+    func_names = []
+    for key, value in docs_raw_dict.items():
+        docs_dict[key] = tokenize_intent(' '.join(value['doc'][:2]))
+        func_names.append(key)
+    return docs_dict, func_names
+
+
+def complete_funcs(init_functions, all_functions, total=5):
+    functions = [func_name for func_name in init_functions]
+    n0 = len(functions)
+
+    while total > n0:
+        new_function = choice(all_functions)
+        if new_function not in functions:
+            functions.append(new_function)
+            n0 += 1
+    return functions
 
 
 class Dataset(object):
@@ -54,7 +83,7 @@ class Dataset(object):
 
 
 class Example(object):
-    def __init__(self, src_sent, tgt_actions, tgt_code, tgt_ast, idx=0, meta=None):
+    def __init__(self, src_sent, tgt_actions, tgt_code, tgt_ast, idx=0, meta=None, functions=None):
         self.src_sent = src_sent
         self.tgt_code = tgt_code
         self.tgt_ast = tgt_ast
@@ -63,20 +92,20 @@ class Example(object):
         self.idx = idx
         self.meta = meta
 
-        self.functions = None
+        self.functions = functions
 
 
 class Batch(object):
-    def __init__(self, examples, grammar, vocab, copy=True, cuda=False, funcs=False):
+    def __init__(self, examples, grammar, vocab, copy=True, cuda=False, all_funcs=None):
         self.examples = examples
         self.max_action_num = max(len(e.tgt_actions) for e in self.examples)
 
         self.src_sents = [e.src_sent for e in self.examples]
         self.src_sents_len = [len(e.src_sent) for e in self.examples]
 
-        if funcs:
-            self.src_funcs = [e.functions for e in self.examples]
-            self.src_funcs_len = [len(e.functions) for e in self.examples]
+        if all_funcs:
+            self.src_funcs = [complete_funcs(e.functions, all_funcs) for e in self.examples]
+            self.src_funcs_len = [len(e) for e in self.src_funcs]
         else:
             self.src_funcs = [[] for _ in self.examples]
             self.src_funcs_len = [0 for _ in self.examples]
@@ -158,7 +187,7 @@ class Batch(object):
                         app_rule_mask = 1
                     else:
                         src_sent = self.src_sents[e_id]
-                        src_func_names = [f['fname'] for f in self.src_funcs[e_id]]
+                        src_func_names = [fname for fname in self.src_funcs[e_id]]
 
                         token = str(action.token)
                         token_idx = self.vocab.primitive[action.token]
@@ -244,11 +273,11 @@ class Batch(object):
         return nn_utils.to_input_variable(self.src_sents, self.vocab.source,
                                           cuda=self.cuda)
 
-    @cached_property
-    def src_func_docs_2lvl(self):
-        func_docs = [[f['doc'] for f in fs] for fs in self.src_funcs]
-        return func_docs
-        # return [nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.cuda) for func_docs in func_docs_all]
+    # @cached_property
+    # def src_func_docs_2lvl(self):
+    #     func_docs = [[f['doc'] for f in fs] for fs in self.src_funcs]
+    #     return func_docs
+    #     # return [nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.cuda) for func_docs in func_docs_all]
 
     @cached_property
     def src_token_mask(self):

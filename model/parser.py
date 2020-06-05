@@ -19,7 +19,7 @@ from asdl.transition_system import ApplyRuleAction, ReduceAction, Action
 from common.registerable import Registrable
 from components.decode_hypothesis import DecodeHypothesis
 from components.action_info import ActionInfo
-from components.dataset import Batch
+from components.dataset import Batch, load_docs, complete_funcs
 from common.utils import update_args, init_arg_parser
 from model import nn_utils
 from model.attention_util import AttentionUtil
@@ -168,6 +168,22 @@ class Parser(nn.Module):
             self.new_long_tensor = torch.LongTensor
             self.new_tensor = torch.FloatTensor
 
+        if not args.no_func_copy:
+            self.docs_by_name, self.all_func_names = load_docs()
+
+    def cuda(self, device=None):
+        self.new_long_tensor = torch.cuda.LongTensor
+        self.new_tensor = torch.cuda.FloatTensor
+        return self._apply(lambda t: t.cuda(device))
+
+    def cpu(self):
+        self.new_long_tensor = torch.LongTensor
+        self.new_tensor = torch.FloatTensor
+        return self._apply(lambda t: t.cpu())
+
+    def get_docs(self, functions):
+        return [self.docs_by_name[fname] for fname in functions]
+
     def encode(self, src_sents_var, src_sents_len):
         """Encode the input natural language utterance
 
@@ -219,7 +235,11 @@ class Parser(nn.Module):
         output: score for each training example: Variable(batch_size)
         """
 
-        batch = Batch(examples, self.grammar, self.vocab, copy=self.args.no_copy is False, cuda=self.args.cuda)
+        if self.args.no_func_copy:
+            batch = Batch(examples, self.grammar, self.vocab, copy=self.args.no_copy is False, cuda=self.args.cuda)
+        else:
+            batch = Batch(examples, self.grammar, self.vocab, copy=self.args.no_copy is False, cuda=self.args.cuda,
+                          all_funcs=self.all_func_names)
 
         # src_encodings: (batch_size, src_sent_len, hidden_size * 2)
         # (last_state, last_cell, dec_init_vec): (batch_size, hidden_size)
@@ -296,13 +316,14 @@ class Parser(nn.Module):
                               primitive_predictor[:, :, 0] * tgt_primitive_gen_from_vocab_prob * batch.gen_token_mask + \
                               primitive_predictor[:, :, 1] * tgt_primitive_copy_prob * batch.primitive_copy_mask
             else:  # use func_encodings
-                batch_docs = batch.src_func_docs_2lvl
+                batch_docs = [self.get_docs(fs) for fs in batch.src_funcs]
                 batch_docs_encodings = []
 
                 for docs in batch_docs:
                     docs_var = nn_utils.to_input_variable(docs, self.vocab.source, cuda=self.args.cuda)
                     encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in docs])
-                    docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t  # FIXME this is wrong
+                    # docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t  # FIXME this is wrong
+                    docs_encodings = [encoded_docs[i][len(docs[i]) - 1] for i in range(len(docs))]   # last h_t
 
                     batch_docs_encodings.append(torch.stack(docs_encodings))
                 batch_docs_encodings = torch.stack(batch_docs_encodings)
@@ -538,12 +559,15 @@ class Parser(nn.Module):
 
         if args.no_copy is False and args.no_func_copy is False:
             # docs encodings
-            func_docs = [f['doc'] for f in functions]
+            functions = complete_funcs(functions, self.all_func_names)
+            func_docs = self.get_docs(functions)
             docs_var = nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.args.cuda)
             encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in func_docs])
-            docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t
+            # docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t # FIXME
+            docs_encodings = [encoded_docs[i][len(func_docs[i]) - 1] for i in range(len(func_docs))]  # last h_t
 
             stacked_docs_encodings = torch.stack([torch.stack(docs_encodings)])
+            aggregated_function_tokens = {f: [idx] for idx, f in enumerate(functions)}
 
         dec_init_vec = self.init_decoder_state(last_state, last_cell)
         if args.lstm == 'parent_feed':
@@ -563,8 +587,6 @@ class Parser(nn.Module):
         aggregated_primitive_tokens = OrderedDict()
         for token_pos, token in enumerate(src_sent):
             aggregated_primitive_tokens.setdefault(token, []).append(token_pos)
-
-        aggregated_function_tokens = {f['fname']: [idx] for idx, f in enumerate(functions)}
 
         t = 0
         hypotheses = [DecodeHypothesis()]

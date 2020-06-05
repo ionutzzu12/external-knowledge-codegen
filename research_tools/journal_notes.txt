@@ -11,6 +11,15 @@ augment_bin_examples -> adds functions member (index in func_details.json, func 
 Results (apply train aka finetuning step, then test):
 {'corpus_bleu': 0.2651451515021723, 'oracle_corpus_bleu': 0.3696938598275679, 'avg_sent_bleu': 0.21372752274218482, 'oracle_avg_sent_bleu': 0.33316551591050664, 'exact_match': 0.02, 'oracle_exact_match': 0.044}
 
+times:
+--rtx2060s
+	CLASSIC									FUNCS
+	(cuda) 40s training epoch				(cuda) 60s training epoch 
+	(cuda) 90s decoding 100					(cuda)  
+	(cpu)  21s decoding 100					(cpu)  27s decoding 100
+
+
+
 
 - total "Call" rule nodes: 4581
 - total functions extracted: 3246
