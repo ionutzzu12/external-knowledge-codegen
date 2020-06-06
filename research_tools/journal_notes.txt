@@ -13,6 +13,22 @@ augment_bin_examples -> adds functions member (index in func_details.json, func 
 Results (apply train aka finetuning step, then test):
 {'corpus_bleu': 0.2651451515021723, 'oracle_corpus_bleu': 0.3696938598275679, 'avg_sent_bleu': 0.21372752274218482, 'oracle_avg_sent_bleu': 0.33316551591050664, 'exact_match': 0.02, 'oracle_exact_match': 0.044}
 
+Results (5 funcs train shuffle):
+{'corpus_bleu': 0.29433628241503246, 'oracle_corpus_bleu': 0.37361012011024897, 'avg_sent_bleu': 0.23643295943373965, 'oracle_avg_sent_bleu': 0.36451956295716753, 'exact_match': 0.028, 'oracle_exact_match': 0.1}
+
+
+ok, deci da la fel ca originalul si cu functiile de un token. am preprocesat numai conala-train, de aceea si vocab e mult mai mic. 
+
+times:
+--rtx2060s																	--colab
+	CLASSIC									FUNCS								FUNCS
+	(cuda) 40s training epoch				(cuda) 60s training epoch 			(cuda) 80s
+	(cuda) 90s decoding 100					(cuda)  							(cuda)
+	(cpu)  21s decoding 100					(cpu)  27s decoding 100				(cpu) 32s
+
+
+
+
 
 - total "Call" rule nodes: 4581
 - total functions extracted: 3246

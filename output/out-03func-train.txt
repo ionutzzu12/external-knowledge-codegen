@@ -1,5 +1,6 @@
 
 
+
 use glorot initialization
 begin training, 2375 training examples, 200 dev examples
 vocab: Vocab(source Vocabulary[size=9714]words, primitive Vocabulary[size=13406]words, code Vocabulary[size=12217]words)

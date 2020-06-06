@@ -153,16 +153,18 @@ def train(args):
                 print('[Epoch %d] begin validation' % epoch, file=sys.stderr)
                 eval_start = time.time()
 
-                # was_cuda = args.cuda
-                # args.cuda = False
-                # model.cpu()
+                print('switching to cpu')
+                was_cuda = args.cuda
+                args.cuda = False
+                model.cpu()
 
                 eval_results = evaluation.evaluate(dev_set.examples, model, evaluator, args,
                                                    verbose=False, eval_top_pred_only=args.eval_top_pred_only)
                 dev_score = eval_results[evaluator.default_metric]
 
-                # args.cuda = was_cuda
-                # model.cuda()
+                print('switching to cuda')
+                args.cuda = was_cuda
+                model.cuda()
 
                 print('[Epoch %d] evaluate details: %s, dev %s: %.5f (took %ds)' % (
                                     epoch, eval_results,
@@ -197,14 +199,14 @@ def train(args):
 
         if epoch == args.max_epoch:
             print('reached max epoch, stop!', file=sys.stderr)
-            exit(0)
+            return
 
         if patience >= args.patience and epoch >= args.lr_decay_after_epoch:
             num_trial += 1
             print('hit #%d trial' % num_trial, file=sys.stderr)
             if num_trial == args.max_num_trial:
                 print('early stop!', file=sys.stderr)
-                exit(0)
+                return
 
             # decay lr, and restore from previously best checkpoint
             lr = optimizer.param_groups[0]['lr'] * args.lr_decay
@@ -574,6 +576,12 @@ def train_reranker_and_test(args):
 
 
 def main(args_instance):
+    # seed the RNG
+    torch.manual_seed(args_instance.seed)
+    if args_instance.cuda:
+        torch.cuda.manual_seed(args_instance.seed)
+    np.random.seed(int(args_instance.seed * 13 / 7))
+
     if args_instance.mode == 'train':
         train(args_instance)
     elif args_instance.mode in ('train_reconstructor', 'train_paraphrase_identifier'):
@@ -585,7 +593,7 @@ def main(args_instance):
     elif args_instance.mode == 'interactive':
         interactive_mode(args_instance)
     else:
-        raise RuntimeError('unknown mode')
+        raise RuntimeError('Unknown mode')
 
 
 if __name__ == '__main__':

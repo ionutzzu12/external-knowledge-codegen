@@ -38,15 +38,6 @@ class ReduceAction(Action):
        return 'Reduce'
 
 
-# TODO method id
-class GenMethodId(Action):
-    def __init__(self, method_id):
-        self.method_id = method_id
-
-    def __repr__(self):
-        return 'GenMethodId[%s]' % self.method_id
-
-
 class TransitionSystem(object):
     def __init__(self, grammar):
         self.grammar = grammar

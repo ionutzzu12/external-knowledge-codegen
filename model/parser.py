@@ -19,7 +19,7 @@ from asdl.transition_system import ApplyRuleAction, ReduceAction, Action
 from common.registerable import Registrable
 from components.decode_hypothesis import DecodeHypothesis
 from components.action_info import ActionInfo
-from components.dataset import Batch
+from components.dataset import Batch, load_docs, complete_funcs
 from common.utils import update_args, init_arg_parser
 from model import nn_utils
 from model.attention_util import AttentionUtil
@@ -102,13 +102,16 @@ class Parser(nn.Module):
             # pointer net for copying tokens from source side
             self.src_pointer_net = PointerNet(query_vec_size=args.att_vec_size, src_encoding_size=args.hidden_size)
 
-            # pointer net for copying tokens of FUNCTIONS
-            self.src_pointer_net2 = PointerNet(query_vec_size=args.att_vec_size, src_encoding_size=args.hidden_size)
+            if args.no_func_copy is False:
+                # pointer net for copying tokens of FUNCTIONS
+                self.src_pointer_net2 = PointerNet(query_vec_size=args.att_vec_size, src_encoding_size=args.hidden_size)
 
-            # given the decoder's hidden state, predict whether to copy or generate a target primitive token
-            # output: [p(gen(token)) | s_t, p(copy(token)) | s_t]
+                self.primitive_predictor = nn.Linear(args.att_vec_size, 3)  # last for function token copy
+            else:
+                # given the decoder's hidden state, predict whether to copy or generate a target primitive token
+                # output: [p(gen(token)) | s_t, p(copy(token)) | s_t]
 
-            self.primitive_predictor = nn.Linear(args.att_vec_size, 3)  # last for function token copy
+                self.primitive_predictor = nn.Linear(args.att_vec_size, 2)  # last for token copy
 
         if args.primitive_token_label_smoothing:
             self.label_smoothing = LabelSmoothing(args.primitive_token_label_smoothing, len(self.vocab.primitive), ignore_indices=[0, 1, 2])
@@ -167,6 +170,9 @@ class Parser(nn.Module):
             self.new_long_tensor = torch.LongTensor
             self.new_tensor = torch.FloatTensor
 
+        if not args.no_func_copy:
+            self.docs_by_name, self.all_func_names = load_docs()
+
     def cuda(self, device=None):
         self.new_long_tensor = torch.cuda.LongTensor
         self.new_tensor = torch.cuda.FloatTensor
@@ -176,6 +182,9 @@ class Parser(nn.Module):
         self.new_long_tensor = torch.LongTensor
         self.new_tensor = torch.FloatTensor
         return self._apply(lambda t: t.cpu())
+
+    def get_docs(self, functions):
+        return [self.docs_by_name[fname] for fname in functions]
 
     def encode(self, src_sents_var, src_sents_len):
         """Encode the input natural language utterance
@@ -228,7 +237,11 @@ class Parser(nn.Module):
         output: score for each training example: Variable(batch_size)
         """
 
-        batch = Batch(examples, self.grammar, self.vocab, copy=self.args.no_copy is False, cuda=self.args.cuda)
+        if self.args.no_func_copy:
+            batch = Batch(examples, self.grammar, self.vocab, copy=self.args.no_copy is False, cuda=self.args.cuda)
+        else:
+            batch = Batch(examples, self.grammar, self.vocab, copy=self.args.no_copy is False, cuda=self.args.cuda,
+                          all_funcs=self.all_func_names)
 
         # src_encodings: (batch_size, src_sent_len, hidden_size * 2)
         # (last_state, last_cell, dec_init_vec): (batch_size, hidden_size)
@@ -286,45 +299,61 @@ class Parser(nn.Module):
             # (tgt_action_len, batch_size, 2)
             primitive_predictor = F.softmax(self.primitive_predictor(query_vectors), dim=-1)
 
-            # func_encodings
-            batch_docs = batch.src_func_docs_2lvl
-            batch_docs_encodings = []
+            if self.args.no_func_copy:  # original
+                # pointer network copying scores over source tokens
+                # (tgt_action_len, batch_size, src_sent_len)
+                primitive_copy_prob = self.src_pointer_net(src_encodings, batch.src_token_mask, query_vectors)
 
-            for docs in batch_docs:
-                # docs_encodings = []
-                # for doc in docs:
-                #     doc_var = nn_utils.to_input_variable([doc], self.vocab.source, cuda=self.args.cuda)
-                #     encoded_doc, _ = self.encode(doc_var, [len(doc)])
-                docs_var = nn_utils.to_input_variable(docs, self.vocab.source, cuda=self.args.cuda)
-                encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in docs])
-                docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t
+                # marginalize over the copy probabilities of tokens that are same
+                # (tgt_action_len, batch_size)
+                tgt_primitive_copy_prob = torch.sum(primitive_copy_prob * batch.primitive_copy_token_idx_mask, dim=-1)
 
-                batch_docs_encodings.append(torch.stack(docs_encodings))
-            batch_docs_encodings = torch.stack(batch_docs_encodings)
+                # mask positions in action_prob that are not used
+                # (tgt_action_len, batch_size)
+                action_mask_pad = torch.eq(batch.apply_rule_mask + batch.gen_token_mask + batch.primitive_copy_mask, 0.)
+                action_mask = 1. - action_mask_pad.float()
 
-            # pointer network copying scores over source tokens
-            # (tgt_action_len, batch_size, src_sent_len)
-            primitive_copy_prob = self.src_pointer_net(src_encodings, batch.src_token_mask, query_vectors)
+                # (tgt_action_len, batch_size)
+                action_prob = tgt_apply_rule_prob * batch.apply_rule_mask + \
+                              primitive_predictor[:, :, 0] * tgt_primitive_gen_from_vocab_prob * batch.gen_token_mask + \
+                              primitive_predictor[:, :, 1] * tgt_primitive_copy_prob * batch.primitive_copy_mask
+            else:  # use func_encodings
+                batch_docs = [self.get_docs(fs) for fs in batch.src_funcs]
+                batch_docs_encodings = []
 
-            primitive_copy_prob_f = self.src_pointer_net2(batch_docs_encodings, batch.src_token_mask_f, query_vectors)
+                for docs in batch_docs:
+                    docs_var = nn_utils.to_input_variable(docs, self.vocab.source, cuda=self.args.cuda)
+                    encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in docs])
+                    # docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t  # FIXME this is wrong
+                    docs_encodings = [encoded_docs[i][len(docs[i]) - 1] for i in range(len(docs))]   # last h_t
 
-            # marginalize over the copy probabilities of tokens that are same
-            # (tgt_action_len, batch_size)
-            tgt_primitive_copy_prob = torch.sum(primitive_copy_prob * batch.primitive_copy_token_idx_mask, dim=-1)
+                    batch_docs_encodings.append(torch.stack(docs_encodings))
+                batch_docs_encodings = torch.stack(batch_docs_encodings)
 
-            tgt_primitive_copy_prob_f = torch.sum(primitive_copy_prob_f * batch.primitive_copy_token_idx_mask_f, dim=-1)
+                primitive_copy_prob_f = self.src_pointer_net2(batch_docs_encodings, batch.src_token_mask_f,
+                                                              query_vectors)
 
-            # mask positions in action_prob that are not used
-            # (tgt_action_len, batch_size)
-            action_mask_pad = torch.eq(batch.apply_rule_mask + batch.gen_token_mask + batch.primitive_copy_mask +
-                                                                                      batch.primitive_copy_mask_f, 0.)
-            action_mask = 1. - action_mask_pad.float()
+                # pointer network copying scores over source tokens
+                # (tgt_action_len, batch_size, src_sent_len)
+                primitive_copy_prob = self.src_pointer_net(src_encodings, batch.src_token_mask, query_vectors)
 
-            # (tgt_action_len, batch_size)
-            action_prob = tgt_apply_rule_prob * batch.apply_rule_mask + \
-                          primitive_predictor[:, :, 0] * tgt_primitive_gen_from_vocab_prob * batch.gen_token_mask + \
-                          primitive_predictor[:, :, 1] * tgt_primitive_copy_prob * batch.primitive_copy_mask + \
-                          primitive_predictor[:, :, 2] * tgt_primitive_copy_prob_f * batch.primitive_copy_mask_f
+                # marginalize over the copy probabilities of tokens that are same
+                # (tgt_action_len, batch_size)
+                tgt_primitive_copy_prob = torch.sum(primitive_copy_prob * batch.primitive_copy_token_idx_mask, dim=-1)
+
+                tgt_primitive_copy_prob_f = torch.sum(primitive_copy_prob_f * batch.primitive_copy_token_idx_mask_f, dim=-1)
+
+                # mask positions in action_prob that are not used
+                # (tgt_action_len, batch_size)
+                action_mask_pad = torch.eq(batch.apply_rule_mask + batch.gen_token_mask + batch.primitive_copy_mask +
+                                                                                          batch.primitive_copy_mask_f, 0.)
+                action_mask = 1. - action_mask_pad.float()
+
+                # (tgt_action_len, batch_size)
+                action_prob = tgt_apply_rule_prob * batch.apply_rule_mask + \
+                              primitive_predictor[:, :, 0] * tgt_primitive_gen_from_vocab_prob * batch.gen_token_mask + \
+                              primitive_predictor[:, :, 1] * tgt_primitive_copy_prob * batch.primitive_copy_mask + \
+                              primitive_predictor[:, :, 2] * tgt_primitive_copy_prob_f * batch.primitive_copy_mask_f
 
             # avoid nan in log
             action_prob.data.masked_fill_(action_mask_pad.data, 1.e-7)
@@ -530,20 +559,17 @@ class Parser(nn.Module):
         # (1, src_sent_len, hidden_size)
         src_encodings_att_linear = self.att_src_linear(src_encodings)
 
-        # docs encodings
-        functions_sample = sample(functions)
-        func_docs = [f['doc'] for f in functions_sample]
-        # docs_encodings = []
-        #
-        # for doc in func_docs:
-        #     doc_var = nn_utils.to_input_variable([doc], self.vocab.source, cuda=args.cuda)
-        #     encoded_doc, _ = self.encode(doc_var, [len(doc)])
-        #     docs_encodings.append(encoded_doc[0][-1])  # last h_t
-        docs_var = nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.args.cuda)
-        encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in func_docs])
-        docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t
+        if args.no_copy is False and args.no_func_copy is False:
+            # docs encodings
+            functions = complete_funcs(functions, self.all_func_names)
+            func_docs = self.get_docs(functions)
+            docs_var = nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.args.cuda)
+            encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in func_docs])
+            # docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t # FIXME
+            docs_encodings = [encoded_docs[i][len(func_docs[i]) - 1] for i in range(len(func_docs))]  # last h_t
 
-        stacked_docs_encodings = torch.stack([torch.stack(docs_encodings)])
+            stacked_docs_encodings = torch.stack([torch.stack(docs_encodings)])
+            aggregated_function_tokens = {f: [idx] for idx, f in enumerate(functions)}
 
         dec_init_vec = self.init_decoder_state(last_state, last_cell)
         if args.lstm == 'parent_feed':
@@ -563,8 +589,6 @@ class Parser(nn.Module):
         aggregated_primitive_tokens = OrderedDict()
         for token_pos, token in enumerate(src_sent):
             aggregated_primitive_tokens.setdefault(token, []).append(token_pos)
-
-        aggregated_function_tokens = {f['fname']: [idx] for idx, f in enumerate(functions_sample)}
 
         t = 0
         hypotheses = [DecodeHypothesis()]
@@ -661,7 +685,8 @@ class Parser(nn.Module):
                 # Variable(batch_size, src_sent_len)
                 primitive_copy_prob = self.src_pointer_net(src_encodings, None, att_t.unsqueeze(0)).squeeze(0)
 
-                primitive_copy_prob_f = self.src_pointer_net2(stacked_docs_encodings, None, att_t.unsqueeze(0)).squeeze(0)
+                if args.no_func_copy is False:
+                    primitive_copy_prob_f = self.src_pointer_net2(stacked_docs_encodings, None, att_t.unsqueeze(0)).squeeze(0)
 
                 # Variable(batch_size, 2)
                 primitive_predictor_prob = F.softmax(self.primitive_predictor(att_t), dim=-1)
@@ -720,18 +745,19 @@ class Parser(nn.Module):
                                     hyp_unk_copy_info.append({'token': token, 'token_pos_list': token_pos_list,
                                                               'copy_prob': gated_copy_prob.data.item()})
 
-                            for token, token_pos_list in aggregated_function_tokens.items():
-                                sum_copy_prob_f = torch.gather(primitive_copy_prob_f[hyp_id], 0, Variable(T.LongTensor(token_pos_list))).sum()
-                                gated_copy_prob_f = primitive_predictor_prob[hyp_id, 2] * sum_copy_prob_f
+                            if args.no_func_copy is False:
+                                for token, token_pos_list in aggregated_function_tokens.items():
+                                    sum_copy_prob_f = torch.gather(primitive_copy_prob_f[hyp_id], 0, Variable(T.LongTensor(token_pos_list))).sum()
+                                    gated_copy_prob_f = primitive_predictor_prob[hyp_id, 2] * sum_copy_prob_f
 
-                                if token in primitive_vocab:
-                                    token_id = primitive_vocab[token]
-                                    primitive_prob[hyp_id, token_id] = primitive_prob[hyp_id, token_id] + gated_copy_prob_f
+                                    if token in primitive_vocab:
+                                        token_id = primitive_vocab[token]
+                                        primitive_prob[hyp_id, token_id] = primitive_prob[hyp_id, token_id] + gated_copy_prob_f
 
-                                    hyp_copy_info[token] = (token_pos_list, gated_copy_prob_f.data.item())
-                                else:
-                                    hyp_unk_copy_info.append({'token': token, 'token_pos_list': token_pos_list,
-                                                              'copy_prob': gated_copy_prob_f.data.item()})
+                                        hyp_copy_info[token] = (token_pos_list, gated_copy_prob_f.data.item())
+                                    else:
+                                        hyp_unk_copy_info.append({'token': token, 'token_pos_list': token_pos_list,
+                                                                  'copy_prob': gated_copy_prob_f.data.item()})
 
                         if args.no_copy is False and len(hyp_unk_copy_info) > 0:
                             unk_i = np.array([x['copy_prob'] for x in hyp_unk_copy_info]).argmax()

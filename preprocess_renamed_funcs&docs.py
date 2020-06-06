@@ -1,13 +1,8 @@
-import argparse
 import json
 import os
 import pickle
 import sys
-
 import numpy as np
-
-import sys
-sys.path.insert(0, "/home/jony/research/external-knowledge-codegen")
 
 from asdl.hypothesis import *
 from asdl.lang.py3.py3_transition_system import python_ast_to_asdl_ast, asdl_ast_to_python_ast, Python3TransitionSystem
@@ -19,6 +14,7 @@ from datasets.conala.evaluator import ConalaEvaluator
 from datasets.conala.util import *
 
 assert astor.__version__ == '0.7.1'
+
 
 def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, code_freq=3,
                               mined_data_file=None, api_data_file=None,
@@ -32,11 +28,11 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     print('process gold training data...')
     train_examples = preprocess_dataset(train_file, name='train', transition_system=transition_system)
 
-    # held out 200 examples for development
+    num_dev = 200    # held out examples for development
     full_train_examples = train_examples[:]
     np.random.shuffle(train_examples)
-    dev_examples = train_examples[:200]
-    train_examples = train_examples[200:]
+    dev_examples = train_examples[:num_dev]
+    train_examples = train_examples[num_dev:]
 
     mined_examples = []
     api_examples = []
@@ -101,7 +97,7 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     pickle.dump(vocab, open(os.path.join(out_dir, vocab_name), 'wb'))
 
 
-def preprocess_dataset(file_path, transition_system, name='train', firstk=None):
+def preprocess_dataset(file_path, transition_system, name='train', firstk=None, functions_key='doc_id_by_name'):
     try:
         dataset = json.load(open(file_path))
     except:
@@ -110,10 +106,10 @@ def preprocess_dataset(file_path, transition_system, name='train', firstk=None):
         dataset = dataset[:firstk]
     examples = []
     evaluator = ConalaEvaluator(transition_system)
-    f = open(file_path + '.debug', 'w')
+    # f = open(file_path + '.debug', 'w')
     skipped_list = []
     for i, example_json in enumerate(dataset):
-        try:
+        try:  # if True:
             example_dict = preprocess_example(example_json)
 
             python_ast = ast.parse(example_dict['canonical_snippet'])
@@ -143,21 +139,24 @@ def preprocess_dataset(file_path, transition_system, name='train', firstk=None):
             assert code_from_hyp == canonical_code
 
             decanonicalized_code_from_hyp = decanonicalize_code(code_from_hyp, example_dict['slot_map'])
-            assert compare_ast(ast.parse(example_json['snippet']), ast.parse(decanonicalized_code_from_hyp))
+            assert compare_ast(ast.parse(example_json['canonic']), ast.parse(decanonicalized_code_from_hyp))  # FIXME
             assert transition_system.compare_ast(transition_system.surface_code_to_ast(decanonicalized_code_from_hyp),
-                                                 transition_system.surface_code_to_ast(example_json['snippet']))
+                                                 transition_system.surface_code_to_ast(example_json['canonic']))  # FIXME
 
             tgt_action_infos = get_action_infos(example_dict['intent_tokens'], tgt_actions)
         except (AssertionError, SyntaxError, ValueError, OverflowError) as e:
             skipped_list.append(example_json['question_id'])
             continue
+
+        functions_field = example_json[functions_key] if functions_key in example_json else {}
         example = Example(idx=f'{i}-{example_json["question_id"]}',
                           src_sent=example_dict['intent_tokens'],
                           tgt_actions=tgt_action_infos,
                           tgt_code=canonical_code,
                           tgt_ast=tgt_ast,
                           meta=dict(example_dict=example_json,
-                                    slot_map=example_dict['slot_map']))
+                                    slot_map=example_dict['slot_map']),
+                          functions=functions_field)
         assert evaluator.is_hyp_correct(example, hyp)
 
         examples.append(example)
@@ -174,7 +173,7 @@ def preprocess_dataset(file_path, transition_system, name='train', firstk=None):
         # f.write(f"Snippet: {example.tgt_code}\n")
         # f.write(f"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
 
-    f.close()
+    # f.close()
     print('Skipped due to exceptions: %d' % len(skipped_list), file=sys.stderr)
     return examples
 
@@ -188,7 +187,8 @@ def preprocess_example(example_json):
 
     if rewritten_intent is None:
         rewritten_intent = intent
-    snippet = example_json['snippet']
+    # snippet = example_json['snippet']  # FIXME
+    snippet = example_json['canonic']
 
     canonical_intent, slot_map = canonicalize_intent(rewritten_intent)
     canonical_snippet = canonicalize_code(snippet, slot_map)
@@ -207,45 +207,12 @@ def preprocess_example(example_json):
 
 
 if __name__ == '__main__':
-    arg_parser = argparse.ArgumentParser()
-    #### General configuration ####
-    arg_parser.add_argument('--pretrain', type=str, help='Path to pretrain file')
-    arg_parser.add_argument('--out_dir', type=str, default='data/conala', help='Path to output file')
-    arg_parser.add_argument('--topk', type=int, default=0, help='First k number from mined file')
-    arg_parser.add_argument('--freq', type=int, default=3, help='minimum frequency of tokens')
-    arg_parser.add_argument('--vocabsize', type=int, default=20000, help='First k number from pretrain file')
-    arg_parser.add_argument('--include_api', type=str, help='Path to apidocs file')
-    args = arg_parser.parse_args()
-
-    preprocess_conala_dataset(train_file='data/conala-renamed_funcs&docs/renamed_funcs_train.json',
-                              test_file='data/conala-renamed_funcs&docs/renamed_funcs_test.json',
-                              mined_data_file=args.pretrain,
-                              api_data_file=args.include_api,
+    preprocess_conala_dataset(train_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_train.json',
+                              test_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_test.json',
+                              mined_data_file=None,
+                              api_data_file=None,
                               grammar_file='asdl/lang/py3/py3_asdl.simplified.txt',
-                              src_freq=args.freq, code_freq=args.freq,
-                              vocab_size=args.vocabsize,
-                              num_mined=args.topk,
-                              out_dir=args.out_dir)
-
-    # the json files can be downloaded from http://conala-corpus.github.io
-    # preprocess_conala_dataset(train_file='data/conala/conala-train.json',
-    #                           test_file='data/conala/conala-test.json',
-    #                           mined_data_file=args.pretrain,
-    #                           api_data_file=args.include_api,
-    #                           grammar_file='asdl/lang/py3/py3_asdl.simplified.txt',
-    #                           src_freq=args.freq, code_freq=args.freq,
-    #                           vocab_size=args.vocabsize,
-    #                           num_mined=args.topk,
-    #                           out_dir=args.out_dir)
-
-    # mined_data_file = "../../data/conala/conala-mined.jsonl"
-    # print("from file: ", mined_data_file)
-    # grammar_file = "../../asdl/lang/py3/py3_asdl.simplified.txt"
-    # # grammar_file = "../run.py"
-    # asdl_text = open(grammar_file).read()
-    # grammar = ASDLGrammar.from_text(asdl_text)
-    # transition_system = Python3TransitionSystem(grammar)
-    #
-    # mined_examples = preprocess_dataset(mined_data_file, name='mined', transition_system=transition_system,
-    #                                     firstk=None)
-    # pickle.dump(mined_examples, open("mined-full.bin", 'wb'))
+                              src_freq=3, code_freq=3,
+                              vocab_size=20000,
+                              num_mined=100000,
+                              out_dir='data/conala-renamed_funcs&docs/')
