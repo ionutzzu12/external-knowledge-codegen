@@ -576,6 +576,12 @@ def train_reranker_and_test(args):
 
 
 def main(args_instance):
+    # seed the RNG
+    torch.manual_seed(args_instance.seed)
+    if args_instance.cuda:
+        torch.cuda.manual_seed(args_instance.seed)
+    np.random.seed(int(args_instance.seed * 13 / 7))
+
     if args_instance.mode == 'train':
         train(args_instance)
     elif args_instance.mode in ('train_reconstructor', 'train_paraphrase_identifier'):
@@ -587,7 +593,7 @@ def main(args_instance):
     elif args_instance.mode == 'interactive':
         interactive_mode(args_instance)
     else:
-        raise RuntimeError('unknown mode')
+        raise RuntimeError('Unknown mode')
 
 
 if __name__ == '__main__':

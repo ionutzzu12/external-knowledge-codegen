@@ -18,7 +18,8 @@ class BaseArgs:
     mined_num = 100000
     ret_method = "snippet_count100k_topk1_temp2"
     freq = 3
-    vocab = f"data/conala/vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.bin"
+    # vocab = f"data/conala/vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.bin"
+    vocab = "data/conala-renamed_funcs&docs/vocab.src_freq3.code_freq3.bin"  # FIXME
     dev_file = "data/conala/dev.bin"  # TODO
 
     dropout = 0.3
@@ -91,10 +92,10 @@ class PretrainArgs(BaseArgs):
 
 
 class FinetuneArgs(BaseArgs):
-    def __init__(self):
+    def __init__(self, model_name='classic_train_dev200'):
         BaseArgs.__init__(self)
 
-        self.model_name = 'classic_train_dev100'
+        self.model_name = model_name
         self.mode = 'train'
         self.train_file = "data/conala-renamed_funcs&docs/train.all_100000.bin"
         self.dev_file = "data/conala-renamed_funcs&docs/dev.bin"

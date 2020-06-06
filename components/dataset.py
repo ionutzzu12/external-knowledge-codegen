@@ -15,8 +15,7 @@ from common.utils import cached_property
 
 from model import nn_utils
 from datasets.conala.util import tokenize_intent
-from random import choice
-from copy import copy
+from random import choice, shuffle
 
 
 def load_docs():
@@ -42,6 +41,7 @@ def complete_funcs(init_functions, all_functions, total=5):
         if new_function not in functions:
             functions.append(new_function)
             n0 += 1
+    shuffle(functions)
     return functions
 
 

@@ -28,7 +28,7 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     print('process gold training data...')
     train_examples = preprocess_dataset(train_file, name='train', transition_system=transition_system)
 
-    num_dev = 100    # held out examples for development
+    num_dev = 200    # held out examples for development
     full_train_examples = train_examples[:]
     np.random.shuffle(train_examples)
     dev_examples = train_examples[:num_dev]
@@ -207,8 +207,8 @@ def preprocess_example(example_json):
 
 
 if __name__ == '__main__':
-    preprocess_conala_dataset(train_file='data/conala-renamed_funcs&docs/renamed_funcs_train.json',
-                              test_file='data/conala-renamed_funcs&docs/renamed_funcs_test.json',
+    preprocess_conala_dataset(train_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_train.json',
+                              test_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_test.json',
                               mined_data_file=None,
                               api_data_file=None,
                               grammar_file='asdl/lang/py3/py3_asdl.simplified.txt',
