@@ -6,7 +6,9 @@ file1 = "orig-train"
 file2 = "10func-train"
 
 file3 = "10func-train2"
+
 file4 = "03func-train"
+
 
 PLOT_LOSS = 1
 PLOT_SCORE = 2
@@ -33,11 +35,13 @@ def draw(fname, dowhat):
                     ys.append(float(ps[1]))
 
     print(ys)
+
     plt.plot(range(len(ys)), ys, label=fname)
 
 
 if __name__ == "__main__":
     files = [file1, file2, file3, file4]
+
     do_what = PLOT_SCORE
 
     for f in files:

@@ -1,5 +1,6 @@
 # coding=utf-8
 from collections import OrderedDict
+from random import choice, shuffle
 
 import torch
 import numpy as np
@@ -93,6 +94,19 @@ class Example(object):
         self.meta = meta
 
         self.functions = functions
+
+
+# filter and keep first 2 + 1 random
+def sample(functions):
+    ret = []
+    for f in functions:
+        fname = f['fname']
+        if fname != '' and '.' not in fname:
+            ret.append(f)
+    ch = choice(ret[2:])
+    ret = ret[:2] + [ch]
+    shuffle(ret)
+    return ret
 
 
 class Batch(object):
@@ -208,13 +222,14 @@ class Batch(object):
                             copy_mask_f = 1
                             token_can_copy_f = True
 
-                        if token_can_copy is False or token_idx != self.vocab.primitive.unk_id:
-                            # if the token is not copied, we can only generate this token from the vocabulary,
-                            # even if it is a <unk>.
-                            # otherwise, we can still generate it from the vocabulary
-                            gen_token_mask = 1
+                        # if token_can_copy is False or token_idx != self.vocab.primitive.unk_id:
+                        #     # if the token is not copied, we can only generate this token from the vocabulary,
+                        #     # even if it is a <unk>.
+                        #     # otherwise, we can still generate it from the vocabulary
+                        #     gen_token_mask = 1
 
-                        if token_can_copy_f is False or token_idx != self.vocab.primitive.unk_id:
+                        if token_can_copy is False or token_can_copy_f is False or \
+                                token_idx != self.vocab.primitive.unk_id:
                             gen_token_mask = 1
 
                         if token_can_copy:
