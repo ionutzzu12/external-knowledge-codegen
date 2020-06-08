@@ -1,4 +1,6 @@
 
+training set / dev set ??
+
 The calls' func names are actually attributes (exp = Name(module_name), id = func_name).
 
 augment_bin_examples -> adds functions member (index in func_details.json, func name with its snippet form).
@@ -53,10 +55,21 @@ GTX960m times after docs+pointer_net2:
 	250s  training epoch
 	8:23 decoding 200 examples
 
+GTX960m times after docs+pointer_net2+shuffle3funcs:
+--dynamic cuda
+	185s  training epoch
+	2:53 decoding 200 examples
+	
+
 google colab times:
 --cuda
 	20s  training epoch
 	1:20 decoding 200 examples
 no_cuda
-	20s  training epoch
+	120s  training epoch
 	1:20 decoding 200 examples
+	
+google colab times after docs+pointer_net2:
+--cuda
+	211s  training epoch
+	3:16 decoding 200 examples

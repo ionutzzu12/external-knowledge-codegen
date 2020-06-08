@@ -26,6 +26,8 @@ from model.attention_util import AttentionUtil
 from model.nn_utils import LabelSmoothing
 from model.pointer_net import PointerNet
 
+from components.dataset import sample
+
 
 @Registrable.register('default_parser')
 class Parser(nn.Module):
