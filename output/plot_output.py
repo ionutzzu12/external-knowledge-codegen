@@ -2,11 +2,16 @@
 import re
 import matplotlib.pyplot as plt
 
-file1 = "orig-train"
-file2 = "10func-train"
+file0 = "orig-train"
+file1 = "orig-train-renamed_fs"
+file1_5 = "orig-train-renamed_fs2"
 
-file3 = "10func-train2"
-file4 = "03func-train"
+file2 = "05func-train-shuffle"
+file2_5 = "05func-train-shuffle-dev200"
+
+# file2 = "10func-train"
+# file3 = "10func-train2"
+# file4 = "03func-train"
 
 PLOT_LOSS = 1
 PLOT_SCORE = 2
@@ -37,7 +42,8 @@ def draw(fname, dowhat):
 
 
 if __name__ == "__main__":
-    files = [file1, file2, file3, file4]
+    # files = [file1, file2, file3, file4]
+    files = [file0, file1, file1_5, file2, file2_5]
     do_what = PLOT_SCORE
 
     for f in files:

@@ -21,10 +21,9 @@ times:
 --rtx2060s																	--colab
 	CLASSIC									FUNCS								FUNCS
 	(cuda) 40s training epoch				(cuda) 60s training epoch 			(cuda) 80s
-	(cuda) 90s decoding 100					(cuda)  							(cuda)
-	(cpu)  21s decoding 100					(cpu)  27s decoding 100				(cpu) 32s
-
-
+	(cuda) 90s decoding 100					  									
+	(cpu)  21s decoding 100					(cpu)  27s decoding 100				(cpu) 32s decoding 100
+	(cpu)  57s decoding 200														(cpu) 61s decoding 200
 
 
 

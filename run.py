@@ -42,8 +42,8 @@ class BaseArgs:
     transition_system = 'python3'
     evaluator = 'conala_evaluator'
     verbose = False
-    patience = 5
-    max_num_trial = 5
+    patience = 15  # 5
+    max_num_trial = 15  # 5
     glorot_init = True
     log_every = 50
 
@@ -70,7 +70,7 @@ class BaseArgs:
     uniform_init = None
     clip_grad = 5.
     optimizer = 'Adam'
-    decay_lr_every_epoch = 0
+    decay_lr_every_epoch = False
     reset_optimizer = False
     eval_top_pred_only = False
     example_preprocessor = None
@@ -92,7 +92,7 @@ class PretrainArgs(BaseArgs):
 
 
 class FinetuneArgs(BaseArgs):
-    def __init__(self, model_name='classic_train_dev200'):
+    def __init__(self, model_name='classic_train-dev200-no_limits'):
         BaseArgs.__init__(self)
 
         self.model_name = model_name
@@ -105,10 +105,10 @@ class FinetuneArgs(BaseArgs):
 
 
 class TrainWithFuncs(BaseArgs):
-    def __init__(self):
+    def __init__(self, model_name='funcs_train_last_neneg_dev200'):
         BaseArgs.__init__(self)
 
-        self.model_name = 'funcs_train_last_neneg'
+        self.model_name = model_name
         self.no_func_copy = False
         self.mode = 'train'
         self.train_file = "data/conala-renamed_funcs&docs/train.all_100000.bin"
