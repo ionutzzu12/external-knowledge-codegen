@@ -1,0 +1,150 @@
+>>> gen: locals
+>>> ref: locals
+
+>>> gen: args
+>>> ref: random_Random
+
+>>> gen: logging_handlers_HTTPHandler logging_handlers_HTTPHandler
+>>> ref: OSError
+
+>>> gen: max
+>>> ref: max
+
+>>> gen: pandas_Index_tolist
+>>> ref: logging_config_fileConfig
+
+>>> gen: abs
+>>> ref: abs
+
+>>> gen: msilib_CreateRecord
+>>> ref: msilib_CreateRecord
+
+>>> gen: random_SystemRandom random_SystemRandom
+>>> ref: msilib_Directory
+
+>>> gen: msilib_Dialog_line msilib_Dialog_line
+>>> ref: webbrowser_get
+
+>>> gen: 
+>>> ref: dict
+
+>>> gen: imaplib_IMAP4_stream imaplib_IMAP4_stream
+>>> ref: dbm_open
+
+>>> gen: 
+>>> ref: pstats_Stats
+
+>>> gen: re_search
+>>> ref: re_search
+
+>>> gen: codecs_CodecInfo
+>>> ref: codecs_CodecInfo
+
+>>> gen: socket_socket_detach logging_StreamHandler
+>>> ref: email_iterators_typed_subpart_iterator
+
+>>> gen: logging_log urllib_request_urlopen
+>>> ref: urllib_request_urlopen
+
+>>> gen: tkinter_ttk_Notebook_tab
+>>> ref: readline_set_auto_history
+
+>>> gen: io_BufferedReader curses_ascii_ctrl
+>>> ref: io_BufferedReader
+
+>>> gen: statistics_median_grouped statistics_median_grouped statistics_median_grouped
+>>> ref: logging_FileHandler
+
+>>> gen: msilib_CreateRecord
+>>> ref: msilib_CreateRecord
+
+>>> gen: decimal_Decimal decimal_Decimal
+>>> ref: decimal_Decimal
+
+>>> gen: asyncio_isfuture
+>>> ref: asyncio_isfuture
+
+>>> gen: struct_pack struct_pack
+>>> ref: struct_pack
+
+>>> gen: random_choices random_choices
+>>> ref: random_choices
+
+>>> gen: itertools_combinations_with_replacement itertools_combinations_with_replacement
+>>> ref: fcntl_lockf
+
+>>> gen: ssl_SSLContext_sslsocket_class
+>>> ref: email_headerregistry_Address
+
+>>> gen: random_choices random_choices
+>>> ref: random_choices
+
+>>> gen: frozenset_update frozenset_update
+>>> ref: calendar_prcal
+
+>>> gen: resource_RLIMIT_NPTS
+>>> ref: urllib_request_ProxyHandler
+
+>>> gen: signal_alarm email_contentmanager_get_content
+>>> ref: email_contentmanager_get_content
+
+>>> gen: heap
+>>> ref: heapq_heappush
+
+>>> gen: s_rstrip
+>>> ref: breakpoint
+
+>>> gen: plt_savefig port.array_array_fromlist
+>>> ref: logging_config_listen
+
+>>> gen: sched_scheduler_enterabs sched_scheduler_enterabs
+>>> ref: base64_b64decode
+
+>>> gen: getpass_getpass ssl_PEM_cert_to_DER_cert
+>>> ref: getpass_getpass
+
+>>> gen: turtle_circle queue_SimpleQueue_put
+>>> ref: turtle_circle
+
+>>> gen: unittest_TestLoader_getTestCaseNames
+>>> ref: curses_is_term_resized
+
+>>> gen: traceback_print_tb
+>>> ref: 
+
+>>> gen: stat_S_IFMT
+>>> ref: fcntl_ioctl
+
+>>> gen: asyncio_SubprocessTransport_get_returncode asyncio_SubprocessTransport_get_returncode asyncio_SubprocessTransport_get_returncode
+>>> ref: filecmp_cmpfiles
+
+>>> gen: imaplib_IMAP4_myrights
+>>> ref: ctypes_byref
+
+>>> gen: math_modf math_modf
+>>> ref: collections_OrderedDict
+
+>>> gen: ipaddress_ip_network
+>>> ref: cgitb_text
+
+>>> gen: nntplib_NNTP_list
+>>> ref: os_link
+
+>>> gen: select_kevent_flags
+>>> ref: os__exit
+
+>>> gen: cmath_log10 cmath_log10
+>>> ref: os_WCOREDUMP
+
+>>> gen: secrets_choice secrets_choice
+>>> ref: bz2_open
+
+>>> gen: list d.list
+>>> ref: list
+
+>>> gen: chunk_Chunk chunk_Chunk
+>>> ref: cgi_parse_qs
+
+>>> gen: stat_S_IFBLK stat_S_IFBLK
+>>> ref: mailcap_findmatch
+

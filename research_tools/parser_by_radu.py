@@ -6,8 +6,8 @@ import token
 from collections import defaultdict
 from tokenize import TokenInfo, tokenize
 
-import astpretty
-from termcolor import colored
+# import astpretty
+# from termcolor import colored
 from pprint import pprint as pp
 from ast import iter_fields, AST
 

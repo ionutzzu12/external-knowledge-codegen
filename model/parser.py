@@ -171,7 +171,7 @@ class Parser(nn.Module):
             self.new_tensor = torch.FloatTensor
 
         if not args.no_func_copy:
-            self.docs_by_name, self.all_func_names = load_docs()
+            self.docs_by_name, self.all_func_names, _ = load_docs()
 
     def cuda(self, device=None):
         self.new_long_tensor = torch.cuda.LongTensor

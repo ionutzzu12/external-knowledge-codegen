@@ -25,15 +25,17 @@ def load_docs():
     # docs_index_dict = {}
     # for key, value in docs_raw_dict.items():
     #     docs_index_dict[value['index']] = tokenize_intent(' '.join(value['doc'][:2]))docs_index_dict = {}
+    canonic_to_orig_names = {}
     docs_dict = {}
     func_names = []
     for key, value in docs_raw_dict.items():
         docs_dict[key] = tokenize_intent(' '.join(value['doc'][:2]))
         func_names.append(key)
-    return docs_dict, func_names
+        canonic_to_orig_names[key] = value['name']
+    return docs_dict, func_names, canonic_to_orig_names
 
 
-def complete_funcs(init_functions, all_functions, total=5):
+def complete_funcs(init_functions, all_functions, total=10):
     functions = [func_name for func_name in init_functions]
     n0 = len(functions)
 

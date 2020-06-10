@@ -697,3 +697,7 @@ Decoding: 100%|██████████| 500/500 [02:20<00:00,  3.55it/s]
 {'corpus_bleu': 0.24777533123665088, 'oracle_corpus_bleu': 0.3392120936293818, 'avg_sent_bleu': 0.19959515374598277, 'oracle_avg_sent_bleu': 0.31132305675580196, 'exact_match': 0.016, 'oracle_exact_match': 0.046}
 
 Process finished with exit code 0
+
+
+
+

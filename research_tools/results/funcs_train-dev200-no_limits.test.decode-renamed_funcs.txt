@@ -1,0 +1,150 @@
+>>> gen: dis_Instruction_is_jump_target ( someclass . someclass , someclass )
+>>> ref: self_driver_find_element_by_css_selector ( ` . someclass a ` ) . get_attribute ( ` href ` )
+
+>>> gen: all ( string )
+>>> ref: all ( predicate ( x ) for x in string )
+
+>>> gen: numpy_array ( [ ( x in b ) for x , y in zip ( a , b ) ] )
+>>> ref: numpy_array ( [ zip ( x , y ) for x , y in zip ( a , b ) ] )
+
+>>> gen: os_chdir ( owd )
+>>> ref: os_chdir ( owd )
+
+>>> gen: sorted ( s ) . sorted ( s , key = lambda x : x [ 1 ] )
+>>> ref: sorted ( list5 , key = lambda vertex : ( degree ( vertex ) , vertex ) )
+
+>>> gen: os_write ( ` . ` )
+>>> ref: os_write ( ` . ` )
+
+>>> gen: a . loc [ var_2 . a = = 0 , ` a ` ]
+>>> ref: a [ np_where ( ( a [ : , ( 0 ) ] = = 0 ) * ( a [ : , ( 1 ) ] = = 1 ) ) ]
+
+>>> gen: ` ` ` ( { } goals , $ { } ) ` ` ` . format ( penalties , goals )
+>>> ref: ` ` ` ( { } goals , $ { } ) ` ` ` . format ( self . goals , self . penalties )
+
+>>> gen: collections_Counter ( collections_Counter ( path ) )
+>>> ref: distutils_dir_util_mkpath ( path )
+
+>>> gen: len ( my_string )
+>>> ref: len ( my_string )
+
+>>> gen: isinstance ( ` \ \ ( ( . * ? ) \ \ ) | ( \ \ w ) ` , ` ( zyx ) bc ` )
+>>> ref: re_findall ( ` \ \ ( ( . * ? ) \ \ ) | ( \ \ w ) ` , ` ( zyx ) bc ` )
+
+>>> gen: re_subn ( ` always ` )
+>>> ref: warnings_simplefilter ( ` always ` )
+
+>>> gen: df [ ` b ` ] . typing_Set ( df [ ` a ` ] )
+>>> ref: df [ ` c ` ] = np_where ( df [ ` a ` ] . isnull , df [ ` b ` ] , df [ ` a ` ] )
+
+>>> gen: f = os_path_abspath ( os_path_abspath ( mydir / myfile . txt ) , ` mydir / myfile . txt ` )
+>>> ref: os_path_abspath ( ` mydir / myfile . txt ` )
+
+>>> gen: my_dict = { ( k , ` third_key ` ) : my_dict for k , v in nntplib_decode_header ( my_dict . update ( s ) ) }
+>>> ref: my_dict . update ( { ` third_key ` : 1 } )
+
+>>> gen: [ y for x in zip ( a , b ) for y in x ]
+>>> ref: numpy_array ( zip ( a_ravel ( ) , b_ravel ( ) ) , dtype = ` i4 , i4 ` ) . numpy_reshape ( a . shape )
+
+>>> gen: session_query ( a ) . queue_Simple Queue_get_nowait ( ` None ` )
+>>> ref: db_execute ( ` INSERT INTO present VALUES ( ` test2 ` , ? , 10 ) ` , ( None , ) )
+
+>>> gen: print ( ` ` . hexdigest ( ` - ` ) )
+>>> ref: print ( x_rsplit ( ` - ` , 1 ) [ 0 ] )
+
+>>> gen: print ( ` Ð ¿ Ñ \ x80 Ð ¸ ` . encode ( ` utf - 8 ` ) )
+>>> ref: print ( ` \ xd0 \ xbf \ xd1 \ x80 \ xd0 \ xb8 ` . encode ( ` raw_unicode_escape ` ) )
+
+>>> gen: df [ ` day ` ] = df [ ` day ` ] . str . errno_ECONNRESET ( ` sat ` )
+>>> ref: df_xs ( ` sat ` , level = ` day ` , drop_level = False )
+
+>>> gen: inspect_isbuiltin ( ` % { 0 } % ` )
+>>> ref: elements = [ ` % { 0 } % ` . format ( element ) for element in elements ]
+
+>>> gen: map ( int , map ( lambda x : ( x [ 2 : : - 2 ] , ) ) )
+>>> ref: map ( int , eval ( input ( ` Enter the unfriendly numbers : ` ) ) )
+
+>>> gen: print ( map ( l , [ ` ` ] ) . map ( int , l [ x : y + 1 ] ) ) . map ( int , l [ : : - 1 ] )
+>>> ref: print ( ` ` . join ( map ( str , l ) ) )
+
+>>> gen: socketserver_Base Server_finish_request ( socketserver_Base Server_finish_request ( x ) - socketserver_Base Server_finish_request ( socketserver_Base Server_finish_request ( x ) ) + 3 )
+>>> ref: file_seek ( 0 )
+
+>>> gen: open ( ` filename ` , ` rb ` ) . pandas_Data Frame_filter ( )
+>>> ref: open ( filename , ` w ` ) . os_close ( )
+
+>>> gen: pd_concat ( [ ` name ` , ` name ` ] )
+>>> ref: x_set_index ( ` name ` ) . index_get_duplicates ( )
+
+>>> gen: os_write ( struct_pack ( ` new File ` , new File ) . os_write ( new File ) )
+>>> ref: os_write ( struct_pack ( ` 5B ` , * new File Bytes ) )
+
+>>> gen: numpy_zeros ( ) . numpy_zeros ( [ 1 , 3 ] )
+>>> ref: numpy_zeros ( ( 3 , 3 , 3 ) )
+
+>>> gen: list2 = [ list1 ] + list2
+>>> ref: list2_extend ( list1 )
+
+>>> gen: int ( intstringlist ) + int ( intstringlist )
+>>> ref: nums = [ int ( x ) for x in intstringlist ]
+
+>>> gen: join ( ( x , s . split ( ` . ` ) + doctest_Doc Test_docstring ( s [ i ] ) ) for x in s . split ( ` . ` ) )
+>>> ref: ` ` ` . ` ` ` . join ( s . split ( ` . ` ) [ : : - 1 ] )
+
+>>> gen: dict [ - 1 ]
+>>> ref: list ( dict . keys ( ) ) [ - 1 ]
+
+>>> gen: opcode - CALL_FUNCTION ( ` hello ` )
+>>> ref: s . encode ( ` iso - 8859 - 15 ` )
+
+>>> gen: [ struct_Struct ( c ) for m in l ]
+>>> ref: ` ` ` ` ` ` . join ( [ ( ` % d @ % d ` % t ) for t in l ] )
+
+>>> gen: [ [ [ ` A ` , ` B ` , ` C ` ] , [ ` D ` , ` E ` , ` F ` ] , [ ` G ` , ` H ` , ` I ` ] ] for [ [ ` A ` , ` B ` , ` C ` ] , [ ` D ` , ` E ` , ` F ` ] , [ ` G ` , ` H ` , ` I ` ] ] in sum ( sum ( y ) for x in [ [ ` A ` , ` B ` , ` C ` ] , [ ` D ` , ` E ` , ` F ` ] , [ ` G ` , ` H ` , ` I ` ] ] ) ]
+>>> ref: values = sum ( [ [ ` A ` , ` B ` , ` C ` ] , [ ` D ` , ` E ` , ` F ` ] , [ ` G ` , ` H ` , ` I ` ] ] , [ ] )
+
+>>> gen: print ( range ( 100 , ` r ` ) )
+>>> ref: for i in range ( 256 ) : for j in range ( 256 ) : ip = ( ` 192 . 168 . % d . % d ` % ( i , j ) ) print ( ip )
+
+>>> gen: cmdoption - compileall - i ( cmdoption - compileall - i ( ) )
+>>> ref: os_statvfs ( ` / ` ) . f_files - os_statvfs ( ` / ` ) . f_ffree
+
+>>> gen: ` ` ` ` ` ` . join ( c for c in aas30dsa20 if c = = None )
+>>> ref: ` ` ` ` ` ` . join ( [ x for x in ` aas30dsa20 ` if x_isdigit ( ) ] )
+
+>>> gen: df . columns = pandas_Data Frame_reset_index ( 0 )
+>>> ref: pandas_Data Frame_reset_index ( level = 0 , inplace = True )
+
+>>> gen: df [ ` b ` ] . apply ( df . values )
+>>> ref: df_sort_values ( [ ` System_num ` , ` Dis ` ] )
+
+>>> gen: map ( list , map ( lambda x : x * y , [ ( ( ` aa ` , ) , ( ` bb ` , ) , ( ` cc ` , ) ) ] ) )
+>>> ref: map ( lambda a : a [ 0 ] , ( ( ` aa ` , ) , ( ` bb ` , ) , ( ` cc ` , ) ) )
+
+>>> gen: re_sub ( ` ` , ` ` , s )
+>>> ref: brackets = re_sub ( ` [ ^ ( ) { } [ \ \ ] ] ` , ` ` , s )
+
+>>> gen: sum ( zip ( * data ) )
+>>> ref: [ [ sum ( item ) for item in zip ( * items ) ] for items in zip ( * data ) ]
+
+>>> gen: sort ( key = lambda x : item [ title ] )
+>>> ref: mylist . sort ( key = lambda x : x [ ` title ` ] )
+
+>>> gen: len ( len ( v ) for v in set ( len ( v ) for x in yourdictfile ) )
+>>> ref: len ( set ( open ( yourdictfile ) . os_read ( ) . split ( ) ) )
+
+>>> gen: django_Query Set_order_by ( ` 192 . 168 . x . x ` )
+>>> ref: generator = iter_iprange ( ` 192 . 168 . 1 . 1 ` , ` 192 . 168 . 255 . 255 ` , step = 1 )
+
+>>> gen: list ( set ( set ( i ) for x in source_list ) )
+>>> ref: list ( set ( source_list ) )
+
+>>> gen: re_split ( ` ( \ \ W + ) ` , ` Words , words , words . ` )
+>>> ref: re_split ( ` ( \ \ W + ) ` , ` Words , words , words . ` )
+
+>>> gen: tarfile_Tar Info_islnk ( arr , dtype = [ ` utf - 8 ` ] )
+>>> ref: arr = numpy_fromiter ( codecs_open ( ` new . txt ` , encoding = ` utf - 8 ` ) , dtype = ` < U2 ` )
+
+>>> gen: turtle_heading ( turtle_heading ( line1 ) . bytes_hex ( turtle_heading ( line3 ) . bytes_hex ( line3 ) ) )
+>>> ref: target_write ( ` % r \ n % r \ n % r \ n ` % ( line1 , line2 , line3 ) )
+

@@ -112,3 +112,4 @@ saved_models/
 
 # decodes output files
 decodes/
+/analyze_func_decodes.py

@@ -1,0 +1,150 @@
+>>> gen: dis_Instruction_is_jump_target
+>>> ref: get_attribute self_driver_find_element_by_css_selector
+
+>>> gen: all
+>>> ref: all predicate
+
+>>> gen: numpy_array zip
+>>> ref: numpy_array zip zip
+
+>>> gen: os_chdir
+>>> ref: os_chdir
+
+>>> gen: sorted sorted
+>>> ref: sorted
+
+>>> gen: os_write
+>>> ref: os_write
+
+>>> gen: 
+>>> ref: np_where
+
+>>> gen: format
+>>> ref: format
+
+>>> gen: collections_Counter collections_Counter
+>>> ref: distutils_dir_util_mkpath
+
+>>> gen: len
+>>> ref: len
+
+>>> gen: isinstance
+>>> ref: re_findall
+
+>>> gen: re_subn
+>>> ref: warnings_simplefilter
+
+>>> gen: df[].typing_Set
+>>> ref: np_where
+
+>>> gen: os_path_abspath os_path_abspath
+>>> ref: os_path_abspath
+
+>>> gen: nntplib_decode_header my_dict.update
+>>> ref: my_dict.update
+
+>>> gen: zip
+>>> ref: numpy_reshape numpy_array zip a_ravel b_ravel
+
+>>> gen: queue_SimpleQueue_get_nowait session_query
+>>> ref: db_execute
+
+>>> gen: print hexdigest
+>>> ref: print x_rsplit
+
+>>> gen: print encode
+>>> ref: print encode
+
+>>> gen: df[].str.errno_ECONNRESET
+>>> ref: df_xs
+
+>>> gen: inspect_isbuiltin
+>>> ref: format
+
+>>> gen: map map
+>>> ref: map eval input
+
+>>> gen: map print map map
+>>> ref: print join map
+
+>>> gen: socketserver_BaseServer_finish_request socketserver_BaseServer_finish_request socketserver_BaseServer_finish_request socketserver_BaseServer_finish_request
+>>> ref: file_seek
+
+>>> gen: pandas_DataFrame_filter open
+>>> ref: os_close open
+
+>>> gen: pd_concat
+>>> ref: index_get_duplicates x_set_index
+
+>>> gen: os_write os_write struct_pack
+>>> ref: os_write struct_pack
+
+>>> gen: numpy_zeros numpy_zeros
+>>> ref: numpy_zeros
+
+>>> gen: 
+>>> ref: list2_extend
+
+>>> gen: int int
+>>> ref: int
+
+>>> gen: join s.split doctest_DocTest_docstring s.split
+>>> ref: join s.split
+
+>>> gen: 
+>>> ref: list dict.keys
+
+>>> gen: CALL_FUNCTION
+>>> ref: s.encode
+
+>>> gen: struct_Struct
+>>> ref: join
+
+>>> gen: 
+>>> ref: sum
+
+>>> gen: print range
+>>> ref: range range print
+
+>>> gen: i i
+>>> ref: os_statvfs os_statvfs
+
+>>> gen: join
+>>> ref: join x_isdigit
+
+>>> gen: pandas_DataFrame_reset_index
+>>> ref: pandas_DataFrame_reset_index
+
+>>> gen: df[].apply
+>>> ref: df_sort_values
+
+>>> gen: map map
+>>> ref: map
+
+>>> gen: re_sub
+>>> ref: re_sub
+
+>>> gen: sum zip
+>>> ref: sum zip zip
+
+>>> gen: sort
+>>> ref: mylist.sort
+
+>>> gen: len len set len
+>>> ref: len set split os_read open
+
+>>> gen: django_QuerySet_order_by
+>>> ref: iter_iprange
+
+>>> gen: list set set
+>>> ref: list set
+
+>>> gen: re_split
+>>> ref: re_split
+
+>>> gen: tarfile_TarInfo_islnk
+>>> ref: numpy_fromiter codecs_open
+
+>>> gen: turtle_heading bytes_hex turtle_heading bytes_hex turtle_heading
+>>> ref: target_write
+

@@ -1,0 +1,150 @@
+
+# classic train, patience = 5
+'corpus_bleu': 0.1643574011879876,
+'oracle_corpus_bleu': 0.24610473038570013,
+'avg_sent_bleu': 0.14455388507053288,
+'oracle_avg_sent_bleu': 0.23689470350166647,
+'exact_match': 0.0,
+'oracle_exact_match': 0.002,
+
+'renamed_funcs_corpus_bleu': 0.19339751497691246,
+'renamed_funcs_oracle_corpus_bleu': 0.27967218324123716,
+'renamed_funcs_avg_sent_bleu': 0.17061270099826545,
+'renamed_funcs_oracle_avg_sent_bleu': 0.2800948635408657,
+'renamed_funcs_exact_match': 0.002,
+'renamed_funcs_oracle_exact_match': 0.008
+
+
+# classic train, patience = 15
+'corpus_bleu': 0.2601481697928018,
+'oracle_corpus_bleu': 0.3309344333072996,
+'avg_sent_bleu': 0.2048783327975057,
+'oracle_avg_sent_bleu': 0.30480855343461416,
+'exact_match': 0.014,
+'oracle_exact_match': 0.024,
+
+'renamed_funcs_corpus_bleu': 0.2831466290688256,
+'renamed_funcs_oracle_corpus_bleu': 0.37210691066747215,
+'renamed_funcs_avg_sent_bleu': 0.22706582010640547,
+'renamed_funcs_oracle_avg_sent_bleu': 0.36352386335250003,
+'renamed_funcs_exact_match': 0.018,
+'renamed_funcs_oracle_exact_match': 0.07
+
+
+# classic train, patience = inf
+corpus_bleu : 0.27554936295593335
+oracle_corpus_bleu : 0.3683883388787144
+avg_sent_bleu : 0.21120436397807327
+oracle_avg_sent_bleu : 0.3429490220275107
+exact_match : 0.012
+oracle_exact_match : 0.052
+renamed_funcs_corpus_bleu : 0.28237349384050214
+renamed_funcs_oracle_corpus_bleu : 0.37594948163031955
+renamed_funcs_avg_sent_bleu : 0.21626787061082775
+renamed_funcs_oracle_avg_sent_bleu : 0.34955906163868666
+renamed_funcs_exact_match : 0.012
+renamed_funcs_oracle_exact_match : 0.054
+just_funcs_corpus_bleu : 0.0
+just_funcs_oracle_corpus_bleu : 0.0
+just_funcs_avg_sent_bleu : 0.0792254148927669
+just_funcs_oracle_avg_sent_bleu : 0.15622119293903625
+just_funcs_exact_match : 0.112
+just_funcs_oracle_exact_match : 0.262
+
+
+# same, but on apidocs
+corpus_bleu : 0.044904325658549855
+oracle_corpus_bleu : 0.12008962283569992
+avg_sent_bleu : 0.07441264505919591
+oracle_avg_sent_bleu : 0.15836102640091468
+exact_match : 0.0
+oracle_exact_match : 0.004
+
+renamed_funcs_corpus_bleu : 0.04272228321080358
+renamed_funcs_oracle_corpus_bleu : 0.12575316155564215
+renamed_funcs_avg_sent_bleu : 0.07762191430086901
+renamed_funcs_oracle_avg_sent_bleu : 0.17811909862641914
+renamed_funcs_exact_match : 0.0
+renamed_funcs_oracle_exact_match : 0.004
+
+just_funcs_avg_sent_bleu : 0.010586590452622538
+just_funcs_oracle_avg_sent_bleu : 0.020602596297187872
+just_funcs_exact_match : 0.002
+just_funcs_oracle_exact_match : 0.044
+
+# funcs train, patience = 5
+'corpus_bleu': 0.2821778539552006,
+'oracle_corpus_bleu': 0.34974855549544126,
+'avg_sent_bleu': 0.22802364758020527,
+'oracle_avg_sent_bleu': 0.336933794125227,
+
+'renamed_funcs_corpus_bleu': 0.31199377321843136,
+'renamed_funcs_oracle_corpus_bleu': 0.40942953487372763,
+'renamed_funcs_avg_sent_bleu': 0.2537699624158839,
+'renamed_funcs_oracle_avg_sent_bleu': 0.40204940867448585,
+'renamed_funcs_exact_match': 0.052,
+'renamed_funcs_oracle_exact_match': 0.106
+
+
+# funcs train, patience = 15
+'corpus_bleu': 0.31116757699873693,
+'oracle_corpus_bleu': 0.42154836366756576,
+'avg_sent_bleu': 0.2629843657140075,
+'oracle_avg_sent_bleu': 0.4075666267695766,
+
+'renamed_funcs_corpus_bleu': 0.3040469533129299,
+'renamed_funcs_oracle_corpus_bleu': 0.4188051348490375,
+'renamed_funcs_avg_sent_bleu': 0.2620068088144956,
+'renamed_funcs_oracle_avg_sent_bleu': 0.41191011617787804,
+'renamed_funcs_exact_match': 0.062,
+'renamed_funcs_oracle_exact_match': 0.116,
+
+'just_funcs_corpus_bleu': 0.0,
+'just_funcs_oracle_corpus_bleu': 0.1702565430492949,
+'just_funcs_avg_sent_bleu': 0.17357438632925284,
+'just_funcs_oracle_avg_sent_bleu': 0.25666285614799583
+
+just_funcs_exact_match : 0.254
+just_funcs_oracle_exact_match : 0.482
+
+# funcs train, patience = 10, but more total epochs (100)
+corpus_bleu : 0.32084220554640963
+oracle_corpus_bleu : 0.41319140579262603
+avg_sent_bleu : 0.2555639519123746
+oracle_avg_sent_bleu : 0.3923685259270199
+exact_match : 0.052
+oracle_exact_match : 0.1
+
+renamed_funcs_corpus_bleu : 0.31444641993031663
+renamed_funcs_oracle_corpus_bleu : 0.4075563068819461
+renamed_funcs_avg_sent_bleu : 0.2575411961388964
+renamed_funcs_oracle_avg_sent_bleu : 0.3970852541585709
+renamed_funcs_exact_match : 0.056
+renamed_funcs_oracle_exact_match : 0.098
+
+just_funcs_corpus_bleu : 0.0
+just_funcs_oracle_corpus_bleu : 0.1797371237531445
+just_funcs_avg_sent_bleu : 0.1690886544497397
+just_funcs_oracle_avg_sent_bleu : 0.24080928436270882
+
+just_funcs_exact_match : 0.246
+just_funcs_oracle_exact_match : 0.452
+
+# same, but on apidocs
+corpus_bleu : 0.09099703556052802
+oracle_corpus_bleu : 0.19766149046483528
+avg_sent_bleu : 0.11390545145096662
+oracle_avg_sent_bleu : 0.22105924524786563
+exact_match : 0.0
+oracle_exact_match : 0.026
+renamed_funcs_corpus_bleu : 0.059561170956999726
+renamed_funcs_oracle_corpus_bleu : 0.17276110402590764
+renamed_funcs_avg_sent_bleu : 0.10779685113865202
+renamed_funcs_oracle_avg_sent_bleu : 0.22719622452197405
+renamed_funcs_exact_match : 0.0
+renamed_funcs_oracle_exact_match : 0.026
+
+just_funcs_avg_sent_bleu : 0.10053222771891158
+just_funcs_oracle_avg_sent_bleu : 0.12705763333204587
+just_funcs_exact_match : 0.14
+just_funcs_oracle_exact_match : 0.29

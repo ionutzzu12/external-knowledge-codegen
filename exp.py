@@ -153,7 +153,7 @@ def train(args):
                 print('[Epoch %d] begin validation' % epoch, file=sys.stderr)
                 eval_start = time.time()
 
-                print('switching to cpu')
+                # print('switching to cpu')
                 was_cuda = args.cuda
                 args.cuda = False
                 model.cpu()
@@ -162,7 +162,9 @@ def train(args):
                                                    verbose=False, eval_top_pred_only=args.eval_top_pred_only)
                 dev_score = eval_results[evaluator.default_metric]
 
-                print('switching to cuda')
+                print(evaluator.default_metric, ':', dev_score)
+
+                # print('switching to cuda')
                 args.cuda = was_cuda
                 model.cuda()
 
@@ -489,6 +491,8 @@ def test(args):
     eval_results, decode_results = evaluation.evaluate(test_set.examples, parser, evaluator, args,
                                                        verbose=args.verbose, return_decode_result=True)
     print(eval_results, file=sys.stderr)
+    for k, v in eval_results.items():
+        print(k, ':', v)
     if args.save_decode_to:
         pickle.dump(decode_results, open(args.save_decode_to, 'wb'))
 

@@ -1,0 +1,150 @@
+>>> gen: { key : ( key , value ) for key , value in locals ( name , b ) }
+>>> ref: locals ( )
+
+>>> gen: [ v for i in pdbcommand - args ( ) if v = = 10 ]
+>>> ref: random_Random ( seed )
+
+>>> gen: logging_handlers_HTTPHandler ( logging_handlers_HTTPHandler ( errno ) , filename )
+>>> ref: OSError ( errno , strerror , filename )
+
+>>> gen: max ( key , x = lambda x : key . index ( x [ 0 ] ) , reverse = True )
+>>> ref: max ( iterable , key )
+
+>>> gen: pandas_Index_tolist ( fname , [ disable_existing_loggers [ i ] , disable_existing_loggers + disable_existing_loggers ] + 1 )
+>>> ref: logging_config_file Config ( fname , disable_existing_loggers = True )
+
+>>> gen: abs ( x , key = lambda x : int ( x [ 1 ] ) )
+>>> ref: abs ( x )
+
+>>> gen: msilib_Create Record ( count )
+>>> ref: msilib_Create Record ( count )
+
+>>> gen: random_System Random ( random_System Random ( cab ) , key = lambda k_v : len ( x ) )
+>>> ref: msilib_Directory ( database , cab , basedir , physical , logical , default )
+
+>>> gen: msilib_Dialog_line ( msilib_Dialog_line ( ) , key = lambda x : abs ( x . split ( ` _ ` ) - 1 ) )
+>>> ref: webbrowser_get ( using = None )
+
+>>> gen: dict ( dict ( [ * * kwarg ] ) )
+>>> ref: dict ( * * kwarg )
+
+>>> gen: imaplib_IMAP4_stream ( file ) . imaplib_IMAP4_stream ( )
+>>> ref: dbm_open ( file , flag = ` r ` )
+
+>>> gen: importlib_machinery_File Finder ( [ * filenames or profile ] )
+>>> ref: pstats_Stats ( * filenames or profile )
+
+>>> gen: re_search ( * pattern )
+>>> ref: re_search ( pattern , string , flags = 0 )
+
+>>> gen: codecs_Codec Info ( 0 , decode [ x ] )
+>>> ref: codecs_Codec Info ( encode , decode )
+
+>>> gen: logging_Stream Handler ( ` maintype ` , msg ) . socket_socket_detach ( ` subtype ` )
+>>> ref: email_iterators_typed_subpart_iterator ( msg , maintype = ` text ` )
+
+>>> gen: urllib_request_urlopen ( url , [ 1 ] ) . logging_log ( )
+>>> ref: urllib_request_urlopen ( url , data = None )
+
+>>> gen: tkinter_ttk_Notebook_tab ( x , y , * * ( 1 , 3 , 3 ) )
+>>> ref: readline_set_auto_history ( enabled )
+
+>>> gen: io_Buffered Reader ( curses_ascii_ctrl ( ) , 1 )
+>>> ref: io_Buffered Reader ( raw )
+
+>>> gen: statistics_median_grouped ( statistics_median_grouped ( filename ) , statistics_median_grouped ( filename ) )
+>>> ref: logging_File Handler ( filename , mode = ` a ` )
+
+>>> gen: msilib_Create Record ( count )
+>>> ref: msilib_Create Record ( count )
+
+>>> gen: decimal_Decimal ( decimal_Decimal ( * value ) )
+>>> ref: decimal_Decimal ( value = ` 0 ` )
+
+>>> gen: asyncio_isfuture ( obj )
+>>> ref: asyncio_isfuture ( obj )
+
+>>> gen: format = struct_pack ( ` v1 ` , v2 ) . struct_pack ( ` format ` , v2 )
+>>> ref: struct_pack ( format , v1 , v2 )
+
+>>> gen: random_choices ( random_choices ( key = lambda x : population . index ( x [ 0 ] ) ) )
+>>> ref: random_choices ( population , k = 1 )
+
+>>> gen: itertools_combinations_with_replacement ( itertools_combinations_with_replacement ( fd ) , cmd )
+>>> ref: fcntl_lockf ( fd , cmd , len = 0 )
+
+>>> gen: ssl_SSLContext_sslsocket_class ( ( 0 , 100 ) , addr_spec [ : : x [ 0 ] , x [ 0 ] + x , ( ) , ] )
+>>> ref: email_headerregistry_Address ( username = ` ` )
+
+>>> gen: [ y for y , x in random_choices ( random_choices ( k ) ) if x = = 0 ]
+>>> ref: random_choices ( population , weights = None )
+
+>>> gen: frozenset_update ( frozenset_update ( year , year ) , m )
+>>> ref: calendar_prcal ( year , w = 0 , m = 3 )
+
+>>> gen: resource_RLIMIT_NPTS ( ( 0 , 100 ) )
+>>> ref: urllib_request_Proxy Handler ( proxies = None )
+
+>>> gen: b = email_contentmanager_get_content ( msg ) . signal_alarm ( 1 )
+>>> ref: email_contentmanager_get_content ( msg )
+
+>>> gen: heap ( item , heap )
+>>> ref: heapq_heappush ( heap , item )
+
+>>> gen: s_rstrip ( * * [ ` * args ` , ` * * kws ` ] )
+>>> ref: breakpoint ( * args , * * kws )
+
+>>> gen: plt_savefig ( port . array_array_fromlist ( ) [ : , ( 0 ) , 2 : ] )
+>>> ref: logging_config_listen ( verify = None )
+
+>>> gen: sched_scheduler_enterabs ( sched_scheduler_enterabs ( ) )
+>>> ref: base64_b64decode ( s )
+
+>>> gen: ssl_PEM_cert_to_DER_cert ( ) . getpass_getpass ( ` Password : ` )
+>>> ref: getpass_getpass ( prompt = ` Password : ` )
+
+>>> gen: queue_Simple Queue_put ( 0 , 0 , 1 ) . turtle_circle ( )
+>>> ref: turtle_circle ( radius , extent = None )
+
+>>> gen: nlines . loc [ unittest_Test Loader_get Test Case Names ( ncols . values [ a ] ) ]
+>>> ref: curses_is_term_resized ( nlines , ncols )
+
+>>> gen: traceback_print_tb ( )
+>>> ref: Type Error
+
+>>> gen: [ i for i , j in stat_S_IFMT ( fd ) if i = = j ]
+>>> ref: fcntl_ioctl ( fd , request )
+
+>>> gen: asyncio_Subprocess Transport_get_returncode ( asyncio_Subprocess Transport_get_returncode ( dir1 ) , asyncio_Subprocess Transport_get_returncode ( f ) )
+>>> ref: filecmp_cmpfiles ( dir1 , dir2 , common )
+
+>>> gen: imaplib_IMAP4_myrights ( 0 , 0 , 1 )
+>>> ref: ctypes_byref ( obj , offset )
+
+>>> gen: math_modf ( math_modf ( items ) )
+>>> ref: collections_Ordered Dict ( items )
+
+>>> gen: ipaddress_ip_network ( info , info )
+>>> ref: cgitb_text ( info , context = 5 )
+
+>>> gen: src = nntplib_NNTP_list ( src , - 1 )
+>>> ref: os_link ( src , dst , src_dir_fd = None )
+
+>>> gen: select_kevent_flags ( 0 , 1 , 1 )
+>>> ref: os__exit ( n )
+
+>>> gen: cmath_log10 ( cmath_log10 ( status ) , axis = 0 )
+>>> ref: os_WCOREDUMP ( status )
+
+>>> gen: filename = secrets_choice ( secrets_choice ( ) , 0 )
+>>> ref: bz2_open ( filename , mode = ` r ` )
+
+>>> gen: list ( d . list ( ) )
+>>> ref: list ( d )
+
+>>> gen: chunk_Chunk ( chunk_Chunk ( qs ) , axis = 0 )
+>>> ref: cgi_parse_qs ( qs )
+
+>>> gen: stat_S_IFBLK ( stat_S_IFBLK ( filename , 2 ) , axis = 0 )
+>>> ref: mailcap_findmatch ( caps , filename = ` / dev / null ` )
+
