@@ -52,10 +52,11 @@ def decode(examples, model, args, verbose=False, **kwargs):
 
 
 def evaluate(examples, parser, evaluator, args, verbose=False, return_decode_result=False, eval_top_pred_only=False):
-
-    # from random import shuffle
-    # shuffle(examples)
-    # examples = examples[:500]  # FIXME: for debug
+    if len(examples) > 500:
+        from random import shuffle, seed
+        seed(1)
+        shuffle(examples)
+        examples = examples[:500]  # FIXME: for debug
 
     decode_results = decode(examples, parser, args, verbose=verbose)
 

@@ -1,0 +1,576 @@
+C:\Users\ionut\anaconda3\envs\tranx\python.exe C:/Users/ionut/Desktop/git/external-knowledge-codegen/run.py
+use glorot initialization
+begin training, 2174 training examples, 200 dev examples
+vocab: Vocab(source Vocabulary[size=632]words, primitive Vocabulary[size=412]words, code Vocabulary[size=437]words)
+[Iter 50] encoder loss=56.96182
+[Iter 100] encoder loss=40.55965
+[Iter 150] encoder loss=37.68163
+[Iter 200] encoder loss=33.08518
+[Epoch 1] epoch elapsed 38s
+[Epoch 1] begin validation
+Decoding: 100%|██████████| 200/200 [00:38<00:00,  5.21it/s]
+renamed_funcs_corpus_bleu : 0.23939862170650417
+[Epoch 1] evaluate details: {'corpus_bleu': 0.22177228344988317, 'oracle_corpus_bleu': 0.337617913426908, 'avg_sent_bleu': 0.1778846219530084, 'oracle_avg_sent_bleu': 0.29982455998597446, 'exact_match': 0.0, 'oracle_exact_match': 0.01, 'renamed_funcs_corpus_bleu': 0.23939862170650417, 'renamed_funcs_oracle_corpus_bleu': 0.34822892636064373, 'renamed_funcs_avg_sent_bleu': 0.18774058132396845, 'renamed_funcs_oracle_avg_sent_bleu': 0.31346788943143883, 'renamed_funcs_exact_match': 0.0, 'renamed_funcs_oracle_exact_match': 0.01, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.012556942536349106, 'just_funcs_oracle_avg_sent_bleu': 0.05543364467912417, 'just_funcs_exact_match': 0.04, 'just_funcs_oracle_exact_match': 0.19}, dev renamed_funcs_corpus_bleu: 0.23940 (took 43s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 250] encoder loss=29.87108
+[Iter 300] encoder loss=28.68274
+[Iter 350] encoder loss=27.27605
+[Iter 400] encoder loss=26.20883
+[Epoch 2] epoch elapsed 38s
+[Epoch 2] begin validation
+Decoding: 100%|██████████| 200/200 [00:47<00:00,  4.22it/s]
+renamed_funcs_corpus_bleu : 0.27090667784046846
+[Epoch 2] evaluate details: {'corpus_bleu': 0.2564930272446266, 'oracle_corpus_bleu': 0.3484599429506772, 'avg_sent_bleu': 0.1937485595926806, 'oracle_avg_sent_bleu': 0.3146721393925537, 'exact_match': 0.0, 'oracle_exact_match': 0.015, 'renamed_funcs_corpus_bleu': 0.27090667784046846, 'renamed_funcs_oracle_corpus_bleu': 0.3595673741562697, 'renamed_funcs_avg_sent_bleu': 0.19531915333218586, 'renamed_funcs_oracle_avg_sent_bleu': 0.32548874517669646, 'renamed_funcs_exact_match': 0.0, 'renamed_funcs_oracle_exact_match': 0.015, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.022874040190994097, 'just_funcs_oracle_avg_sent_bleu': 0.08861273319089706, 'just_funcs_exact_match': 0.035, 'just_funcs_oracle_exact_match': 0.21}, dev renamed_funcs_corpus_bleu: 0.27091 (took 52s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 450] encoder loss=24.48658
+[Iter 500] encoder loss=24.36889
+[Iter 550] encoder loss=24.29847
+[Iter 600] encoder loss=23.15444
+[Iter 650] encoder loss=23.68685
+[Epoch 3] epoch elapsed 38s
+[Epoch 3] begin validation
+Decoding: 100%|██████████| 200/200 [00:41<00:00,  4.85it/s]
+renamed_funcs_corpus_bleu : 0.26572246009971945
+[Epoch 3] evaluate details: {'corpus_bleu': 0.25911842790879197, 'oracle_corpus_bleu': 0.38416604684755057, 'avg_sent_bleu': 0.2011224313713936, 'oracle_avg_sent_bleu': 0.3425483765208465, 'exact_match': 0.0, 'oracle_exact_match': 0.02, 'renamed_funcs_corpus_bleu': 0.26572246009971945, 'renamed_funcs_oracle_corpus_bleu': 0.39479649309813636, 'renamed_funcs_avg_sent_bleu': 0.20866097242183235, 'renamed_funcs_oracle_avg_sent_bleu': 0.35440030197605715, 'renamed_funcs_exact_match': 0.0, 'renamed_funcs_oracle_exact_match': 0.02, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.04077490141170774, 'just_funcs_oracle_avg_sent_bleu': 0.0931716562923064, 'just_funcs_exact_match': 0.075, 'just_funcs_oracle_exact_match': 0.24}, dev renamed_funcs_corpus_bleu: 0.26572 (took 46s)
+[Iter 700] encoder loss=22.45230
+[Iter 750] encoder loss=21.49013
+[Iter 800] encoder loss=20.38052
+[Iter 850] encoder loss=20.96625
+[Epoch 4] epoch elapsed 39s
+[Epoch 4] begin validation
+Decoding: 100%|██████████| 200/200 [01:01<00:00,  3.26it/s]
+renamed_funcs_corpus_bleu : 0.3442711798445631
+[Epoch 4] evaluate details: {'corpus_bleu': 0.33632581256482474, 'oracle_corpus_bleu': 0.41943714777516383, 'avg_sent_bleu': 0.23488520602696147, 'oracle_avg_sent_bleu': 0.36342004991741467, 'exact_match': 0.0, 'oracle_exact_match': 0.01, 'renamed_funcs_corpus_bleu': 0.3442711798445631, 'renamed_funcs_oracle_corpus_bleu': 0.4305477397852729, 'renamed_funcs_avg_sent_bleu': 0.23394450818403176, 'renamed_funcs_oracle_avg_sent_bleu': 0.37318014353329415, 'renamed_funcs_exact_match': 0.0, 'renamed_funcs_oracle_exact_match': 0.01, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.053529432713043404, 'just_funcs_oracle_avg_sent_bleu': 0.10965611240224014, 'just_funcs_exact_match': 0.08, 'just_funcs_oracle_exact_match': 0.245}, dev renamed_funcs_corpus_bleu: 0.34427 (took 67s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 900] encoder loss=20.39538
+[Iter 950] encoder loss=18.95129
+[Iter 1000] encoder loss=19.54941
+[Iter 1050] encoder loss=19.48579
+[Epoch 5] epoch elapsed 39s
+[Epoch 5] begin validation
+Decoding: 100%|██████████| 200/200 [00:57<00:00,  3.45it/s]
+renamed_funcs_corpus_bleu : 0.3310527262260807
+[Epoch 5] evaluate details: {'corpus_bleu': 0.3178602123227854, 'oracle_corpus_bleu': 0.42294102646482723, 'avg_sent_bleu': 0.23605047230981377, 'oracle_avg_sent_bleu': 0.379149630686969, 'exact_match': 0.005, 'oracle_exact_match': 0.05, 'renamed_funcs_corpus_bleu': 0.3310527262260807, 'renamed_funcs_oracle_corpus_bleu': 0.4330677055092293, 'renamed_funcs_avg_sent_bleu': 0.23967601257324916, 'renamed_funcs_oracle_avg_sent_bleu': 0.38264868464738827, 'renamed_funcs_exact_match': 0.005, 'renamed_funcs_oracle_exact_match': 0.045, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.0605919552277339, 'just_funcs_oracle_avg_sent_bleu': 0.13015011348466343, 'just_funcs_exact_match': 0.095, 'just_funcs_oracle_exact_match': 0.29}, dev renamed_funcs_corpus_bleu: 0.33105 (took 63s)
+[Iter 1100] encoder loss=17.95135
+[Iter 1150] encoder loss=18.03786
+[Iter 1200] encoder loss=17.03789
+[Iter 1250] encoder loss=17.62393
+[Iter 1300] encoder loss=18.04816
+[Epoch 6] epoch elapsed 38s
+[Epoch 6] begin validation
+Decoding: 100%|██████████| 200/200 [00:49<00:00,  4.03it/s]
+renamed_funcs_corpus_bleu : 0.33270096249935655
+[Epoch 6] evaluate details: {'corpus_bleu': 0.3198989875957184, 'oracle_corpus_bleu': 0.4336199594954281, 'avg_sent_bleu': 0.25286469225821795, 'oracle_avg_sent_bleu': 0.38643222372611774, 'exact_match': 0.025, 'oracle_exact_match': 0.06, 'renamed_funcs_corpus_bleu': 0.33270096249935655, 'renamed_funcs_oracle_corpus_bleu': 0.4423366496396906, 'renamed_funcs_avg_sent_bleu': 0.2579226880221002, 'renamed_funcs_oracle_avg_sent_bleu': 0.39488656554517104, 'renamed_funcs_exact_match': 0.025, 'renamed_funcs_oracle_exact_match': 0.065, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.06500112574005444, 'just_funcs_oracle_avg_sent_bleu': 0.14581025855400306, 'just_funcs_exact_match': 0.125, 'just_funcs_oracle_exact_match': 0.335}, dev renamed_funcs_corpus_bleu: 0.33270 (took 55s)
+[Iter 1350] encoder loss=15.56284
+[Iter 1400] encoder loss=16.65459
+[Iter 1450] encoder loss=15.33530
+[Iter 1500] encoder loss=16.13790
+[Epoch 7] epoch elapsed 38s
+[Epoch 7] begin validation
+Decoding: 100%|██████████| 200/200 [00:57<00:00,  3.46it/s]
+renamed_funcs_corpus_bleu : 0.34329610796660015
+[Epoch 7] evaluate details: {'corpus_bleu': 0.3296727451567041, 'oracle_corpus_bleu': 0.4480596435223957, 'avg_sent_bleu': 0.2512895083076973, 'oracle_avg_sent_bleu': 0.39868981524406394, 'exact_match': 0.015, 'oracle_exact_match': 0.08, 'renamed_funcs_corpus_bleu': 0.34329610796660015, 'renamed_funcs_oracle_corpus_bleu': 0.45924727905521107, 'renamed_funcs_avg_sent_bleu': 0.2578935695117012, 'renamed_funcs_oracle_avg_sent_bleu': 0.4044630600471152, 'renamed_funcs_exact_match': 0.015, 'renamed_funcs_oracle_exact_match': 0.09, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.07274470846426945, 'just_funcs_oracle_avg_sent_bleu': 0.14607784439416066, 'just_funcs_exact_match': 0.155, 'just_funcs_oracle_exact_match': 0.325}, dev renamed_funcs_corpus_bleu: 0.34330 (took 63s)
+[Iter 1550] encoder loss=15.35797
+[Iter 1600] encoder loss=14.10960
+[Iter 1650] encoder loss=14.92462
+[Iter 1700] encoder loss=14.95398
+[Epoch 8] epoch elapsed 39s
+[Epoch 8] begin validation
+Decoding: 100%|██████████| 200/200 [00:50<00:00,  3.98it/s]
+renamed_funcs_corpus_bleu : 0.36134248881807707
+[Epoch 8] evaluate details: {'corpus_bleu': 0.35078147314194447, 'oracle_corpus_bleu': 0.4545053959648496, 'avg_sent_bleu': 0.2748958842608217, 'oracle_avg_sent_bleu': 0.42500153560101894, 'exact_match': 0.02, 'oracle_exact_match': 0.1, 'renamed_funcs_corpus_bleu': 0.36134248881807707, 'renamed_funcs_oracle_corpus_bleu': 0.4663679432777613, 'renamed_funcs_avg_sent_bleu': 0.27718543620125835, 'renamed_funcs_oracle_avg_sent_bleu': 0.4320586845447316, 'renamed_funcs_exact_match': 0.02, 'renamed_funcs_oracle_exact_match': 0.11, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.08309543525599034, 'just_funcs_oracle_avg_sent_bleu': 0.164574227824429, 'just_funcs_exact_match': 0.15, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.36134 (took 55s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 1750] encoder loss=14.83679
+[Iter 1800] encoder loss=12.22986
+[Iter 1850] encoder loss=12.97335
+[Iter 1900] encoder loss=13.69812
+[Iter 1950] encoder loss=13.74727
+[Epoch 9] epoch elapsed 38s
+[Epoch 9] begin validation
+Decoding: 100%|██████████| 200/200 [00:52<00:00,  3.84it/s]
+renamed_funcs_corpus_bleu : 0.34499426229969454
+[Epoch 9] evaluate details: {'corpus_bleu': 0.33634554132119265, 'oracle_corpus_bleu': 0.4468323039032023, 'avg_sent_bleu': 0.2686141973928998, 'oracle_avg_sent_bleu': 0.41302153825507737, 'exact_match': 0.035, 'oracle_exact_match': 0.065, 'renamed_funcs_corpus_bleu': 0.34499426229969454, 'renamed_funcs_oracle_corpus_bleu': 0.4503838845220891, 'renamed_funcs_avg_sent_bleu': 0.27386937477264994, 'renamed_funcs_oracle_avg_sent_bleu': 0.4149003648921128, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.07, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.07846346311034552, 'just_funcs_oracle_avg_sent_bleu': 0.1594427258097367, 'just_funcs_exact_match': 0.12, 'just_funcs_oracle_exact_match': 0.33}, dev renamed_funcs_corpus_bleu: 0.34499 (took 57s)
+[Iter 2000] encoder loss=12.12991
+[Iter 2050] encoder loss=12.13958
+[Iter 2100] encoder loss=12.02314
+[Iter 2150] encoder loss=12.57734
+[Epoch 10] epoch elapsed 39s
+[Epoch 10] begin validation
+Decoding: 100%|██████████| 200/200 [01:00<00:00,  3.32it/s]
+renamed_funcs_corpus_bleu : 0.3737773154863018
+[Epoch 10] evaluate details: {'corpus_bleu': 0.3606578826398813, 'oracle_corpus_bleu': 0.462084195906074, 'avg_sent_bleu': 0.2736433531114813, 'oracle_avg_sent_bleu': 0.41820155903203227, 'exact_match': 0.02, 'oracle_exact_match': 0.095, 'renamed_funcs_corpus_bleu': 0.3737773154863018, 'renamed_funcs_oracle_corpus_bleu': 0.47379449731832, 'renamed_funcs_avg_sent_bleu': 0.27889687584968575, 'renamed_funcs_oracle_avg_sent_bleu': 0.4238377329123071, 'renamed_funcs_exact_match': 0.02, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.08497899983684128, 'just_funcs_oracle_avg_sent_bleu': 0.1638252419610552, 'just_funcs_exact_match': 0.16, 'just_funcs_oracle_exact_match': 0.34}, dev renamed_funcs_corpus_bleu: 0.37378 (took 65s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 2200] encoder loss=11.60919
+[Iter 2250] encoder loss=10.73759
+[Iter 2300] encoder loss=11.25420
+[Iter 2350] encoder loss=10.92861
+[Epoch 11] epoch elapsed 38s
+[Epoch 11] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.55it/s]
+renamed_funcs_corpus_bleu : 0.35729739294659585
+[Epoch 11] evaluate details: {'corpus_bleu': 0.3483182998240446, 'oracle_corpus_bleu': 0.46345120911188303, 'avg_sent_bleu': 0.2720988595151072, 'oracle_avg_sent_bleu': 0.4370273842301566, 'exact_match': 0.025, 'oracle_exact_match': 0.095, 'renamed_funcs_corpus_bleu': 0.35729739294659585, 'renamed_funcs_oracle_corpus_bleu': 0.47052890567231764, 'renamed_funcs_avg_sent_bleu': 0.27610391621841296, 'renamed_funcs_oracle_avg_sent_bleu': 0.4464132809602649, 'renamed_funcs_exact_match': 0.03, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09091331384101421, 'just_funcs_oracle_avg_sent_bleu': 0.17746523574825318, 'just_funcs_exact_match': 0.16, 'just_funcs_oracle_exact_match': 0.365}, dev renamed_funcs_corpus_bleu: 0.35730 (took 62s)
+[Iter 2400] encoder loss=11.18112
+[Iter 2450] encoder loss=9.46339
+[Iter 2500] encoder loss=10.52889
+[Iter 2550] encoder loss=9.72951
+[Iter 2600] encoder loss=10.68753
+[Epoch 12] epoch elapsed 38s
+[Epoch 12] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.55it/s]
+renamed_funcs_corpus_bleu : 0.3797440924471706
+[Epoch 12] evaluate details: {'corpus_bleu': 0.3717094003507777, 'oracle_corpus_bleu': 0.467020921855838, 'avg_sent_bleu': 0.27828560341204506, 'oracle_avg_sent_bleu': 0.42145851765848247, 'exact_match': 0.035, 'oracle_exact_match': 0.075, 'renamed_funcs_corpus_bleu': 0.3797440924471706, 'renamed_funcs_oracle_corpus_bleu': 0.47131888101329333, 'renamed_funcs_avg_sent_bleu': 0.2785596458510921, 'renamed_funcs_oracle_avg_sent_bleu': 0.4214040447453742, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.08, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.0834649727838977, 'just_funcs_oracle_avg_sent_bleu': 0.1571368944554286, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.37974 (took 62s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 2650] encoder loss=8.99105
+[Iter 2700] encoder loss=8.28916
+[Iter 2750] encoder loss=9.71421
+[Iter 2800] encoder loss=9.91066
+[Epoch 13] epoch elapsed 38s
+[Epoch 13] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.59it/s]
+renamed_funcs_corpus_bleu : 0.3623887082918229
+[Epoch 13] evaluate details: {'corpus_bleu': 0.350991433655158, 'oracle_corpus_bleu': 0.4608511647690724, 'avg_sent_bleu': 0.2642533267506436, 'oracle_avg_sent_bleu': 0.4241624524152897, 'exact_match': 0.02, 'oracle_exact_match': 0.075, 'renamed_funcs_corpus_bleu': 0.3623887082918229, 'renamed_funcs_oracle_corpus_bleu': 0.47314576065594705, 'renamed_funcs_avg_sent_bleu': 0.2671596137219083, 'renamed_funcs_oracle_avg_sent_bleu': 0.4353301862008913, 'renamed_funcs_exact_match': 0.02, 'renamed_funcs_oracle_exact_match': 0.08, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.0921642870094978, 'just_funcs_oracle_avg_sent_bleu': 0.17772160801331857, 'just_funcs_exact_match': 0.135, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.36239 (took 61s)
+[Iter 2850] encoder loss=8.76816
+[Iter 2900] encoder loss=8.09727
+[Iter 2950] encoder loss=8.06535
+[Iter 3000] encoder loss=8.63239
+[Iter 3050] encoder loss=8.85138
+[Epoch 14] epoch elapsed 38s
+[Epoch 14] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.53it/s]
+renamed_funcs_corpus_bleu : 0.3785872573292567
+[Epoch 14] evaluate details: {'corpus_bleu': 0.37468220205368397, 'oracle_corpus_bleu': 0.4808422646656336, 'avg_sent_bleu': 0.27737795470885074, 'oracle_avg_sent_bleu': 0.441421397661929, 'exact_match': 0.025, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.3785872573292567, 'renamed_funcs_oracle_corpus_bleu': 0.4870001827970079, 'renamed_funcs_avg_sent_bleu': 0.27687504840609917, 'renamed_funcs_oracle_avg_sent_bleu': 0.44701256388455285, 'renamed_funcs_exact_match': 0.03, 'renamed_funcs_oracle_exact_match': 0.105, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.08916383791299771, 'just_funcs_oracle_avg_sent_bleu': 0.170544200169347, 'just_funcs_exact_match': 0.15, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.37859 (took 62s)
+[Iter 3100] encoder loss=7.33805
+[Iter 3150] encoder loss=6.86877
+[Iter 3200] encoder loss=8.00419
+[Iter 3250] encoder loss=7.73511
+[Epoch 15] epoch elapsed 38s
+[Epoch 15] begin validation
+Decoding: 100%|██████████| 200/200 [00:52<00:00,  3.83it/s]
+renamed_funcs_corpus_bleu : 0.33274099737160256
+[Epoch 15] evaluate details: {'corpus_bleu': 0.3227596177167262, 'oracle_corpus_bleu': 0.4532426774353049, 'avg_sent_bleu': 0.26076880508222433, 'oracle_avg_sent_bleu': 0.43983866790145937, 'exact_match': 0.03, 'oracle_exact_match': 0.105, 'renamed_funcs_corpus_bleu': 0.33274099737160256, 'renamed_funcs_oracle_corpus_bleu': 0.4643713793602134, 'renamed_funcs_avg_sent_bleu': 0.26353396702144927, 'renamed_funcs_oracle_avg_sent_bleu': 0.4478911143318648, 'renamed_funcs_exact_match': 0.03, 'renamed_funcs_oracle_exact_match': 0.115, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09359382087342741, 'just_funcs_oracle_avg_sent_bleu': 0.16958136728462947, 'just_funcs_exact_match': 0.18, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.33274 (took 57s)
+hit patience 1
+[Iter 3300] encoder loss=6.82210
+[Iter 3350] encoder loss=6.52660
+[Iter 3400] encoder loss=7.07072
+[Iter 3450] encoder loss=7.16560
+[Epoch 16] epoch elapsed 38s
+[Epoch 16] begin validation
+Decoding: 100%|██████████| 200/200 [00:58<00:00,  3.44it/s]
+renamed_funcs_corpus_bleu : 0.372039827747047
+[Epoch 16] evaluate details: {'corpus_bleu': 0.3671824398029354, 'oracle_corpus_bleu': 0.47855328580549805, 'avg_sent_bleu': 0.28204173149023765, 'oracle_avg_sent_bleu': 0.44350019318976, 'exact_match': 0.035, 'oracle_exact_match': 0.105, 'renamed_funcs_corpus_bleu': 0.372039827747047, 'renamed_funcs_oracle_corpus_bleu': 0.4876159516071184, 'renamed_funcs_avg_sent_bleu': 0.281593379815324, 'renamed_funcs_oracle_avg_sent_bleu': 0.446097708684602, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.115, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09950295281967177, 'just_funcs_oracle_avg_sent_bleu': 0.17064557977175382, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.37204 (took 64s)
+hit patience 2
+[Iter 3500] encoder loss=6.96597
+[Iter 3550] encoder loss=5.38072
+[Iter 3600] encoder loss=6.08880
+[Iter 3650] encoder loss=6.44933
+[Iter 3700] encoder loss=6.73427
+[Epoch 17] epoch elapsed 39s
+[Epoch 17] begin validation
+Decoding: 100%|██████████| 200/200 [00:58<00:00,  3.41it/s]
+renamed_funcs_corpus_bleu : 0.3824443462684429
+[Epoch 17] evaluate details: {'corpus_bleu': 0.37050144879148955, 'oracle_corpus_bleu': 0.47281901100111956, 'avg_sent_bleu': 0.28342847897424056, 'oracle_avg_sent_bleu': 0.43417492984096767, 'exact_match': 0.035, 'oracle_exact_match': 0.095, 'renamed_funcs_corpus_bleu': 0.3824443462684429, 'renamed_funcs_oracle_corpus_bleu': 0.48667982743082217, 'renamed_funcs_avg_sent_bleu': 0.2899052141963855, 'renamed_funcs_oracle_avg_sent_bleu': 0.4434626435248758, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.08823827702772238, 'just_funcs_oracle_avg_sent_bleu': 0.15791885687738497, 'just_funcs_exact_match': 0.18, 'just_funcs_oracle_exact_match': 0.34}, dev renamed_funcs_corpus_bleu: 0.38244 (took 64s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 3750] encoder loss=5.18604
+[Iter 3800] encoder loss=5.79317
+[Iter 3850] encoder loss=5.71348
+[Iter 3900] encoder loss=6.01690
+[Epoch 18] epoch elapsed 38s
+[Epoch 18] begin validation
+Decoding: 100%|██████████| 200/200 [01:00<00:00,  3.31it/s]
+renamed_funcs_corpus_bleu : 0.375750411910053
+[Epoch 18] evaluate details: {'corpus_bleu': 0.35934938483537926, 'oracle_corpus_bleu': 0.4999914797942061, 'avg_sent_bleu': 0.28189356522069936, 'oracle_avg_sent_bleu': 0.46288337078768277, 'exact_match': 0.025, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.375750411910053, 'renamed_funcs_oracle_corpus_bleu': 0.5115056678911861, 'renamed_funcs_avg_sent_bleu': 0.2858807704605539, 'renamed_funcs_oracle_avg_sent_bleu': 0.4738684944165844, 'renamed_funcs_exact_match': 0.025, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.08608699436893862, 'just_funcs_oracle_avg_sent_bleu': 0.1781525128426397, 'just_funcs_exact_match': 0.12, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.37575 (took 66s)
+hit patience 1
+[Iter 3950] encoder loss=5.28364
+[Iter 4000] encoder loss=5.02008
+[Iter 4050] encoder loss=4.97613
+[Iter 4100] encoder loss=5.46742
+[Epoch 19] epoch elapsed 38s
+[Epoch 19] begin validation
+Decoding: 100%|██████████| 200/200 [00:57<00:00,  3.47it/s]
+renamed_funcs_corpus_bleu : 0.37564872305884073
+[Epoch 19] evaluate details: {'corpus_bleu': 0.3645083205003322, 'oracle_corpus_bleu': 0.4755324637653818, 'avg_sent_bleu': 0.2814090695394173, 'oracle_avg_sent_bleu': 0.44538321286611415, 'exact_match': 0.04, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.37564872305884073, 'renamed_funcs_oracle_corpus_bleu': 0.48330821097027277, 'renamed_funcs_avg_sent_bleu': 0.2842354724227146, 'renamed_funcs_oracle_avg_sent_bleu': 0.45588735742316416, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.08806545688120615, 'just_funcs_oracle_avg_sent_bleu': 0.1778253188626555, 'just_funcs_exact_match': 0.135, 'just_funcs_oracle_exact_match': 0.365}, dev renamed_funcs_corpus_bleu: 0.37565 (took 63s)
+hit patience 2
+[Iter 4150] encoder loss=5.35214
+[Iter 4200] encoder loss=4.62352
+[Iter 4250] encoder loss=4.74298
+[Iter 4300] encoder loss=4.76408
+[Iter 4350] encoder loss=5.26996
+[Epoch 20] epoch elapsed 39s
+[Epoch 20] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.52it/s]
+renamed_funcs_corpus_bleu : 0.3739662886287069
+[Epoch 20] evaluate details: {'corpus_bleu': 0.36663700257588117, 'oracle_corpus_bleu': 0.4671520969063, 'avg_sent_bleu': 0.28452825278280763, 'oracle_avg_sent_bleu': 0.431439383864795, 'exact_match': 0.03, 'oracle_exact_match': 0.085, 'renamed_funcs_corpus_bleu': 0.3739662886287069, 'renamed_funcs_oracle_corpus_bleu': 0.4712260092261107, 'renamed_funcs_avg_sent_bleu': 0.2863087128459811, 'renamed_funcs_oracle_avg_sent_bleu': 0.43747480461366806, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.09, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.0896322162515305, 'just_funcs_oracle_avg_sent_bleu': 0.1531785487071455, 'just_funcs_exact_match': 0.195, 'just_funcs_oracle_exact_match': 0.355}, dev renamed_funcs_corpus_bleu: 0.37397 (took 62s)
+hit patience 3
+[Iter 4400] encoder loss=4.08130
+[Iter 4450] encoder loss=4.61224
+[Iter 4500] encoder loss=4.65583
+[Iter 4550] encoder loss=4.83347
+[Epoch 21] epoch elapsed 38s
+[Epoch 21] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.57it/s]
+renamed_funcs_corpus_bleu : 0.367994657196629
+[Epoch 21] evaluate details: {'corpus_bleu': 0.361791282675619, 'oracle_corpus_bleu': 0.4807318227406363, 'avg_sent_bleu': 0.2821974522939152, 'oracle_avg_sent_bleu': 0.4482562445710647, 'exact_match': 0.04, 'oracle_exact_match': 0.1, 'renamed_funcs_corpus_bleu': 0.367994657196629, 'renamed_funcs_oracle_corpus_bleu': 0.48621402678400083, 'renamed_funcs_avg_sent_bleu': 0.28103377925446893, 'renamed_funcs_oracle_avg_sent_bleu': 0.4533366253712899, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.11, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10345349875361637, 'just_funcs_oracle_avg_sent_bleu': 0.16125035048366715, 'just_funcs_exact_match': 0.17, 'just_funcs_oracle_exact_match': 0.345}, dev renamed_funcs_corpus_bleu: 0.36799 (took 61s)
+hit patience 4
+[Iter 4600] encoder loss=4.40980
+[Iter 4650] encoder loss=4.05317
+[Iter 4700] encoder loss=4.34660
+[Iter 4750] encoder loss=4.41464
+[Epoch 22] epoch elapsed 38s
+[Epoch 22] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.59it/s]
+renamed_funcs_corpus_bleu : 0.37435144846267115
+[Epoch 22] evaluate details: {'corpus_bleu': 0.36428077625286015, 'oracle_corpus_bleu': 0.4633990218407365, 'avg_sent_bleu': 0.27559316846762905, 'oracle_avg_sent_bleu': 0.4232514205412049, 'exact_match': 0.03, 'oracle_exact_match': 0.08, 'renamed_funcs_corpus_bleu': 0.37435144846267115, 'renamed_funcs_oracle_corpus_bleu': 0.47266442640322354, 'renamed_funcs_avg_sent_bleu': 0.2783269581345185, 'renamed_funcs_oracle_avg_sent_bleu': 0.4288213904874927, 'renamed_funcs_exact_match': 0.03, 'renamed_funcs_oracle_exact_match': 0.08, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09199206339239659, 'just_funcs_oracle_avg_sent_bleu': 0.16805084887514696, 'just_funcs_exact_match': 0.17, 'just_funcs_oracle_exact_match': 0.33}, dev renamed_funcs_corpus_bleu: 0.37435 (took 61s)
+hit patience 5
+hit #1 trial
+load previously best model and decay learning rate to 0.000500
+restore parameters of the optimizers
+[Iter 4800] encoder loss=4.76860
+[Iter 4850] encoder loss=4.64850
+[Iter 4900] encoder loss=4.61451
+[Iter 4950] encoder loss=4.40115
+[Iter 5000] encoder loss=4.28682
+[Epoch 23] epoch elapsed 39s
+[Epoch 23] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.64it/s]
+renamed_funcs_corpus_bleu : 0.37955924078687997
+[Epoch 23] evaluate details: {'corpus_bleu': 0.3712723990123161, 'oracle_corpus_bleu': 0.48095365935308637, 'avg_sent_bleu': 0.286685958560964, 'oracle_avg_sent_bleu': 0.4452307582600941, 'exact_match': 0.04, 'oracle_exact_match': 0.1, 'renamed_funcs_corpus_bleu': 0.37955924078687997, 'renamed_funcs_oracle_corpus_bleu': 0.4869204324199974, 'renamed_funcs_avg_sent_bleu': 0.2885695488589029, 'renamed_funcs_oracle_avg_sent_bleu': 0.44791272449839425, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.105, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10162223689643149, 'just_funcs_oracle_avg_sent_bleu': 0.16062343408399193, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.335}, dev renamed_funcs_corpus_bleu: 0.37956 (took 60s)
+hit patience 1
+[Iter 5050] encoder loss=3.38932
+[Iter 5100] encoder loss=3.33186
+[Iter 5150] encoder loss=3.40127
+[Iter 5200] encoder loss=3.50549
+[Epoch 24] epoch elapsed 38s
+[Epoch 24] begin validation
+Decoding: 100%|██████████| 200/200 [00:57<00:00,  3.51it/s]
+renamed_funcs_corpus_bleu : 0.3917083301384517
+[Epoch 24] evaluate details: {'corpus_bleu': 0.3783185589343545, 'oracle_corpus_bleu': 0.4815861218926378, 'avg_sent_bleu': 0.3014781401534334, 'oracle_avg_sent_bleu': 0.45011212658181377, 'exact_match': 0.045, 'oracle_exact_match': 0.105, 'renamed_funcs_corpus_bleu': 0.3917083301384517, 'renamed_funcs_oracle_corpus_bleu': 0.49091130546877454, 'renamed_funcs_avg_sent_bleu': 0.3057335294095088, 'renamed_funcs_oracle_avg_sent_bleu': 0.45853667137434, 'renamed_funcs_exact_match': 0.045, 'renamed_funcs_oracle_exact_match': 0.115, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.102843063304762, 'just_funcs_oracle_avg_sent_bleu': 0.17622966849427008, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.37}, dev renamed_funcs_corpus_bleu: 0.39171 (took 63s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 5250] encoder loss=3.50709
+[Iter 5300] encoder loss=2.96147
+[Iter 5350] encoder loss=2.91034
+[Iter 5400] encoder loss=3.16980
+[Iter 5450] encoder loss=2.83278
+[Epoch 25] epoch elapsed 38s
+[Epoch 25] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.70it/s]
+renamed_funcs_corpus_bleu : 0.387068018113162
+[Epoch 25] evaluate details: {'corpus_bleu': 0.37976429383317517, 'oracle_corpus_bleu': 0.49464681978397046, 'avg_sent_bleu': 0.3042291518476219, 'oracle_avg_sent_bleu': 0.4583805932582836, 'exact_match': 0.04, 'oracle_exact_match': 0.08, 'renamed_funcs_corpus_bleu': 0.387068018113162, 'renamed_funcs_oracle_corpus_bleu': 0.5037231935924403, 'renamed_funcs_avg_sent_bleu': 0.3062971073453112, 'renamed_funcs_oracle_avg_sent_bleu': 0.46507065564076894, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.09, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.1004606522049145, 'just_funcs_oracle_avg_sent_bleu': 0.18082620471133304, 'just_funcs_exact_match': 0.16, 'just_funcs_oracle_exact_match': 0.365}, dev renamed_funcs_corpus_bleu: 0.38707 (took 59s)
+hit patience 1
+[Iter 5500] encoder loss=2.39678
+[Iter 5550] encoder loss=2.47840
+[Iter 5600] encoder loss=2.62968
+[Iter 5650] encoder loss=2.89497
+[Epoch 26] epoch elapsed 39s
+[Epoch 26] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.53it/s]
+renamed_funcs_corpus_bleu : 0.37750544558398486
+[Epoch 26] evaluate details: {'corpus_bleu': 0.3688255955467228, 'oracle_corpus_bleu': 0.48708053244587995, 'avg_sent_bleu': 0.3001732152075863, 'oracle_avg_sent_bleu': 0.455772444011306, 'exact_match': 0.045, 'oracle_exact_match': 0.1, 'renamed_funcs_corpus_bleu': 0.37750544558398486, 'renamed_funcs_oracle_corpus_bleu': 0.4954530506188753, 'renamed_funcs_avg_sent_bleu': 0.30302502410408527, 'renamed_funcs_oracle_avg_sent_bleu': 0.46325954073097053, 'renamed_funcs_exact_match': 0.045, 'renamed_funcs_oracle_exact_match': 0.11, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09545788430761498, 'just_funcs_oracle_avg_sent_bleu': 0.17103386579181096, 'just_funcs_exact_match': 0.155, 'just_funcs_oracle_exact_match': 0.37}, dev renamed_funcs_corpus_bleu: 0.37751 (took 62s)
+hit patience 2
+[Iter 5700] encoder loss=2.47838
+[Iter 5750] encoder loss=2.30295
+[Iter 5800] encoder loss=2.46728
+[Iter 5850] encoder loss=2.58975
+[Epoch 27] epoch elapsed 39s
+[Epoch 27] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.60it/s]
+renamed_funcs_corpus_bleu : 0.39235923392933575
+[Epoch 27] evaluate details: {'corpus_bleu': 0.3833713473003309, 'oracle_corpus_bleu': 0.500068898310524, 'avg_sent_bleu': 0.3025705462824115, 'oracle_avg_sent_bleu': 0.469666758752911, 'exact_match': 0.035, 'oracle_exact_match': 0.1, 'renamed_funcs_corpus_bleu': 0.39235923392933575, 'renamed_funcs_oracle_corpus_bleu': 0.5080055415614271, 'renamed_funcs_avg_sent_bleu': 0.3025022245266077, 'renamed_funcs_oracle_avg_sent_bleu': 0.4769500317161605, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.11, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09820018566714456, 'just_funcs_oracle_avg_sent_bleu': 0.17584975701057273, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.355}, dev renamed_funcs_corpus_bleu: 0.39236 (took 61s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 5900] encoder loss=2.20841
+[Iter 5950] encoder loss=2.04092
+[Iter 6000] encoder loss=2.18929
+[Iter 6050] encoder loss=2.39634
+[Iter 6100] encoder loss=2.53169
+[Epoch 28] epoch elapsed 39s
+[Epoch 28] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.57it/s]
+renamed_funcs_corpus_bleu : 0.37376904954980933
+[Epoch 28] evaluate details: {'corpus_bleu': 0.3653988490692208, 'oracle_corpus_bleu': 0.4791505985288362, 'avg_sent_bleu': 0.2890185642931013, 'oracle_avg_sent_bleu': 0.444826643979071, 'exact_match': 0.045, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.37376904954980933, 'renamed_funcs_oracle_corpus_bleu': 0.4871184380700582, 'renamed_funcs_avg_sent_bleu': 0.2902309147157944, 'renamed_funcs_oracle_avg_sent_bleu': 0.4480137958643752, 'renamed_funcs_exact_match': 0.045, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09429752224350545, 'just_funcs_oracle_avg_sent_bleu': 0.16881730636967876, 'just_funcs_exact_match': 0.18, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.37377 (took 62s)
+hit patience 1
+[Iter 6150] encoder loss=1.81766
+[Iter 6200] encoder loss=2.07424
+[Iter 6250] encoder loss=2.01918
+[Iter 6300] encoder loss=2.17022
+[Epoch 29] epoch elapsed 38s
+[Epoch 29] begin validation
+Decoding: 100%|██████████| 200/200 [01:02<00:00,  3.21it/s]
+renamed_funcs_corpus_bleu : 0.3796534376093255
+[Epoch 29] evaluate details: {'corpus_bleu': 0.3711262852694649, 'oracle_corpus_bleu': 0.4882613298391977, 'avg_sent_bleu': 0.2837761999793098, 'oracle_avg_sent_bleu': 0.4487558231220175, 'exact_match': 0.045, 'oracle_exact_match': 0.1, 'renamed_funcs_corpus_bleu': 0.3796534376093255, 'renamed_funcs_oracle_corpus_bleu': 0.4972891064293234, 'renamed_funcs_avg_sent_bleu': 0.2890540986303261, 'renamed_funcs_oracle_avg_sent_bleu': 0.45447098291505156, 'renamed_funcs_exact_match': 0.045, 'renamed_funcs_oracle_exact_match': 0.11, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09332951880785963, 'just_funcs_oracle_avg_sent_bleu': 0.16693925824810962, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.355}, dev renamed_funcs_corpus_bleu: 0.37965 (took 68s)
+hit patience 2
+[Iter 6350] encoder loss=1.97439
+[Iter 6400] encoder loss=1.78559
+[Iter 6450] encoder loss=1.93416
+[Iter 6500] encoder loss=1.93278
+[Epoch 30] epoch elapsed 39s
+[Epoch 30] begin validation
+Decoding: 100%|██████████| 200/200 [01:01<00:00,  3.23it/s]
+renamed_funcs_corpus_bleu : 0.36864244665362467
+[Epoch 30] evaluate details: {'corpus_bleu': 0.36274431096990173, 'oracle_corpus_bleu': 0.47909095987409095, 'avg_sent_bleu': 0.27560820612904957, 'oracle_avg_sent_bleu': 0.44476186284483066, 'exact_match': 0.04, 'oracle_exact_match': 0.095, 'renamed_funcs_corpus_bleu': 0.36864244665362467, 'renamed_funcs_oracle_corpus_bleu': 0.48950395117755896, 'renamed_funcs_avg_sent_bleu': 0.27647866000507615, 'renamed_funcs_oracle_avg_sent_bleu': 0.4558779683648833, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.105, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09986335177566158, 'just_funcs_oracle_avg_sent_bleu': 0.15847777373042338, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.305}, dev renamed_funcs_corpus_bleu: 0.36864 (took 67s)
+hit patience 3
+[Iter 6550] encoder loss=1.91618
+[Iter 6600] encoder loss=1.67273
+[Iter 6650] encoder loss=1.80330
+[Iter 6700] encoder loss=1.82998
+[Iter 6750] encoder loss=1.89029
+[Epoch 31] epoch elapsed 39s
+[Epoch 31] begin validation
+Decoding: 100%|██████████| 200/200 [00:57<00:00,  3.48it/s]
+renamed_funcs_corpus_bleu : 0.3941794331548176
+[Epoch 31] evaluate details: {'corpus_bleu': 0.38149254318299997, 'oracle_corpus_bleu': 0.48128648989246725, 'avg_sent_bleu': 0.29740168943825485, 'oracle_avg_sent_bleu': 0.44097412500127364, 'exact_match': 0.04, 'oracle_exact_match': 0.095, 'renamed_funcs_corpus_bleu': 0.3941794331548176, 'renamed_funcs_oracle_corpus_bleu': 0.4920543600904491, 'renamed_funcs_avg_sent_bleu': 0.3036280042000206, 'renamed_funcs_oracle_avg_sent_bleu': 0.4490729084706044, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.105, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.0968900855024015, 'just_funcs_oracle_avg_sent_bleu': 0.15473485677151522, 'just_funcs_exact_match': 0.17, 'just_funcs_oracle_exact_match': 0.325}, dev renamed_funcs_corpus_bleu: 0.39418 (took 63s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 6800] encoder loss=1.65166
+[Iter 6850] encoder loss=1.73126
+[Iter 6900] encoder loss=1.74400
+[Iter 6950] encoder loss=1.80719
+[Epoch 32] epoch elapsed 38s
+[Epoch 32] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.53it/s]
+renamed_funcs_corpus_bleu : 0.37016338933823534
+[Epoch 32] evaluate details: {'corpus_bleu': 0.3587874543525106, 'oracle_corpus_bleu': 0.48383539599878317, 'avg_sent_bleu': 0.274275277536473, 'oracle_avg_sent_bleu': 0.4316405617553084, 'exact_match': 0.035, 'oracle_exact_match': 0.07, 'renamed_funcs_corpus_bleu': 0.37016338933823534, 'renamed_funcs_oracle_corpus_bleu': 0.4951109817370719, 'renamed_funcs_avg_sent_bleu': 0.2782789469604787, 'renamed_funcs_oracle_avg_sent_bleu': 0.44202056565532916, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.08, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09568595349386254, 'just_funcs_oracle_avg_sent_bleu': 0.17178384717318032, 'just_funcs_exact_match': 0.155, 'just_funcs_oracle_exact_match': 0.34}, dev renamed_funcs_corpus_bleu: 0.37016 (took 62s)
+hit patience 1
+[Iter 7000] encoder loss=1.53750
+[Iter 7050] encoder loss=1.42047
+[Iter 7100] encoder loss=1.59468
+[Iter 7150] encoder loss=1.75008
+[Epoch 33] epoch elapsed 38s
+[Epoch 33] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.58it/s]
+renamed_funcs_corpus_bleu : 0.4016608713078049
+[Epoch 33] evaluate details: {'corpus_bleu': 0.3910191810251733, 'oracle_corpus_bleu': 0.4875544017528622, 'avg_sent_bleu': 0.3046465251903433, 'oracle_avg_sent_bleu': 0.4493092402315087, 'exact_match': 0.04, 'oracle_exact_match': 0.08, 'renamed_funcs_corpus_bleu': 0.4016608713078049, 'renamed_funcs_oracle_corpus_bleu': 0.4964454880369911, 'renamed_funcs_avg_sent_bleu': 0.31137582862647806, 'renamed_funcs_oracle_avg_sent_bleu': 0.4599118276259267, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.09, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10036198790701388, 'just_funcs_oracle_avg_sent_bleu': 0.16741481851483292, 'just_funcs_exact_match': 0.17, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.40166 (took 61s)
+save the current model ..
+save model to [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+[Iter 7200] encoder loss=1.65339
+[Iter 7250] encoder loss=1.43854
+[Iter 7300] encoder loss=1.68459
+[Iter 7350] encoder loss=1.40302
+[Iter 7400] encoder loss=1.80694
+[Epoch 34] epoch elapsed 38s
+[Epoch 34] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.67it/s]
+renamed_funcs_corpus_bleu : 0.3678756236578497
+[Epoch 34] evaluate details: {'corpus_bleu': 0.35949717977459134, 'oracle_corpus_bleu': 0.47600342397371415, 'avg_sent_bleu': 0.28741899719981107, 'oracle_avg_sent_bleu': 0.4449745143794509, 'exact_match': 0.035, 'oracle_exact_match': 0.1, 'renamed_funcs_corpus_bleu': 0.3678756236578497, 'renamed_funcs_oracle_corpus_bleu': 0.4881826148672955, 'renamed_funcs_avg_sent_bleu': 0.2905605879246833, 'renamed_funcs_oracle_avg_sent_bleu': 0.45298163325912627, 'renamed_funcs_exact_match': 0.045, 'renamed_funcs_oracle_exact_match': 0.11, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10489383529418761, 'just_funcs_oracle_avg_sent_bleu': 0.16260806196210764, 'just_funcs_exact_match': 0.195, 'just_funcs_oracle_exact_match': 0.345}, dev renamed_funcs_corpus_bleu: 0.36788 (took 60s)
+hit patience 1
+[Iter 7450] encoder loss=1.57174
+[Iter 7500] encoder loss=1.61451
+[Iter 7550] encoder loss=1.58472
+[Iter 7600] encoder loss=1.53166
+[Epoch 35] epoch elapsed 38s
+[Epoch 35] begin validation
+Decoding: 100%|██████████| 200/200 [00:57<00:00,  3.51it/s]
+renamed_funcs_corpus_bleu : 0.37156218078927267
+[Epoch 35] evaluate details: {'corpus_bleu': 0.36329557182261174, 'oracle_corpus_bleu': 0.48343900435691617, 'avg_sent_bleu': 0.2833406946098576, 'oracle_avg_sent_bleu': 0.45105773260822846, 'exact_match': 0.035, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.37156218078927267, 'renamed_funcs_oracle_corpus_bleu': 0.49433773081240945, 'renamed_funcs_avg_sent_bleu': 0.28606502056687844, 'renamed_funcs_oracle_avg_sent_bleu': 0.46320192258840975, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10115299511303473, 'just_funcs_oracle_avg_sent_bleu': 0.16706319653116813, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.335}, dev renamed_funcs_corpus_bleu: 0.37156 (took 62s)
+hit patience 2
+[Iter 7650] encoder loss=1.38541
+[Iter 7700] encoder loss=1.25887
+[Iter 7750] encoder loss=1.44920
+[Iter 7800] encoder loss=1.38800
+[Epoch 36] epoch elapsed 38s
+[Epoch 36] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.53it/s]
+renamed_funcs_corpus_bleu : 0.36876768511623237
+[Epoch 36] evaluate details: {'corpus_bleu': 0.359286919740919, 'oracle_corpus_bleu': 0.4766129322501103, 'avg_sent_bleu': 0.29170536364984884, 'oracle_avg_sent_bleu': 0.4400182225645925, 'exact_match': 0.04, 'oracle_exact_match': 0.085, 'renamed_funcs_corpus_bleu': 0.36876768511623237, 'renamed_funcs_oracle_corpus_bleu': 0.48631402268417556, 'renamed_funcs_avg_sent_bleu': 0.2931522381820611, 'renamed_funcs_oracle_avg_sent_bleu': 0.4481262762744679, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.09, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10652462858771551, 'just_funcs_oracle_avg_sent_bleu': 0.16441431636134038, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.345}, dev renamed_funcs_corpus_bleu: 0.36877 (took 62s)
+hit patience 3
+[Iter 7850] encoder loss=1.66392
+[Iter 7900] encoder loss=1.15568
+[Iter 7950] encoder loss=1.42128
+[Iter 8000] encoder loss=1.36896
+[Iter 8050] encoder loss=1.40437
+[Epoch 37] epoch elapsed 38s
+[Epoch 37] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.57it/s]
+renamed_funcs_corpus_bleu : 0.3760157401350251
+[Epoch 37] evaluate details: {'corpus_bleu': 0.36804178551362826, 'oracle_corpus_bleu': 0.48897225376066666, 'avg_sent_bleu': 0.2916872714016774, 'oracle_avg_sent_bleu': 0.4484719502762087, 'exact_match': 0.03, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.3760157401350251, 'renamed_funcs_oracle_corpus_bleu': 0.4969816782790987, 'renamed_funcs_avg_sent_bleu': 0.2903563591335624, 'renamed_funcs_oracle_avg_sent_bleu': 0.45597409118700327, 'renamed_funcs_exact_match': 0.03, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10638057262133058, 'just_funcs_oracle_avg_sent_bleu': 0.17456226969837982, 'just_funcs_exact_match': 0.18, 'just_funcs_oracle_exact_match': 0.345}, dev renamed_funcs_corpus_bleu: 0.37602 (took 62s)
+hit patience 4
+[Iter 8100] encoder loss=1.38931
+[Iter 8150] encoder loss=1.31364
+[Iter 8200] encoder loss=1.35169
+[Iter 8250] encoder loss=1.44122
+[Epoch 38] epoch elapsed 38s
+[Epoch 38] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.68it/s]
+renamed_funcs_corpus_bleu : 0.3849972015741555
+[Epoch 38] evaluate details: {'corpus_bleu': 0.3744143091544921, 'oracle_corpus_bleu': 0.48495764067899294, 'avg_sent_bleu': 0.2916556144154477, 'oracle_avg_sent_bleu': 0.4466988320459236, 'exact_match': 0.035, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.3849972015741555, 'renamed_funcs_oracle_corpus_bleu': 0.4971067284590951, 'renamed_funcs_avg_sent_bleu': 0.2986331632666115, 'renamed_funcs_oracle_avg_sent_bleu': 0.45875347742846223, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10497842929622944, 'just_funcs_oracle_avg_sent_bleu': 0.16922946197027294, 'just_funcs_exact_match': 0.19, 'just_funcs_oracle_exact_match': 0.355}, dev renamed_funcs_corpus_bleu: 0.38500 (took 59s)
+hit patience 5
+hit #2 trial
+load previously best model and decay learning rate to 0.000250
+restore parameters of the optimizers
+[Iter 8300] encoder loss=1.36058
+[Iter 8350] encoder loss=1.29280
+[Iter 8400] encoder loss=1.08991
+[Iter 8450] encoder loss=1.21087
+[Iter 8500] encoder loss=1.21871
+[Epoch 39] epoch elapsed 38s
+[Epoch 39] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.61it/s]
+renamed_funcs_corpus_bleu : 0.3941070856517918
+[Epoch 39] evaluate details: {'corpus_bleu': 0.38557872845665403, 'oracle_corpus_bleu': 0.48978364890767245, 'avg_sent_bleu': 0.2989237151562522, 'oracle_avg_sent_bleu': 0.4497975439591259, 'exact_match': 0.04, 'oracle_exact_match': 0.08, 'renamed_funcs_corpus_bleu': 0.3941070856517918, 'renamed_funcs_oracle_corpus_bleu': 0.49758234256605965, 'renamed_funcs_avg_sent_bleu': 0.29915418120242043, 'renamed_funcs_oracle_avg_sent_bleu': 0.45798707407012995, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.09, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10160203868667922, 'just_funcs_oracle_avg_sent_bleu': 0.16544381430147553, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.345}, dev renamed_funcs_corpus_bleu: 0.39411 (took 61s)
+hit patience 1
+[Iter 8550] encoder loss=0.82631
+[Iter 8600] encoder loss=0.79981
+[Iter 8650] encoder loss=0.97762
+[Iter 8700] encoder loss=1.11730
+[Epoch 40] epoch elapsed 38s
+[Epoch 40] begin validation
+Decoding: 100%|██████████| 200/200 [00:52<00:00,  3.82it/s]
+renamed_funcs_corpus_bleu : 0.37648024397710855
+[Epoch 40] evaluate details: {'corpus_bleu': 0.3650312577002606, 'oracle_corpus_bleu': 0.48454556974720375, 'avg_sent_bleu': 0.2811531610109381, 'oracle_avg_sent_bleu': 0.4416840466614811, 'exact_match': 0.035, 'oracle_exact_match': 0.08, 'renamed_funcs_corpus_bleu': 0.37648024397710855, 'renamed_funcs_oracle_corpus_bleu': 0.49689285377519055, 'renamed_funcs_avg_sent_bleu': 0.2865918601401105, 'renamed_funcs_oracle_avg_sent_bleu': 0.4553809709990342, 'renamed_funcs_exact_match': 0.035, 'renamed_funcs_oracle_exact_match': 0.09, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09104520497309837, 'just_funcs_oracle_avg_sent_bleu': 0.16488678494639583, 'just_funcs_exact_match': 0.15, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.37648 (took 58s)
+hit patience 2
+[Iter 8750] encoder loss=0.91345
+[Iter 8800] encoder loss=0.73349
+[Iter 8850] encoder loss=0.88243
+[Iter 8900] encoder loss=0.86887
+[Epoch 41] epoch elapsed 38s
+[Epoch 41] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.62it/s]
+renamed_funcs_corpus_bleu : 0.38281253686036903
+[Epoch 41] evaluate details: {'corpus_bleu': 0.371303122495889, 'oracle_corpus_bleu': 0.4782956724972008, 'avg_sent_bleu': 0.294569095976988, 'oracle_avg_sent_bleu': 0.43399628645510807, 'exact_match': 0.045, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.38281253686036903, 'renamed_funcs_oracle_corpus_bleu': 0.4885223990627803, 'renamed_funcs_avg_sent_bleu': 0.29839004553149673, 'renamed_funcs_oracle_avg_sent_bleu': 0.44383832953220276, 'renamed_funcs_exact_match': 0.045, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10039196754529918, 'just_funcs_oracle_avg_sent_bleu': 0.16377104697695472, 'just_funcs_exact_match': 0.17, 'just_funcs_oracle_exact_match': 0.335}, dev renamed_funcs_corpus_bleu: 0.38281 (took 61s)
+hit patience 3
+[Iter 8950] encoder loss=0.90202
+[Iter 9000] encoder loss=0.77535
+[Iter 9050] encoder loss=0.79008
+[Iter 9100] encoder loss=0.85214
+[Iter 9150] encoder loss=0.76876
+[Epoch 42] epoch elapsed 37s
+[Epoch 42] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.63it/s]
+renamed_funcs_corpus_bleu : 0.3897143881800516
+[Epoch 42] evaluate details: {'corpus_bleu': 0.3768596675949258, 'oracle_corpus_bleu': 0.4833785367895925, 'avg_sent_bleu': 0.29331777615692933, 'oracle_avg_sent_bleu': 0.44289303062466456, 'exact_match': 0.04, 'oracle_exact_match': 0.085, 'renamed_funcs_corpus_bleu': 0.3897143881800516, 'renamed_funcs_oracle_corpus_bleu': 0.4948873551021109, 'renamed_funcs_avg_sent_bleu': 0.2988476843186414, 'renamed_funcs_oracle_avg_sent_bleu': 0.45591575272143214, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10286057112098139, 'just_funcs_oracle_avg_sent_bleu': 0.1727804490292909, 'just_funcs_exact_match': 0.18, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.38971 (took 60s)
+hit patience 4
+[Iter 9200] encoder loss=0.77371
+[Iter 9250] encoder loss=0.76284
+[Iter 9300] encoder loss=0.75424
+[Iter 9350] encoder loss=0.76946
+[Epoch 43] epoch elapsed 38s
+[Epoch 43] begin validation
+Decoding: 100%|██████████| 200/200 [00:58<00:00,  3.40it/s]
+renamed_funcs_corpus_bleu : 0.3720883671567261
+[Epoch 43] evaluate details: {'corpus_bleu': 0.3619408793621549, 'oracle_corpus_bleu': 0.4798313884035602, 'avg_sent_bleu': 0.28542216173263424, 'oracle_avg_sent_bleu': 0.43940799254927315, 'exact_match': 0.03, 'oracle_exact_match': 0.095, 'renamed_funcs_corpus_bleu': 0.3720883671567261, 'renamed_funcs_oracle_corpus_bleu': 0.4905066678681447, 'renamed_funcs_avg_sent_bleu': 0.2891929253934203, 'renamed_funcs_oracle_avg_sent_bleu': 0.45040795060703326, 'renamed_funcs_exact_match': 0.03, 'renamed_funcs_oracle_exact_match': 0.105, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10143223118998694, 'just_funcs_oracle_avg_sent_bleu': 0.16445713635537218, 'just_funcs_exact_match': 0.145, 'just_funcs_oracle_exact_match': 0.34}, dev renamed_funcs_corpus_bleu: 0.37209 (took 64s)
+hit patience 5
+hit #3 trial
+load previously best model and decay learning rate to 0.000125
+restore parameters of the optimizers
+[Iter 9400] encoder loss=1.02093
+[Iter 9450] encoder loss=1.28055
+[Iter 9500] encoder loss=1.11798
+[Iter 9550] encoder loss=1.11021
+[Epoch 44] epoch elapsed 38s
+[Epoch 44] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.61it/s]
+renamed_funcs_corpus_bleu : 0.37794911564272266
+[Epoch 44] evaluate details: {'corpus_bleu': 0.37288873446296683, 'oracle_corpus_bleu': 0.48616441568560825, 'avg_sent_bleu': 0.2851248612392905, 'oracle_avg_sent_bleu': 0.44515262161092084, 'exact_match': 0.04, 'oracle_exact_match': 0.085, 'renamed_funcs_corpus_bleu': 0.37794911564272266, 'renamed_funcs_oracle_corpus_bleu': 0.49730697803729845, 'renamed_funcs_avg_sent_bleu': 0.2893261018781759, 'renamed_funcs_oracle_avg_sent_bleu': 0.45637299968392037, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10705655997520472, 'just_funcs_oracle_avg_sent_bleu': 0.1728823612405985, 'just_funcs_exact_match': 0.18, 'just_funcs_oracle_exact_match': 0.365}, dev renamed_funcs_corpus_bleu: 0.37795 (took 61s)
+hit patience 1
+[Iter 9600] encoder loss=1.07872
+[Iter 9650] encoder loss=0.78690
+[Iter 9700] encoder loss=0.81521
+[Iter 9750] encoder loss=0.92035
+[Iter 9800] encoder loss=0.81105
+[Epoch 45] epoch elapsed 38s
+[Epoch 45] begin validation
+Decoding: 100%|██████████| 200/200 [00:56<00:00,  3.56it/s]
+renamed_funcs_corpus_bleu : 0.38842661235605397
+[Epoch 45] evaluate details: {'corpus_bleu': 0.37912304572342437, 'oracle_corpus_bleu': 0.4955934751689004, 'avg_sent_bleu': 0.293054539370041, 'oracle_avg_sent_bleu': 0.4531717855316809, 'exact_match': 0.04, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.38842661235605397, 'renamed_funcs_oracle_corpus_bleu': 0.5067022591597791, 'renamed_funcs_avg_sent_bleu': 0.2957061660955015, 'renamed_funcs_oracle_avg_sent_bleu': 0.46233185435406204, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09883215297544994, 'just_funcs_oracle_avg_sent_bleu': 0.17259635819852603, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.38843 (took 61s)
+hit patience 2
+[Iter 9850] encoder loss=0.59973
+[Iter 9900] encoder loss=0.71634
+[Iter 9950] encoder loss=0.75709
+[Iter 10000] encoder loss=0.78101
+[Epoch 46] epoch elapsed 38s
+[Epoch 46] begin validation
+Decoding: 100%|██████████| 200/200 [00:55<00:00,  3.62it/s]
+renamed_funcs_corpus_bleu : 0.38730722818778235
+[Epoch 46] evaluate details: {'corpus_bleu': 0.3795786545035041, 'oracle_corpus_bleu': 0.48997657236806025, 'avg_sent_bleu': 0.29054104611437914, 'oracle_avg_sent_bleu': 0.4464444514407284, 'exact_match': 0.04, 'oracle_exact_match': 0.085, 'renamed_funcs_corpus_bleu': 0.38730722818778235, 'renamed_funcs_oracle_corpus_bleu': 0.501482901509308, 'renamed_funcs_avg_sent_bleu': 0.29490713129820484, 'renamed_funcs_oracle_avg_sent_bleu': 0.4567304494966437, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09936567073533208, 'just_funcs_oracle_avg_sent_bleu': 0.16833722249242444, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.38731 (took 60s)
+hit patience 3
+[Iter 10050] encoder loss=0.76145
+[Iter 10100] encoder loss=0.57746
+[Iter 10150] encoder loss=0.65069
+[Iter 10200] encoder loss=0.64344
+[Epoch 47] epoch elapsed 38s
+[Epoch 47] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.70it/s]
+renamed_funcs_corpus_bleu : 0.39722546001462355
+[Epoch 47] evaluate details: {'corpus_bleu': 0.3859549013489756, 'oracle_corpus_bleu': 0.49441979548841236, 'avg_sent_bleu': 0.29714438362568385, 'oracle_avg_sent_bleu': 0.44530234489978937, 'exact_match': 0.04, 'oracle_exact_match': 0.085, 'renamed_funcs_corpus_bleu': 0.39722546001462355, 'renamed_funcs_oracle_corpus_bleu': 0.5047896299898034, 'renamed_funcs_avg_sent_bleu': 0.30034535727512357, 'renamed_funcs_oracle_avg_sent_bleu': 0.4530633617573176, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09599997695817698, 'just_funcs_oracle_avg_sent_bleu': 0.17213860627567398, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.39723 (took 59s)
+hit patience 4
+[Iter 10250] encoder loss=0.67340
+[Iter 10300] encoder loss=0.55456
+[Iter 10350] encoder loss=0.66137
+[Iter 10400] encoder loss=0.65418
+[Iter 10450] encoder loss=0.62468
+[Epoch 48] epoch elapsed 38s
+[Epoch 48] begin validation
+Decoding: 100%|██████████| 200/200 [00:53<00:00,  3.73it/s]
+renamed_funcs_corpus_bleu : 0.38550971313261656
+[Epoch 48] evaluate details: {'corpus_bleu': 0.3761069062657011, 'oracle_corpus_bleu': 0.49703239204679744, 'avg_sent_bleu': 0.29610791792730945, 'oracle_avg_sent_bleu': 0.45784108358093006, 'exact_match': 0.04, 'oracle_exact_match': 0.095, 'renamed_funcs_corpus_bleu': 0.38550971313261656, 'renamed_funcs_oracle_corpus_bleu': 0.5043820438993846, 'renamed_funcs_avg_sent_bleu': 0.29967193680242177, 'renamed_funcs_oracle_avg_sent_bleu': 0.46640011761963607, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.105, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10264790772033017, 'just_funcs_oracle_avg_sent_bleu': 0.1778651703484507, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.37}, dev renamed_funcs_corpus_bleu: 0.38551 (took 59s)
+hit patience 5
+hit #4 trial
+load previously best model and decay learning rate to 0.000063
+restore parameters of the optimizers
+[Iter 10500] encoder loss=1.13499
+[Iter 10550] encoder loss=1.08783
+[Iter 10600] encoder loss=1.16037
+[Iter 10650] encoder loss=1.02760
+[Epoch 49] epoch elapsed 37s
+[Epoch 49] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.67it/s]
+renamed_funcs_corpus_bleu : 0.39768090633304487
+[Epoch 49] evaluate details: {'corpus_bleu': 0.3866327167445606, 'oracle_corpus_bleu': 0.48949393127810037, 'avg_sent_bleu': 0.29326480903866525, 'oracle_avg_sent_bleu': 0.4490341825683926, 'exact_match': 0.04, 'oracle_exact_match': 0.085, 'renamed_funcs_corpus_bleu': 0.39768090633304487, 'renamed_funcs_oracle_corpus_bleu': 0.5018994298411596, 'renamed_funcs_avg_sent_bleu': 0.3001718161275309, 'renamed_funcs_oracle_avg_sent_bleu': 0.45994557304667344, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.095, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09683800846419292, 'just_funcs_oracle_avg_sent_bleu': 0.1710778652381218, 'just_funcs_exact_match': 0.165, 'just_funcs_oracle_exact_match': 0.365}, dev renamed_funcs_corpus_bleu: 0.39768 (took 60s)
+hit patience 1
+[Iter 10700] encoder loss=1.08335
+[Iter 10750] encoder loss=0.89364
+[Iter 10800] encoder loss=0.86536
+[Iter 10850] encoder loss=0.88809
+[Iter 10900] encoder loss=0.96208
+[Epoch 50] epoch elapsed 37s
+[Epoch 50] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.69it/s]
+renamed_funcs_corpus_bleu : 0.38469790599174447
+[Epoch 50] evaluate details: {'corpus_bleu': 0.37991299600667267, 'oracle_corpus_bleu': 0.489446598315543, 'avg_sent_bleu': 0.297199557567413, 'oracle_avg_sent_bleu': 0.4533646190546452, 'exact_match': 0.04, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.38469790599174447, 'renamed_funcs_oracle_corpus_bleu': 0.5022504146009935, 'renamed_funcs_avg_sent_bleu': 0.3037793042040018, 'renamed_funcs_oracle_avg_sent_bleu': 0.4646648095152952, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.10172265284602339, 'just_funcs_oracle_avg_sent_bleu': 0.17138494029797122, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.38470 (took 60s)
+hit patience 2
+[Iter 10950] encoder loss=0.78827
+[Iter 11000] encoder loss=0.69283
+[Iter 11050] encoder loss=0.73322
+[Iter 11100] encoder loss=0.86745
+[Epoch 51] epoch elapsed 37s
+[Epoch 51] begin validation
+Decoding: 100%|██████████| 200/200 [00:54<00:00,  3.65it/s]
+renamed_funcs_corpus_bleu : 0.37199641448239085
+[Epoch 51] evaluate details: {'corpus_bleu': 0.365477950637896, 'oracle_corpus_bleu': 0.4894021317887438, 'avg_sent_bleu': 0.2822408628436446, 'oracle_avg_sent_bleu': 0.44898166177557064, 'exact_match': 0.04, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.37199641448239085, 'renamed_funcs_oracle_corpus_bleu': 0.5025062440173068, 'renamed_funcs_avg_sent_bleu': 0.28873280136084345, 'renamed_funcs_oracle_avg_sent_bleu': 0.4606356989509129, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.09898325476043214, 'just_funcs_oracle_avg_sent_bleu': 0.1685348398203657, 'just_funcs_exact_match': 0.16, 'just_funcs_oracle_exact_match': 0.355}, dev renamed_funcs_corpus_bleu: 0.37200 (took 60s)
+hit patience 3
+[Iter 11150] encoder loss=0.67746
+[Iter 11200] encoder loss=0.71525
+[Iter 11250] encoder loss=0.66467
+[Iter 11300] encoder loss=0.72291
+[Epoch 52] epoch elapsed 38s
+[Epoch 52] begin validation
+Decoding: 100%|██████████| 200/200 [00:53<00:00,  3.71it/s]
+renamed_funcs_corpus_bleu : 0.37913135767359224
+[Epoch 52] evaluate details: {'corpus_bleu': 0.37389797182624285, 'oracle_corpus_bleu': 0.490953035093811, 'avg_sent_bleu': 0.28994719394443835, 'oracle_avg_sent_bleu': 0.4501466620450661, 'exact_match': 0.04, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.37913135767359224, 'renamed_funcs_oracle_corpus_bleu': 0.5028206967542078, 'renamed_funcs_avg_sent_bleu': 0.2954459727539717, 'renamed_funcs_oracle_avg_sent_bleu': 0.4594087880807281, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.1024180800590231, 'just_funcs_oracle_avg_sent_bleu': 0.1682109892488471, 'just_funcs_exact_match': 0.17, 'just_funcs_oracle_exact_match': 0.35}, dev renamed_funcs_corpus_bleu: 0.37913 (took 59s)
+hit patience 4
+[Iter 11350] encoder loss=0.64740
+[Iter 11400] encoder loss=0.57190
+[Iter 11450] encoder loss=0.63043
+[Iter 11500] encoder loss=0.58275
+[Iter 11550] encoder loss=0.65404
+[Epoch 53] epoch elapsed 37s
+[Epoch 53] begin validation
+Decoding: 100%|██████████| 200/200 [00:53<00:00,  3.73it/s]
+renamed_funcs_corpus_bleu : 0.39240202074110764
+[Epoch 53] evaluate details: {'corpus_bleu': 0.38289175965417377, 'oracle_corpus_bleu': 0.49202772882375967, 'avg_sent_bleu': 0.3007717005969137, 'oracle_avg_sent_bleu': 0.44789820589566887, 'exact_match': 0.04, 'oracle_exact_match': 0.09, 'renamed_funcs_corpus_bleu': 0.39240202074110764, 'renamed_funcs_oracle_corpus_bleu': 0.5045934271074238, 'renamed_funcs_avg_sent_bleu': 0.3030973593711832, 'renamed_funcs_oracle_avg_sent_bleu': 0.4604132254317514, 'renamed_funcs_exact_match': 0.04, 'renamed_funcs_oracle_exact_match': 0.1, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.108794639678209, 'just_funcs_oracle_avg_sent_bleu': 0.17185356787058648, 'just_funcs_exact_match': 0.175, 'just_funcs_oracle_exact_match': 0.36}, dev renamed_funcs_corpus_bleu: 0.39240 (took 59s)
+hit patience 5
+hit #5 trial
+early stop!
+load model from [saved_models/conala/t2-train-renamed_fs-patience5-renamed_bleu_metric.bin]
+Decoding: 100%|██████████| 500/500 [02:13<00:00,  3.75it/s]
+
+{'corpus_bleu': 0.25895169501334825, 'oracle_corpus_bleu': 0.355954254178697, 'avg_sent_bleu': 0.20937886461587504, 'oracle_avg_sent_bleu': 0.33704952035240693, 'exact_match': 0.018, 'oracle_exact_match': 0.056, 'renamed_funcs_corpus_bleu': 0.2664097289976976, 'renamed_funcs_oracle_corpus_bleu': 0.36394243682096294, 'renamed_funcs_avg_sent_bleu': 0.21494879803545291, 'renamed_funcs_oracle_avg_sent_bleu': 0.3471667183415382, 'renamed_funcs_exact_match': 0.02, 'renamed_funcs_oracle_exact_match': 0.056, 'just_funcs_corpus_bleu': 0.0, 'just_funcs_oracle_corpus_bleu': 0.0, 'just_funcs_avg_sent_bleu': 0.0717565734564673, 'just_funcs_oracle_avg_sent_bleu': 0.14310966756408441, 'just_funcs_exact_match': 0.112, 'just_funcs_oracle_exact_match': 0.264}
+
+Process finished with exit code 0

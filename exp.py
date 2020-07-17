@@ -141,8 +141,8 @@ def train(args):
 
         print('[Epoch %d] epoch elapsed %ds' % (epoch, time.time() - epoch_begin), file=sys.stderr)
 
-        if args.save_all_models:
-            model_file = args.save_to + '.iter%d.bin' % train_iter
+        if args.save_all_models_every25 and epoch % 25 == 0:
+            model_file = args.save_to + '.epoch%d.bin' % epoch
             print('save model to [%s]' % model_file, file=sys.stderr)
             model.save(model_file)
 

@@ -17,11 +17,39 @@ from common.utils import cached_property
 from model import nn_utils
 from datasets.conala.util import tokenize_intent
 from random import choice, shuffle
+import json
+import time
+from operator import itemgetter
 
 
-def load_docs():
-    import json
+# def load_docs(just_train_set=True, top_popular=50):
+def load_docs(just_train_set=False, top_popular=None):
+    print('loading docs... just_train_set =', just_train_set)
+    start_time = time.time()
     docs_raw_dict = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_docs.json'))
+    train_raw_list = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_train.json'))
+    funcs_field = 'doc_id_by_name'
+
+    train_set_count = {}
+    train_set = set()
+    if just_train_set:
+        for example in train_raw_list:
+            if funcs_field in example:
+                doc_id_by_name = example[funcs_field]
+                for key in doc_id_by_name:
+                    train_set.add(key)
+
+                    if key in train_set_count:
+                        train_set_count[key] += 1
+                    else:
+                        train_set_count[key] = 1
+
+    if not top_popular:
+        chosen_func_set = train_set
+    else:
+        sorted_tuples = sorted(train_set_count.items(), key=itemgetter(1), reverse=True)[:top_popular]
+        chosen_func_set = set([fname for fname, _ in sorted_tuples])
+
     # docs_index_dict = {}
     # for key, value in docs_raw_dict.items():
     #     docs_index_dict[value['index']] = tokenize_intent(' '.join(value['doc'][:2]))docs_index_dict = {}
@@ -29,14 +57,23 @@ def load_docs():
     docs_dict = {}
     func_names = []
     for key, value in docs_raw_dict.items():
-        docs_dict[key] = tokenize_intent(' '.join(value['doc'][:2]))
+        if just_train_set and key not in chosen_func_set:
+            continue
+        doc = value['doc']
+
+        if isinstance(doc, str):
+            docs_dict[key] = tokenize_intent(doc)
+        else:
+            docs_dict[key] = tokenize_intent(' '.join(doc[:2]))
         func_names.append(key)
         canonic_to_orig_names[key] = value['name']
+
+    print('done! total:%d, chosen_func_set:%d, took %ds' % (len(docs_raw_dict), len(chosen_func_set), time.time() - start_time))
     return docs_dict, func_names, canonic_to_orig_names
 
 
 def complete_funcs(init_functions, all_functions, total=10):
-    functions = [func_name for func_name in init_functions]
+    functions = [func_name for func_name in init_functions if func_name in all_functions]  # FIXME
     n0 = len(functions)
 
     while total > n0:

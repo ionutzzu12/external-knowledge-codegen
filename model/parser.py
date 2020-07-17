@@ -184,7 +184,7 @@ class Parser(nn.Module):
         return self._apply(lambda t: t.cpu())
 
     def get_docs(self, functions):
-        return [self.docs_by_name[fname] for fname in functions]
+        return [self.docs_by_name[fname] if fname in self.docs_by_name else [''] for fname in functions]
 
     def encode(self, src_sents_var, src_sents_len):
         """Encode the input natural language utterance
@@ -323,11 +323,11 @@ class Parser(nn.Module):
 
                 for docs in batch_docs:
                     docs_var = nn_utils.to_input_variable(docs, self.vocab.source, cuda=self.args.cuda)
-                    encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in docs])
+                    encoded_docs, (last_state2, last_cell2) = self.encode(docs_var, [len(doc) for doc in docs])
                     # docs_encodings = [encoded_docs[i][-1] for i in range(len(docs))]   # last h_t  # FIXME this is wrong
-                    docs_encodings = [encoded_docs[i][len(docs[i]) - 1] for i in range(len(docs))]   # last h_t
+                    # docs_encodings = [encoded_docs[i][len(docs[i]) - 1] for i in range(len(docs))]   # last h_t
 
-                    batch_docs_encodings.append(torch.stack(docs_encodings))
+                    batch_docs_encodings.append(last_cell2)
                 batch_docs_encodings = torch.stack(batch_docs_encodings)
 
                 primitive_copy_prob_f = self.src_pointer_net2(batch_docs_encodings, batch.src_token_mask_f,
@@ -564,11 +564,11 @@ class Parser(nn.Module):
             functions = complete_funcs(functions, self.all_func_names)
             func_docs = self.get_docs(functions)
             docs_var = nn_utils.to_input_variable(func_docs, self.vocab.source, cuda=self.args.cuda)
-            encoded_docs, _ = self.encode(docs_var, [len(doc) for doc in func_docs])
+            encoded_docs, (last_state2, last_cell2) = self.encode(docs_var, [len(doc) for doc in func_docs])
             # docs_encodings = [encoded_docs[i][-1] for i in range(len(func_docs))]  # last h_t # FIXME
-            docs_encodings = [encoded_docs[i][len(func_docs[i]) - 1] for i in range(len(func_docs))]  # last h_t
+            # docs_encodings = [encoded_docs[i][len(func_docs[i]) - 1] for i in range(len(func_docs))]  # last h_t
 
-            stacked_docs_encodings = torch.stack([torch.stack(docs_encodings)])
+            stacked_docs_encodings = torch.stack([last_cell2])
             aggregated_function_tokens = {f: [idx] for idx, f in enumerate(functions)}
 
         dec_init_vec = self.init_decoder_state(last_state, last_cell)

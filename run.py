@@ -3,14 +3,14 @@ import sys
 import exp
 
 
-model_1_name = "model_1_t1-orig-mined-renamed_fs"
+model_1_name = "t7-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-all_doc_funcs-pretrain"
 # model_2_name = "model_2_t1-orig-train-renamed_fs"
 bin_dir = 'conala-renamed_funcs&docs'
 
-PRETRAIN, TRAIN, TEST, TRAIN_FUNCS = '1', '2', 't', '7'
+PRETRAIN, TRAIN, TEST, PRETRAIN_FUNCS, TRAIN_FUNCS = '1', '2', 't', '6', '7'
 
-MODE = TRAIN_FUNCS
-model_2_name = "t1-funcs10-renamed_fs-patience10-renamed_bleu_metric"
+MODE = TRAIN
+model_2_name = "t8-train-renamed_fs-patience7-renamed_bleu_metric"
 
 
 class BaseArgs:
@@ -34,7 +34,7 @@ class BaseArgs:
     lr = 0.001
     lr_decay = 0.5
     beam_size = 15
-    max_epoch = 100
+    max_epoch = 80
     lstm = 'lstm'  # lstm
     lr_decay_after_epoch = 15
 
@@ -46,8 +46,8 @@ class BaseArgs:
     # evaluator = 'conala_evaluator'  # TODO: original
     evaluator = 'conala_functions_evaluator'
     verbose = False
-    patience = 10
-    max_num_trial = 10
+    patience = 7
+    max_num_trial = 7
     glorot_init = True
     log_every = 50
 
@@ -71,6 +71,8 @@ class BaseArgs:
     valid_metric = 'acc'
     valid_every_epoch = 1
     save_all_models = False
+    save_all_models_every25 = False
+
     uniform_init = None
     clip_grad = 5.
     optimizer = 'Adam'
@@ -84,16 +86,29 @@ class BaseArgs:
     no_func_copy = True  #consistency
 
 
-class PretrainArgs(BaseArgs):
+class PretrainFuncsArgs(BaseArgs):
+    # def __init__(self, model_name=model_1_name):
+    #     BaseArgs.__init__(self)
+    #
+    #     self.mode = 'train'
+    #     self.train_file = f"data/{bin_dir}/mined_100000.bin"
+    #     self.batch_size = 64
+    #     self.pretrain = False
+    #     self.save_to = f'saved_models/conala/{model_name}'
+    #     self.dev_file = f"data/{bin_dir}/dev.bin"
+
     def __init__(self, model_name=model_1_name):
         BaseArgs.__init__(self)
 
+        self.model_name = model_name
+        self.no_func_copy = False
         self.mode = 'train'
-        self.train_file = f"data/{bin_dir}/mined_100000.bin"
-        self.batch_size = 64
-        self.pretrain = False
-        self.save_to = f'saved_models/conala/{model_name}'
+        self.train_file = f"data/{bin_dir}/renamed_funcs_apidocs.bin"
         self.dev_file = f"data/{bin_dir}/dev.bin"
+
+        self.batch_size = 64
+        self.pretrain = None  # f"saved_models/conala/{model_1_name}.bin"  # TODO for finetuning
+        self.save_to = f'saved_models/conala/{self.model_name}'
 
 
 class FinetuneArgs(BaseArgs):
@@ -140,12 +155,12 @@ class TestArgs(BaseArgs):
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         sys.argv += [MODE]
-    assert MODE in [PRETRAIN, TRAIN, TEST, TRAIN_FUNCS]
+    assert MODE in [PRETRAIN, TRAIN, TEST, PRETRAIN_FUNCS, TRAIN_FUNCS]
 
     train_args = None
 
-    if sys.argv[1] == PRETRAIN:
-        train_args = PretrainArgs()
+    if sys.argv[1] == PRETRAIN_FUNCS:
+        train_args = PretrainFuncsArgs()
     elif sys.argv[1] == TRAIN:
         train_args = FinetuneArgs()
     # elif sys.argv[1] == TEST:
