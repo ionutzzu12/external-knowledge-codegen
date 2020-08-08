@@ -2,7 +2,10 @@
 import re
 import matplotlib.pyplot as plt
 
-# file0 = "orig-train"
+file0 = "orig-train"
+file00 = "orig-train-no_copy"
+file01 = "orig-train-bert"
+file02 = "orig-train-bert-long_run"
 # file1_1 = "orig-train-renamed_fs"
 # file1_2 = "t1-train-renamed_fs-patience10-renamed_bleu_metric"
 # file1_3 = "orig-train-renamed_fs-15patience"
@@ -38,7 +41,7 @@ def draw(fname, dowhat):
 
         if dowhat == PLOT_SCORE:
             for line in content:
-                xs = re.findall("renamed_funcs_corpus_bleu: 0.[0-9]+", line)
+                xs = re.findall("'corpus_bleu': 0.[0-9]+", line)
                 # xs = re.findall("'exact_match': 0.[0-9]+", line)
                 assert len(xs) < 2, len(xs)
 
@@ -59,7 +62,7 @@ if __name__ == "__main__":
     # files = [file1, file2, file3, file4]
     # files = [file0, file1, file1_2, file1_3, file2, file2_5]
     # files = [file1_1, file1_2, file1_3, file1_4, file2_2, file2_4, file2_5, file3_1, file3_2, file3_3]
-    files = [file2_4, file3_1, file3_2, file3_3]
+    files = [file0, file00, file01, file02, file2_4]  # , file3_1, file3_2, file3_3]
 
     do_what = PLOT_SCORE
     # do_what = PLOT_LOSS

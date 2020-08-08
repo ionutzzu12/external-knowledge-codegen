@@ -23,10 +23,11 @@ from operator import itemgetter
 
 
 # def load_docs(just_train_set=True, top_popular=50):
-def load_docs(just_train_set=False, top_popular=None):
+def load_docs(just_train_set=True, top_popular=None):
     print('loading docs... just_train_set =', just_train_set)
     start_time = time.time()
-    docs_raw_dict = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_docs.json'))
+    # docs_raw_dict = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_docs.json'))
+    docs_raw_dict = json.load(open('data/train_doc_processed.json'))
     train_raw_list = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_train.json'))
     funcs_field = 'doc_id_by_name'
 

@@ -70,16 +70,44 @@ if __name__ == "__main__":
         else:
             fs_by_module[m].append(v)
 
-    module = 'os'
+    module = 're'
     for f in fs_by_module[module]:
         # print(f['name'], f['doc'])
-        # print('.'.join(f['name'].split('.')[1:]))
-        print(' '.join(f['doc']))
+        print('.'.join(f['name'].split('.')[1:]))
+        # print(' '.join(f['doc']))  # print(f['doc'])
         pass
 
     result = sorted(fs_by_module.items(), reverse=True, key=lambda item: len(item[1]))
 
     # for k in result:
     #     print(k[0])
+
+    used_modules = [f[0] for f in result[:14]]
+    docs_raw_dict = json.load(open('../data/conala-renamed_funcs&docs/renamed_funcs_docs.json'))
+    train_raw_list = json.load(open('../data/conala-renamed_funcs&docs/renamed_funcs_train.json'))
+    valid_train_examples = []
+
+    all_num = len(train_raw_list)
+    docum_num = 0
+    ingested_num = 0
+
+    for e in train_raw_list:
+        docum = True
+        ingest = True
+        if 'doc_id_by_name' in e:
+            for func_name in e['doc_id_by_name']:
+                if func_name in docs_raw_dict:
+                    # docum_num += 1
+                    if docs_raw_dict[func_name]["module"] in used_modules:
+                        # ingested_num += 1
+                        pass
+                    else:
+                        ingest = False
+                else:
+                    docum = ingest = False
+        else:
+            docum = ingest = False
+        if docum: docum_num += 1
+        if ingest: ingested_num += 1
 
     print('done')

@@ -3,14 +3,14 @@ import sys
 import exp
 
 
-model_1_name = "t7-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-all_doc_funcs-pretrain"
+model_1_name = "t10-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set"
 # model_2_name = "model_2_t1-orig-train-renamed_fs"
 bin_dir = 'conala-renamed_funcs&docs'
 
 PRETRAIN, TRAIN, TEST, PRETRAIN_FUNCS, TRAIN_FUNCS = '1', '2', 't', '6', '7'
 
-MODE = TRAIN
-model_2_name = "t8-train-renamed_fs-patience7-renamed_bleu_metric"
+MODE = TRAIN_FUNCS
+model_2_name = "t10-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-NEW_DOCS"
 
 
 class BaseArgs:
@@ -84,6 +84,7 @@ class BaseArgs:
     save_decode_to = None
     att_vec_size = 256
     no_func_copy = True  #consistency
+    # use_bert_encodings = False
 
 
 class PretrainFuncsArgs(BaseArgs):
@@ -122,6 +123,7 @@ class FinetuneArgs(BaseArgs):
         self.batch_size = 10
         self.pretrain = None  # f"saved_models/conala/{model_1_name}.bin"  # TODO for finetuning
         self.save_to = f'saved_models/conala/{self.model_name}'
+        # self.use_bert_encodings = True
 
 
 class TrainWithFuncs(BaseArgs):
