@@ -6,21 +6,22 @@ import exp
 model_1_name = "t10-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set"
 # model_2_name = "model_2_t1-orig-train-renamed_fs"
 bin_dir = 'conala-renamed_funcs&docs'
-
 PRETRAIN, TRAIN, TEST, PRETRAIN_FUNCS, TRAIN_FUNCS = '1', '2', 't', '6', '7'
 
 MODE = TRAIN_FUNCS
-model_2_name = "t10-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-NEW_DOCS"
+model_2_name = "t15-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-NEW_DOCS-new_vocab"
 
 
 class BaseArgs:
     # common for both pretrain & train
-    seed = 0
+    seed = 1
     mined_num = 100000
     ret_method = "snippet_count100k_topk1_temp2"
     freq = 3
 
-    vocab = f"data/{bin_dir}/vocab.src_freq3.code_freq3.bin"
+    # vocab = f"data/{bin_dir}/vocab.src_freq3.code_freq3.bin"
+    vocab = f"data/vocab.src_freq3.code_freq3.bin"
+
     # vocab = f"data/conala/vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.bin"
     # vocab = f"data/{bin_dir}/vocab.src_freq3.code_freq3.mined_100000.bin"
     # dev_file = "data/conala/dev.bin"  # TODO

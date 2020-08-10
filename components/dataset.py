@@ -62,10 +62,11 @@ def load_docs(just_train_set=True, top_popular=None):
             continue
         doc = value['doc']
 
-        if isinstance(doc, str):
-            docs_dict[key] = tokenize_intent(doc)
-        else:
-            docs_dict[key] = tokenize_intent(' '.join(doc[:2]))
+        # if isinstance(doc, str):
+        #     docs_dict[key] = tokenize_intent(doc)
+        # else:
+        #     docs_dict[key] = tokenize_intent(' '.join(doc[:2]))
+        docs_dict[key] = doc
         func_names.append(key)
         canonic_to_orig_names[key] = value['name']
 

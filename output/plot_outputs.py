@@ -22,6 +22,11 @@ file3_1 = 't3-funcs15-renamed_fs-patience7-renamed_bleu_metric-last_state'
 file3_2 = 't4-funcs25-renamed_fs-patience7-renamed_bleu_metric-last_cell'
 file3_3 = 't5-funcs25-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set_funcs'
 
+file4_1 = "t10-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-new_docs"
+file4_2 = "t12-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-new_docs_just_name"
+file4_3 = "t13-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-new_docs_no_description"
+file4_4 = "t14-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-NEW_DOCS-new_vocab"
+
 # file2 = "10func-train"
 # file3 = "10func-train2"
 # file4 = "03func-train"
@@ -62,7 +67,7 @@ if __name__ == "__main__":
     # files = [file1, file2, file3, file4]
     # files = [file0, file1, file1_2, file1_3, file2, file2_5]
     # files = [file1_1, file1_2, file1_3, file1_4, file2_2, file2_4, file2_5, file3_1, file3_2, file3_3]
-    files = [file0, file00, file01, file02, file2_4]  # , file3_1, file3_2, file3_3]
+    files = [file2_4, file4_1, file4_2, file4_3, file4_4]  # , file3_1, file3_2, file3_3]
 
     do_what = PLOT_SCORE
     # do_what = PLOT_LOSS
