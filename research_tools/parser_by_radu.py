@@ -286,7 +286,8 @@ class Parser:
 
 def main():
 
-    code_snippet = "a.aa.b(c.d(1)).d(2)"
+    # code_snippet = "a.aa.b(c.d(1)).d(x)"
+    code_snippet = "a(x)"
     astpretty.pprint(ast.parse(code_snippet).body[0], indent=' ' * 4)
     sketch = Parser(code_snippet, verbose=True).generate()
 

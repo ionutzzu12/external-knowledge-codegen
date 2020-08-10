@@ -574,6 +574,14 @@ def train_reranker_and_test(args):
 
 
 def main(args_instance):
+    args = args_instance
+
+    # seed the RNG
+    torch.manual_seed(args.seed)
+    if args.cuda:
+        torch.cuda.manual_seed(args.seed)
+    np.random.seed(int(args.seed * 13 / 7))
+
     if args_instance.mode == 'train':
         train(args_instance)
     elif args_instance.mode in ('train_reconstructor', 'train_paraphrase_identifier'):
