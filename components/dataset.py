@@ -27,8 +27,8 @@ def load_docs(just_train_set=True, top_popular=None):
     print('loading docs... just_train_set =', just_train_set)
     start_time = time.time()
     # docs_raw_dict = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_docs.json'))
-    docs_raw_dict = json.load(open('data/train_doc_processed.json'))
-    train_raw_list = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_train.json'))
+    docs_raw_dict = json.load(open('data/conala_new/train_doc_processed.json'))
+    train_raw_list = json.load(open('data/conala_new/renamed_funcs_train.json'))
     funcs_field = 'doc_id_by_name'
 
     train_set_count = {}

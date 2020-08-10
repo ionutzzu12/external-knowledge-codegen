@@ -5,7 +5,7 @@ import exp
 
 model_1_name = "t10-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set"
 # model_2_name = "model_2_t1-orig-train-renamed_fs"
-bin_dir = 'conala-renamed_funcs&docs'
+bin_dir = 'conala_new'
 PRETRAIN, TRAIN, TEST, PRETRAIN_FUNCS, TRAIN_FUNCS = '1', '2', 't', '6', '7'
 
 MODE = TRAIN_FUNCS
@@ -20,7 +20,7 @@ class BaseArgs:
     freq = 3
 
     # vocab = f"data/{bin_dir}/vocab.src_freq3.code_freq3.bin"
-    vocab = f"data/vocab.src_freq3.code_freq3.bin"
+    vocab = f"data/conala_new/vocab.src_freq3.code_freq3.bin"
 
     # vocab = f"data/conala/vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.bin"
     # vocab = f"data/{bin_dir}/vocab.src_freq3.code_freq3.mined_100000.bin"
@@ -63,7 +63,7 @@ class BaseArgs:
     no_parent_state = False
     no_input_feed = False
     no_copy = False
-    glove_embed_path = None
+    glove_embed_path = 'data/conala_new/glove.6B.100d.txt'  # None
     word_dropout = 0.
     decoder_word_dropout = 0.3
     primitive_token_label_smoothing = 0.0
@@ -134,7 +134,7 @@ class TrainWithFuncs(BaseArgs):
         self.model_name = model_name
         self.no_func_copy = False
         self.mode = 'train'
-        self.train_file = f"data/{bin_dir}/train.all_100000.bin"
+        self.train_file = f"data/{bin_dir}/train.all_0.bin"
         self.dev_file = f"data/{bin_dir}/dev.bin"
 
         self.batch_size = 10

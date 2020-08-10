@@ -17,7 +17,7 @@ def canonic_fname(name):
     return new_name
 
 
-data = json.load(open('data/train_doc.json'))
+data = json.load(open('data/new_conala/train_doc.json'))
 sep = '<sep>'
 mandatory = '<mandatory>'
 optional = '<optional>'
@@ -65,8 +65,6 @@ for e in data:
             else:
                 res_funcs[key] = value
 
-json.dump(res_funcs, open('data/train_doc_processed.json', 'w'), indent=2)
+json.dump(res_funcs, open('data/new_conala/train_doc_processed.json', 'w'), indent=2)
 
 print('done', len(cnt), cnt)
-
-train_examples = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_train.json'))

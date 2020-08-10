@@ -71,7 +71,7 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
         filtered_doc = [i for i in filter(lambda i: i != '', split)]
         return filtered_doc
 
-    docs_raw_dict = json.load(open('data/train_doc_processed.json'))
+    docs_raw_dict = json.load(open('data/conala_new/train_doc_processed.json'))
     # docs = [split_doc(v['doc']) for v in docs_raw_dict.values()]
     docs = [v['doc'] for v in docs_raw_dict.values()]
 
@@ -97,10 +97,10 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     print('Avg action len: %d' % np.average(action_lens), file=sys.stderr)
     print('Actions larger than 100: %d' % len(list(filter(lambda x: x > 100, action_lens))), file=sys.stderr)
 
-    # pickle.dump(train_examples, open(os.path.join(out_dir, 'train.all_{}.bin'.format(num_mined)), 'wb'))
-    # pickle.dump(full_train_examples, open(os.path.join(out_dir, 'train.gold.full.bin'), 'wb'))
-    # pickle.dump(dev_examples, open(os.path.join(out_dir, 'dev.bin'), 'wb'))
-    # pickle.dump(test_examples, open(os.path.join(out_dir, 'test.bin'), 'wb'))
+    pickle.dump(train_examples, open(os.path.join(out_dir, 'train.all_{}.bin'.format(num_mined)), 'wb'))
+    pickle.dump(full_train_examples, open(os.path.join(out_dir, 'train.gold.full.bin'), 'wb'))
+    pickle.dump(dev_examples, open(os.path.join(out_dir, 'dev.bin'), 'wb'))
+    pickle.dump(test_examples, open(os.path.join(out_dir, 'test.bin'), 'wb'))
     if mined_examples and api_examples:
         vocab_name = 'vocab.src_freq%d.code_freq%d.mined_%s.%s.bin' % (src_freq, code_freq, num_mined, name)
     elif mined_examples:
@@ -224,15 +224,15 @@ if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
     #### General configuration ####
     arg_parser.add_argument('--pretrain', type=str, help='Path to pretrain file')
-    arg_parser.add_argument('--out_dir', type=str, default='data/', help='Path to output file')
+    arg_parser.add_argument('--out_dir', type=str, default='data/conala_new', help='Path to output file')
     arg_parser.add_argument('--topk', type=int, default=0, help='First k number from mined file')
     arg_parser.add_argument('--freq', type=int, default=3, help='minimum frequency of tokens')
     arg_parser.add_argument('--vocabsize', type=int, default=20000, help='First k number from pretrain file')
     arg_parser.add_argument('--include_api', type=str, help='Path to apidocs file')
     args = arg_parser.parse_args()
 
-    preprocess_conala_dataset(train_file='data/conala-renamed_funcs&docs/renamed_funcs_train.json',
-                              test_file='data/conala-renamed_funcs&docs/renamed_funcs_test.json',
+    preprocess_conala_dataset(train_file='data/conala_new/renamed_funcs_train.json',
+                              test_file='data/conala_new/renamed_funcs_test.json',
                               mined_data_file=args.pretrain,
                               api_data_file=args.include_api,
                               grammar_file='asdl/lang/py3/py3_asdl.simplified.txt',
