@@ -6,8 +6,8 @@ import token
 from collections import defaultdict
 from tokenize import TokenInfo, tokenize
 
-# import astpretty
-# from termcolor import colored
+import astpretty
+from termcolor import colored
 from pprint import pprint as pp
 from ast import iter_fields, AST
 
@@ -287,7 +287,8 @@ class Parser:
 def main():
 
     code_snippet = "a.aa.b(c.d(1)).d(2)"
-    astpretty.pprint(ast.parse(code_snippet).body[0], indent=' ' * 4)
+    ast1 = ast.parse(code_snippet)
+    astpretty.pprint(ast1.body[0], indent=' ' * 4)
     sketch = Parser(code_snippet, verbose=True).generate()
 
     print(sketch.details())

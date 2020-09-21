@@ -26,8 +26,8 @@ from operator import itemgetter
 def load_docs(just_train_set=True, top_popular=None):
     print('loading docs... just_train_set =', just_train_set)
     start_time = time.time()
-    # docs_raw_dict = json.load(open('data/conala-renamed_funcs&docs/renamed_funcs_docs.json'))
-    docs_raw_dict = json.load(open('data/conala_new/train_doc_processed.json'))
+    docs_raw_dict = json.load(open('data/conala_new/renamed_funcs_docs.json'))
+    # docs_raw_dict = json.load(open('data/conala_new/revised_docs.json'))
     train_raw_list = json.load(open('data/conala_new/renamed_funcs_train.json'))
     funcs_field = 'doc_id_by_name'
 
@@ -62,11 +62,11 @@ def load_docs(just_train_set=True, top_popular=None):
             continue
         doc = value['doc']
 
-        # if isinstance(doc, str):
-        #     docs_dict[key] = tokenize_intent(doc)
-        # else:
-        #     docs_dict[key] = tokenize_intent(' '.join(doc[:2]))
-        docs_dict[key] = doc
+        if isinstance(doc, str):
+            docs_dict[key] = tokenize_intent(doc)
+        else:
+            docs_dict[key] = tokenize_intent(' '.join(doc[:2]))
+        # docs_dict[key] = doc
         func_names.append(key)
         canonic_to_orig_names[key] = value['name']
 
@@ -125,7 +125,7 @@ class Dataset(object):
 
 
 class Example(object):
-    def __init__(self, src_sent, tgt_actions, tgt_code, tgt_ast, idx=0, meta=None, functions=None):
+    def __init__(self, src_sent, tgt_actions, tgt_code, tgt_ast, idx=0, meta=None, functions=None, local_vars=None):
         self.src_sent = src_sent
         self.tgt_code = tgt_code
         self.tgt_ast = tgt_ast
@@ -135,7 +135,7 @@ class Example(object):
         self.meta = meta
 
         self.functions = functions
-
+        self.local_vars = local_vars
 
 # filter and keep first 2 + 1 random
 def sample(functions):

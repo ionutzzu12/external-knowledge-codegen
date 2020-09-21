@@ -26,6 +26,11 @@ file4_1 = "t10-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_t
 file4_2 = "t12-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-new_docs_just_name"
 file4_3 = "t13-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-new_docs_no_description"
 file4_4 = "t14-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-NEW_DOCS-new_vocab"
+file4_5 = "t15-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-NEW_DOCS-new_vocab-glove"
+
+file5_1 = "t18-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-revised_docs&vocab"
+file5_2 = "t18.5-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-revised_docs&vocab"
+file5_3 = "t1"
 
 # file2 = "10func-train"
 # file3 = "10func-train2"
@@ -46,7 +51,7 @@ def draw(fname, dowhat):
 
         if dowhat == PLOT_SCORE:
             for line in content:
-                xs = re.findall("'corpus_bleu': 0.[0-9]+", line)
+                xs = re.findall("'exact_match': 0.[0-9]+", line)
                 # xs = re.findall("'exact_match': 0.[0-9]+", line)
                 assert len(xs) < 2, len(xs)
 
@@ -67,7 +72,7 @@ if __name__ == "__main__":
     # files = [file1, file2, file3, file4]
     # files = [file0, file1, file1_2, file1_3, file2, file2_5]
     # files = [file1_1, file1_2, file1_3, file1_4, file2_2, file2_4, file2_5, file3_1, file3_2, file3_3]
-    files = [file2_4, file4_1, file4_2, file4_3, file4_4]  # , file3_1, file3_2, file3_3]
+    files = [file2_4, file4_1, file4_4, file5_1, file5_2, file5_3]
 
     do_what = PLOT_SCORE
     # do_what = PLOT_LOSS

@@ -55,7 +55,6 @@ def train(args):
         dev_set = Dataset(examples=[])
 
     vocab = pickle.load(open(args.vocab, 'rb'))
-
     grammar = ASDLGrammar.from_text(open(args.asdl_file).read())
     transition_system = Registrable.by_name(args.transition_system)(grammar)
 

@@ -30,13 +30,20 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     transition_system = Python3TransitionSystem(grammar)
 
     print('process gold training data...')
-    train_examples = preprocess_dataset(train_file, name='train', transition_system=transition_system)
+    # train_examples = preprocess_dataset(train_file, name='train', transition_system=transition_system)
+
+    # FIXME this is temp for conala_resplit
+
+    train_examples = preprocess_dataset('data/conala_resplit/conala_resplit_train.json', name='train', transition_system=transition_system)
+    dev_examples = preprocess_dataset('data/conala_resplit/conala_resplit_dev.json', name='train', transition_system=transition_system)
+    test_examples = preprocess_dataset('data/conala_resplit/conala_resplit_test.json', name='train', transition_system=transition_system)
+    out_dir = 'data/conala_resplit'
 
     # held out 200 examples for development
     full_train_examples = train_examples[:]
-    np.random.shuffle(train_examples)
-    dev_examples = train_examples[:200]
-    train_examples = train_examples[200:]
+    # np.random.shuffle(train_examples)
+    # dev_examples = train_examples[:200]
+    # train_examples = train_examples[200:]
 
     mined_examples = []
     api_examples = []
@@ -63,7 +70,7 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     print(f'{len(dev_examples)} dev instances', file=sys.stderr)
 
     print('process testing data...')
-    test_examples = preprocess_dataset(test_file, name='test', transition_system=transition_system)
+    # test_examples = preprocess_dataset(test_file, name='test', transition_system=transition_system)
     print(f'{len(test_examples)} testing instances', file=sys.stderr)
 
     def split_doc(doc):
@@ -71,11 +78,11 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
         filtered_doc = [i for i in filter(lambda i: i != '', split)]
         return filtered_doc
 
-    docs_raw_dict = json.load(open('data/conala_new/train_doc_processed.json'))
+    docs_raw_dict = json.load(open('data/conala_new/train_doc_processed_all_types.json'))
     # docs = [split_doc(v['doc']) for v in docs_raw_dict.values()]
     docs = [v['doc'] for v in docs_raw_dict.values()]
 
-    src_vocab_corpus = [e.src_sent for e in full_train_examples] + docs  # FIXME ?
+    src_vocab_corpus = [e.src_sent for e in full_train_examples]  # TODO
 
     src_vocab = VocabEntry.from_corpus(src_vocab_corpus, size=vocab_size,
                                        freq_cutoff=src_freq)
@@ -108,7 +115,7 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     elif api_examples:
         vocab_name = 'vocab.src_freq%d.code_freq%d.%s.bin' % (src_freq, code_freq, name)
     else:
-        vocab_name = 'vocab.src_freq%d.code_freq%d.bin' % (src_freq, code_freq)
+        vocab_name = 'vocab.src_freq%d.code_freq%d_doc_all_types.bin' % (src_freq, code_freq)
     pickle.dump(vocab, open(os.path.join(out_dir, vocab_name), 'wb'))
 
 

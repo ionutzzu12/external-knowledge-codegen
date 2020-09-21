@@ -27,6 +27,11 @@ from model.nn_utils import LabelSmoothing
 from model.pointer_net import PointerNet
 
 from components.dataset import sample
+import subprocess
+import sys
+import traceback
+from doc_parser import parse_documentation
+from new_doc import get_params
 
 
 @Registrable.register('default_parser')
@@ -173,6 +178,9 @@ class Parser(nn.Module):
         if not args.no_func_copy:
             self.docs_by_name, self.all_func_names, _ = load_docs()
 
+        # self.documentation = parse_documentation({})
+        self.params_by_fname, self.optional_params_by_fname = get_params()
+
     def cuda(self, device=None):
         self.new_long_tensor = torch.cuda.LongTensor
         self.new_tensor = torch.cuda.FloatTensor
@@ -259,7 +267,7 @@ class Parser(nn.Module):
 
         # ApplyRule (i.e., ApplyConstructor) action probabilities
         # (tgt_action_len, batch_size, grammar_size)
-        apply_rule_prob = F.softmax(self.production_readout(query_vectors), dim=-1)
+            apply_rule_prob = F.softmax(self.production_readout(query_vectors), dim=-1)
 
         # probabilities of target (gold-standard) ApplyRule actions
         # (tgt_action_len, batch_size)
@@ -536,7 +544,7 @@ class Parser(nn.Module):
             return att_vecs, att_probs
         else: return att_vecs
 
-    def parse(self, src_sent, context=None, beam_size=5, debug=False, functions=None):
+    def parse(self, src_sent, context=None, beam_size=5, debug=False, functions=None, local_vars=None):
         """Perform beam search to infer the target AST given a source utterance
 
         Args:
@@ -703,24 +711,24 @@ class Parser(nn.Module):
             applyrule_new_hyp_prod_ids = []
             applyrule_prev_hyp_ids = []
 
-            for hyp_id, hyp in enumerate(hypotheses):
+            for hyp_id, new_hyp in enumerate(hypotheses):
                 # generate new continuations
-                action_types = self.transition_system.get_valid_continuation_types(hyp)
+                action_types = self.transition_system.get_valid_continuation_types(new_hyp)
 
                 for action_type in action_types:
                     if action_type == ApplyRuleAction:
-                        productions = self.transition_system.get_valid_continuating_productions(hyp)
+                        productions = self.transition_system.get_valid_continuating_productions(new_hyp)
                         for production in productions:
                             prod_id = self.grammar.prod2id[production]
                             prod_score = apply_rule_log_prob[hyp_id, prod_id].data.item()
-                            new_hyp_score = hyp.score + prod_score
+                            new_hyp_score = new_hyp.score + prod_score
 
                             applyrule_new_hyp_scores.append(new_hyp_score)
                             applyrule_new_hyp_prod_ids.append(prod_id)
                             applyrule_prev_hyp_ids.append(hyp_id)
                     elif action_type == ReduceAction:
                         action_score = apply_rule_log_prob[hyp_id, len(self.grammar)].data.item()
-                        new_hyp_score = hyp.score + action_score
+                        new_hyp_score = new_hyp.score + action_score
 
                         applyrule_new_hyp_scores.append(new_hyp_score)
                         applyrule_new_hyp_prod_ids.append(len(self.grammar))
@@ -809,7 +817,7 @@ class Parser(nn.Module):
                     prev_hyp_id = gentoken_prev_hyp_ids[k]
                     prev_hyp = hypotheses[prev_hyp_id]
                     # except:
-                    #     print('k=%d' % k, file=sys.stderr)
+                        #     print('k=%d' % k, file=sys.stderr)
                     #     print('primitive_prob.size(1)=%d' % primitive_prob.size(1), file=sys.stderr)
                     #     print('len copy_info=%d' % len(gentoken_copy_infos), file=sys.stderr)
                     #     print('prev_hyp_id=%s' % ', '.join(str(i) for i in gentoken_prev_hyp_ids), file=sys.stderr)
@@ -851,6 +859,67 @@ class Parser(nn.Module):
 
                 action_info.action = action
                 action_info.t = t
+
+                frontier_node = prev_hyp.frontier_node
+                frontier_field = prev_hyp.frontier_field
+
+                # TODO better inspect these
+
+                if frontier_node and frontier_node.parent_field and frontier_node.parent_field.parent_node.production.constructor.name == "Call":
+                    parent_node = frontier_node.parent_field.parent_node
+                    fname = parent_node.fields[0].value.fields[0].value
+
+                    if parent_node.info is None:
+                        parent_node.info = {'visits': 0}
+                    elif parent_node.info['visits'] != -1:
+                        parent_node.info['visits'] += 1
+                        param_pos = parent_node.info['visits']
+
+                        if isinstance(fname, str) and fname in self.params_by_fname:
+                            num_params = len(self.params_by_fname[fname])
+
+                            if num_params < param_pos and frontier_field.cardinality == 'multiple':
+                                action_info.action = ReduceAction()
+                                parent_node.info['visits'] = -1
+                            if num_params >= param_pos and frontier_field.cardinality == 'multiple':
+                                if isinstance(action_info.action, ReduceAction):
+                                    continue
+                    elif frontier_node and frontier_node.production.constructor.name == "keyword":
+                        # print(action_info.action)
+                        # print(frontier_node)
+                        # print('')
+                        if isinstance(action_info.action, GenTokenAction):
+                            if fname in self.optional_params_by_fname and action_info.action.token not in self.optional_params_by_fname[fname]:
+                                continue
+
+                '''
+                if isinstance(action, GenTokenAction):
+                    frontier_node = prev_hyp.frontier_node
+                    assert frontier_node.parent_field == frontier_node.fields[0].parent_node.parent_field
+                    if frontier_node.parent_field.parent_node.production.constructor.name == "Call":
+                        if frontier_node.parent_field.parent_node.info is None:
+                            frontier_node.parent_field.parent_node.info = {'visits': 0, 'name': action.token}
+                            action.token = "generic_func"
+                        else:
+                            frontier_node.parent_field.parent_node.info['visits'] += 1
+                            if action.token == 'pid':
+                                print('else token', action.token)
+
+                        # print('')
+                        fname = frontier_node.parent_field.parent_node.info['name']
+                        param_pos = frontier_node.parent_field.parent_node.info['visits']
+
+                        print(param_pos, action.token)
+
+                        # verify for function fname
+                        num_params = 1  # TODO
+                        # assert param_pos <= num_params, param_pos
+                        if num_params < param_pos:
+                            print('parent info:', frontier_node.parent_field.parent_node.info)
+                            print(frontier_node.production.constructor.name, action.token)
+                            break
+                '''
+
                 if t > 0:
                     action_info.parent_t = prev_hyp.frontier_node.created_time
                     action_info.frontier_prod = prev_hyp.frontier_node.production
@@ -865,7 +934,41 @@ class Parser(nn.Module):
                 if new_hyp.completed:
                     # add length normalization
                     new_hyp.score /= (t+1)
-                    completed_hypotheses.append(new_hyp)
+
+                    # add verification
+                    if True:  # local_vars:
+                        verbose = False
+                        # intro = """from typing import *\n"""
+
+                        try:
+                            new_hyp.code = self.transition_system.ast_to_surface_code(new_hyp.tree)
+
+                            # f = open("my_py_tst.py", "w")
+                            # f.write(intro + local_vars + new_hyp.code)
+                            # f.close()
+                            # output = subprocess.check_output(['mypy', '--py2', 'my_py_tst.py'])
+                            # assert output[:7] == b'Success'
+
+                            if len(completed_hypotheses) < beam_size and new_hyp.code != '':
+                                completed_hypotheses.append(new_hyp)
+
+                        except subprocess.CalledProcessError as e:
+                            # print(str(e))
+                            pass
+                        except:
+                            if verbose:
+                                print("Exception in converting tree to code:", file=sys.stdout)
+                                print('-' * 60, file=sys.stdout)
+                                # print('Example: %s\nIntent: %s\nTarget Code:\n%s\nHypothesis[%d]:\n%s' % (example.idx,
+                                #                                                                           ' '.join(
+                                #                                                                               example.src_sent),
+                                #                                                                           example.tgt_code,
+                                #                                                                           hyp_id,
+                                #                                                                           new_hyp.tree.to_string()),
+                                #       file=sys.stdout)
+
+                                traceback.print_exc(file=sys.stdout)
+                                print('-' * 60, file=sys.stdout)
                 else:
                     new_hypotheses.append(new_hyp)
                     live_hyp_ids.append(prev_hyp_id)

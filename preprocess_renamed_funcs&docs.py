@@ -25,6 +25,11 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     grammar = ASDLGrammar.from_text(asdl_text)
     transition_system = Python3TransitionSystem(grammar)
 
+    print('process testing data...')
+    test_examples = preprocess_dataset(test_file, name='test', transition_system=transition_system)
+    print(f'{len(test_examples)} testing instances', file=sys.stderr)
+    pickle.dump(test_examples, open(os.path.join(out_dir, 'test-types_for_mypy.bin'), 'wb'))
+
     print('process gold training data...')
     train_examples = preprocess_dataset(train_file, name='train', transition_system=transition_system)
 
@@ -58,11 +63,11 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     print(f'{len(train_examples)} training instances', file=sys.stderr)
     print(f'{len(dev_examples)} dev instances', file=sys.stderr)
 
-    print('process testing data...')
-    test_examples = preprocess_dataset(test_file, name='test', transition_system=transition_system)
-    print(f'{len(test_examples)} testing instances', file=sys.stderr)
 
-    src_vocab = VocabEntry.from_corpus([e.src_sent for e in train_examples], size=vocab_size,
+    docs_raw_dict = json.load(open('data/conala_new/revised_docs2.json'))
+    docs_corpus = []  # TODO [v['doc'] for v in docs_raw_dict.values()]
+
+    src_vocab = VocabEntry.from_corpus([e.src_sent for e in train_examples] + docs_corpus, size=vocab_size,
                                        freq_cutoff=src_freq)
     primitive_tokens = [map(lambda a: a.action.token,
                             filter(lambda a: isinstance(a.action, GenTokenAction), e.tgt_actions))
@@ -85,16 +90,15 @@ def preprocess_conala_dataset(train_file, test_file, grammar_file, src_freq=3, c
     # pickle.dump(train_examples, open(os.path.join(out_dir, 'train.all_{}.bin'.format(num_mined)), 'wb'))
     # pickle.dump(full_train_examples, open(os.path.join(out_dir, 'train.gold.full.bin'), 'wb'))
     # pickle.dump(dev_examples, open(os.path.join(out_dir, 'dev.bin'), 'wb'))
-    # pickle.dump(test_examples, open(os.path.join(out_dir, 'test.bin'), 'wb'))
-    if mined_examples and api_examples:
-        vocab_name = 'vocab.src_freq%d.code_freq%d.mined_%s.%s.bin' % (src_freq, code_freq, num_mined, name)
-    elif mined_examples:
-        vocab_name = 'vocab.src_freq%d.code_freq%d.mined_%s.bin' % (src_freq, code_freq, num_mined)
-    elif api_examples:
-        vocab_name = 'vocab.src_freq%d.code_freq%d.%s.bin' % (src_freq, code_freq, name)
-    else:
-        vocab_name = 'vocab.src_freq%d.code_freq%d.bin' % (src_freq, code_freq)
-    pickle.dump(vocab, open(os.path.join(out_dir, vocab_name), 'wb'))
+    # if mined_examples and api_examples:
+    #     vocab_name = 'vocab.src_freq%d.code_freq%d.mined_%s.%s.bin' % (src_freq, code_freq, num_mined, name)
+    # elif mined_examples:
+    #     vocab_name = 'vocab.src_freq%d.code_freq%d.mined_%s.bin' % (src_freq, code_freq, num_mined)
+    # elif api_examples:
+    #     vocab_name = 'vocab.src_freq%d.code_freq%d.%s.bin' % (src_freq, code_freq, name)
+    # else:
+    #     vocab_name = 'vocab.src_freq%d.code_freq%d_orig_renamed.bin' % (src_freq, code_freq)
+    # pickle.dump(vocab, open(os.path.join(out_dir, vocab_name), 'wb'))
 
 
 def preprocess_dataset(file_path, transition_system, name='train', firstk=None, functions_key='doc_id_by_name'):
@@ -208,12 +212,15 @@ def preprocess_example(example_json):
 
 if __name__ == '__main__':
     # FIXME: not it only generates vocab for renamed set
-    preprocess_conala_dataset(train_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_train.json',
-                              test_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_test.json',
-                              mined_data_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_mined.json',
-                              api_data_file='data/conala-renamed_funcs&docs-dev100/renamed_funcs_apidocs.json',
+    preprocess_conala_dataset(train_file='data/conala_new/renamed_funcs_train.json',
+                              test_file='data/conala_new/renamed_funcs_test.json',
+                              #test_file='data/conala_new/test-types_for_mypy.json',
+                              mined_data_file=None,
+                              api_data_file=None,
                               grammar_file='asdl/lang/py3/py3_asdl.simplified.txt',
                               src_freq=3, code_freq=3,
                               vocab_size=20000,
                               num_mined=100000,
-                              out_dir='data/conala-renamed_funcs&docs/')
+                              out_dir='data/conala_new/')
+
+

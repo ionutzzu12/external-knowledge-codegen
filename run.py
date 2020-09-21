@@ -9,7 +9,7 @@ bin_dir = 'conala_new'
 PRETRAIN, TRAIN, TEST, PRETRAIN_FUNCS, TRAIN_FUNCS = '1', '2', 't', '6', '7'
 
 MODE = TRAIN_FUNCS
-model_2_name = "t15-funcs10-renamed_fs-patience7-renamed_bleu_metric-last_cell-just_train_set-NEW_DOCS-new_vocab"
+model_2_name = "t19-orig-renamed"
 
 
 class BaseArgs:
@@ -19,8 +19,8 @@ class BaseArgs:
     ret_method = "snippet_count100k_topk1_temp2"
     freq = 3
 
-    # vocab = f"data/{bin_dir}/vocab.src_freq3.code_freq3.bin"
-    vocab = f"data/conala_new/vocab.src_freq3.code_freq3.bin"
+    vocab = f"data/conala_new/vocab.src_freq3.code_freq3_orig_renamed.bin"
+    # vocab = f"data/conala_new/vocab.src_freq3.code_freq3_revised_docs.bin"
 
     # vocab = f"data/conala/vocab.src_freq{freq}.code_freq{freq}.mined_{mined_num}.goldmine_{ret_method}.bin"
     # vocab = f"data/{bin_dir}/vocab.src_freq3.code_freq3.mined_100000.bin"
@@ -34,7 +34,7 @@ class BaseArgs:
     type_embed_size = 64
     lr = 0.001
     lr_decay = 0.5
-    beam_size = 15
+    beam_size = 1 # 15
     max_epoch = 80
     lstm = 'lstm'  # lstm
     lr_decay_after_epoch = 15
@@ -47,8 +47,8 @@ class BaseArgs:
     # evaluator = 'conala_evaluator'  # TODO: original
     evaluator = 'conala_functions_evaluator'
     verbose = False
-    patience = 7
-    max_num_trial = 7
+    patience = 5
+    max_num_trial = 5
     glorot_init = True
     log_every = 50
 
@@ -63,7 +63,7 @@ class BaseArgs:
     no_parent_state = False
     no_input_feed = False
     no_copy = False
-    glove_embed_path = 'data/conala_new/glove.6B.100d.txt'  # None
+    glove_embed_path = None
     word_dropout = 0.
     decoder_word_dropout = 0.3
     primitive_token_label_smoothing = 0.0
@@ -134,7 +134,7 @@ class TrainWithFuncs(BaseArgs):
         self.model_name = model_name
         self.no_func_copy = False
         self.mode = 'train'
-        self.train_file = f"data/{bin_dir}/train.all_0.bin"
+        self.train_file = f"data/{bin_dir}/train.all_100000.bin"
         self.dev_file = f"data/{bin_dir}/dev.bin"
 
         self.batch_size = 10
@@ -149,9 +149,9 @@ class TestArgs(BaseArgs):
         self.mode = 'test'
         self.load_model = f'saved_models/conala/{model_test_name}.bin'
         self.save_decode_to = f'decodes/conala/{model_test_name}.test.decode'
-        # self.test_file = "data/conala/test.bin"  # TODO
+        # self.test_file = f"data/{bin_dir}/test.bin"  # TODO
         # self.test_file = "data/conala/added_funcs_test.bin"
-        self.test_file = f"data/{bin_dir}/test.bin"
+        self.test_file = f"data/{bin_dir}/filtered_test.bin"
         self.cuda = False
 
 
@@ -173,6 +173,6 @@ if __name__ == "__main__":
     else:
         print("Unknown argument")
 
-    exp.main(train_args)
+    # exp.main(train_args)
     test_args = TestArgs(train_args.model_name)
     exp.main(test_args)

@@ -21,6 +21,9 @@ class AbstractSyntaxTree(object):
         # used in decoding, record the time step when this node was created
         self.created_time = 0
 
+        # TODO
+        self.info = None
+
         if realized_fields:
             assert len(realized_fields) == len(self.production.fields)
 
@@ -63,7 +66,7 @@ class AbstractSyntaxTree(object):
             else:
                 for value in old_field.as_value_list:
                     new_field.add_value(value)
-
+        new_tree.info = self.info  # todo
         return new_tree
 
     def to_string(self, sb=None):

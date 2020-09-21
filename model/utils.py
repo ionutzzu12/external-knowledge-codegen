@@ -19,7 +19,7 @@ class GloveHelper(object):
 
     @property
     def embeddings(self):
-        with open(self.glove_file, 'r') as f:
+        with open(self.glove_file, 'r', encoding="utf8") as f:
             for line in f:
                 tokens = line.split()
                 word, embed = tokens[0], np.array([float(tok) for tok in tokens[1:]])
